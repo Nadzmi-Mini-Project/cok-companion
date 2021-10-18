@@ -52,17 +52,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Column(
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: playerList
-                  .map((e) => PlayerSummaryWidget(
-                        playerEntity: e,
-                        onTap: () {
-                          // TODO: show detail widget
-                        },
-                      ))
-                  .toList(),
+          child: RefreshIndicator(
+            child: SingleChildScrollView(
+              child: Column(
+                children: playerList
+                    .map((e) => PlayerSummaryWidget(
+                          playerEntity: e,
+                          onTap: () {
+                            // TODO: show detail widget
+                          },
+                        ))
+                    .toList(),
+              ),
             ),
+            onRefresh: () async {
+              ref.read(playerProvider.notifier).getPlayerList();
+            },
           ),
         ),
         SizedBox(
