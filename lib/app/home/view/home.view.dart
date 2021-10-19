@@ -1,7 +1,8 @@
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
-import 'package:cokc/app/player/provider/player.provider.dart';
-import 'package:cokc/app/player/provider/player.state.dart';
+import 'package:cokc/app/player/provider/player/player.provider.dart';
+import 'package:cokc/app/player/provider/player/player.state.dart';
+import 'package:cokc/app/player/widget/player-detail.widget.dart';
 import 'package:cokc/app/player/widget/player-summary.widget.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,6 +61,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 playerEntity: playerList[index],
                 onTap: () {
                   // TODO: show detail widget
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        PlayerDetailWidget(playerEntity: playerList[index]),
+                  );
                 },
               ),
             ),

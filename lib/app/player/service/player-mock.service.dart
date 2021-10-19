@@ -4,7 +4,7 @@ import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/update-player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/entity/stat.entity.dart';
-import 'package:cokc/app/stat/enum/stat-type.enum.dart';
+import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 
 class PlayerMockService extends PlayerBaseService {
   List<PlayerEntity> playerList = [];
@@ -19,18 +19,18 @@ class PlayerMockService extends PlayerBaseService {
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: [
-        StatEntity(type: StatType.MaximumHp, value: 4),
-        StatEntity(type: StatType.CurrentHp, value: 4),
-        StatEntity(type: StatType.Attack, value: 1),
-        StatEntity(type: StatType.Heal, value: 1),
-        StatEntity(type: StatType.Range, value: 1),
-        StatEntity(type: StatType.PlayerMove, value: 2),
-        StatEntity(type: StatType.Luck, value: 0),
+        StatEntity(code: StatCode.maximumHp, value: 4),
+        StatEntity(code: StatCode.currentHp, value: 4),
+        StatEntity(code: StatCode.attack, value: 1),
+        StatEntity(code: StatCode.heal, value: 1),
+        StatEntity(code: StatCode.range, value: 1),
+        StatEntity(code: StatCode.playerMove, value: 2),
+        StatEntity(code: StatCode.luck, value: 0),
       ],
       workerStat: [
-        StatEntity(type: StatType.WorkerMove, value: 1),
-        StatEntity(type: StatType.Gather, value: 1),
-        StatEntity(type: StatType.Scavenge, value: 1),
+        StatEntity(code: StatCode.workerMove, value: 1),
+        StatEntity(code: StatCode.gather, value: 1),
+        StatEntity(code: StatCode.scavenge, value: 1),
       ],
     ));
   }
@@ -50,18 +50,18 @@ class PlayerMockService extends PlayerBaseService {
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: [
-        StatEntity(type: StatType.MaximumHp, value: 4),
-        StatEntity(type: StatType.CurrentHp, value: 4),
-        StatEntity(type: StatType.Attack, value: 1),
-        StatEntity(type: StatType.Heal, value: 1),
-        StatEntity(type: StatType.Range, value: 1),
-        StatEntity(type: StatType.PlayerMove, value: 2),
-        StatEntity(type: StatType.Luck, value: 0),
+        StatEntity(code: StatCode.maximumHp, value: 4),
+        StatEntity(code: StatCode.currentHp, value: 4),
+        StatEntity(code: StatCode.attack, value: 2),
+        StatEntity(code: StatCode.heal, value: 1),
+        StatEntity(code: StatCode.range, value: 1),
+        StatEntity(code: StatCode.playerMove, value: 2),
+        StatEntity(code: StatCode.luck, value: 0),
       ],
       workerStat: [
-        StatEntity(type: StatType.WorkerMove, value: 1),
-        StatEntity(type: StatType.Gather, value: 1),
-        StatEntity(type: StatType.Scavenge, value: 1),
+        StatEntity(code: StatCode.workerMove, value: 1),
+        StatEntity(code: StatCode.gather, value: 1),
+        StatEntity(code: StatCode.scavenge, value: 1),
       ],
     );
 
@@ -80,18 +80,18 @@ class PlayerMockService extends PlayerBaseService {
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: [
-        StatEntity(type: StatType.MaximumHp, value: 5),
-        StatEntity(type: StatType.CurrentHp, value: 3),
-        StatEntity(type: StatType.Attack, value: 2),
-        StatEntity(type: StatType.Heal, value: 2),
-        StatEntity(type: StatType.Range, value: 2),
-        StatEntity(type: StatType.PlayerMove, value: 3),
-        StatEntity(type: StatType.Luck, value: 1),
+        StatEntity(code: StatCode.maximumHp, value: 4),
+        StatEntity(code: StatCode.currentHp, value: 4),
+        StatEntity(code: StatCode.attack, value: 2),
+        StatEntity(code: StatCode.heal, value: 2),
+        StatEntity(code: StatCode.range, value: 2),
+        StatEntity(code: StatCode.playerMove, value: 3),
+        StatEntity(code: StatCode.luck, value: 1),
       ],
       workerStat: [
-        StatEntity(type: StatType.WorkerMove, value: 2),
-        StatEntity(type: StatType.Gather, value: 2),
-        StatEntity(type: StatType.Scavenge, value: 2),
+        StatEntity(code: StatCode.workerMove, value: 2),
+        StatEntity(code: StatCode.gather, value: 2),
+        StatEntity(code: StatCode.scavenge, value: 2),
       ],
     );
 

@@ -1,11 +1,12 @@
 import 'package:cokc/app/player/model/create-player.model.dart';
-import 'package:cokc/app/player/provider/player.state.dart';
+import 'package:cokc/app/player/provider/player/player.state.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final playerProvider = StateNotifierProvider((ref) => PlayerProvider(
-      playerService: ref.read(playerServiceProvider),
-    ));
+final playerProvider =
+    StateNotifierProvider.autoDispose((ref) => PlayerProvider(
+          playerService: ref.read(playerServiceProvider),
+        ));
 
 class PlayerProvider extends StateNotifier<PlayerState> {
   PlayerBaseService playerService;

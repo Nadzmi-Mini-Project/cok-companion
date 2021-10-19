@@ -1,18 +1,18 @@
-import 'package:cokc/app/stat/enum/stat-type.enum.dart';
+import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:equatable/equatable.dart';
 
 class StatEntity extends Equatable {
-  final StatType type;
+  final StatCode code;
   final int value;
 
   const StatEntity({
-    required this.type,
+    required this.code,
     required this.value,
   });
 
   @override
   List<Object?> get props => [
-        type,
+        code,
         value,
       ];
 
