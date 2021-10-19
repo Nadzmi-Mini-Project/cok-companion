@@ -1,7 +1,6 @@
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/stat/widget/hp-bar.widget.dart';
 import 'package:cokc/app/stat/widget/stat-list.widget.dart';
-import 'package:cokc/app/stat/widget/stat.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -85,7 +85,9 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
         Image.asset(playerEntity.characterEntity.imagePath),
         Text(playerEntity.characterEntity.name),
         Wrap(
-          children: [],
+          children: [
+            // TODO: show list of stat form
+          ],
         ),
         Row(
           children: [
