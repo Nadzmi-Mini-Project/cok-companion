@@ -1,7 +1,6 @@
 import 'package:cokc/app/character/entity/character.entity.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
-import 'package:cokc/app/player/model/update-player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/entity/stat.entity.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
@@ -42,14 +41,14 @@ class PlayerMockService extends PlayerBaseService {
 
   @override
   Future<PlayerEntity> createPlayer(CreatePlayerModel createPlayerModel) {
-    const newPlayer = PlayerEntity(
-      id: '1',
-      characterEntity: CharacterEntity(
+    var newPlayer = PlayerEntity(
+      id: '${playerList.length}',
+      characterEntity: const CharacterEntity(
         id: '1',
         name: 'Character 1',
         imagePath: 'asset/image/character/sample.png',
       ),
-      playerStat: [
+      playerStat: const [
         StatEntity(code: StatCode.maximumHp, value: 4),
         StatEntity(code: StatCode.currentHp, value: 4),
         StatEntity(code: StatCode.attack, value: 2),
@@ -58,7 +57,7 @@ class PlayerMockService extends PlayerBaseService {
         StatEntity(code: StatCode.playerMove, value: 2),
         StatEntity(code: StatCode.luck, value: 0),
       ],
-      workerStat: [
+      workerStat: const [
         StatEntity(code: StatCode.workerMove, value: 1),
         StatEntity(code: StatCode.gather, value: 1),
         StatEntity(code: StatCode.scavenge, value: 1),
@@ -71,31 +70,33 @@ class PlayerMockService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerEntity> updatePlayer(UpdatePlayerModel updatePlayerModel) {
-    const updatedPlayer = PlayerEntity(
-      id: '1 updated',
-      characterEntity: CharacterEntity(
+  Future<PlayerEntity> updatePlayer(PlayerEntity playerEntity) {
+    var updatedPlayer = PlayerEntity(
+      id: playerEntity.id,
+      characterEntity: const CharacterEntity(
         id: '1 updated',
         name: 'Character 1 updated',
         imagePath: 'asset/image/character/sample.png',
       ),
-      playerStat: [
-        StatEntity(code: StatCode.maximumHp, value: 4),
-        StatEntity(code: StatCode.currentHp, value: 4),
+      playerStat: const [
+        StatEntity(code: StatCode.maximumHp, value: 5),
+        StatEntity(code: StatCode.currentHp, value: 3),
         StatEntity(code: StatCode.attack, value: 2),
         StatEntity(code: StatCode.heal, value: 2),
         StatEntity(code: StatCode.range, value: 2),
         StatEntity(code: StatCode.playerMove, value: 3),
         StatEntity(code: StatCode.luck, value: 1),
       ],
-      workerStat: [
+      workerStat: const [
         StatEntity(code: StatCode.workerMove, value: 2),
         StatEntity(code: StatCode.gather, value: 2),
         StatEntity(code: StatCode.scavenge, value: 2),
       ],
     );
 
-    playerList[playerList.length - 1] = updatedPlayer;
+    var currentData =
+        playerList.firstWhere((element) => element.id == updatedPlayer.id);
+    playerList[playerList.indexOf(currentData)] = updatedPlayer;
 
     return Future.value(updatedPlayer);
   }

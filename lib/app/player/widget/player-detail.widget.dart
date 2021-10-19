@@ -42,7 +42,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     if (state is PlayerDetailLoadedState) {
       return _view(state.playerEntity);
     } else if (state is PlayerDetailUpdateState) {
-      return _formView();
+      return _formView(state.playerEntity);
     } else if (state is PlayerDetailLoadingState) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -78,10 +78,40 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     );
   }
 
-  Widget _formView() {
+  Widget _formView(PlayerEntity playerEntity) {
     // TODO: update form
-    return const Center(
-      child: Text('Update form.'),
+    return Column(
+      children: [
+        Image.asset(playerEntity.characterEntity.imagePath),
+        Text(playerEntity.characterEntity.name),
+        Wrap(
+          children: [],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                child: const Text('Confirm'),
+                onPressed: () {
+                  // TODO: update player detail
+                  ref.read(playerDetailProvider.notifier).updatePlayerDetail(
+                      widget.playerEntity); // TODO: simulate using real data
+                },
+              ),
+            ),
+            Expanded(
+              child: ElevatedButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  ref
+                      .read(playerDetailProvider.notifier)
+                      .setPlayerDetail(widget.playerEntity);
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
