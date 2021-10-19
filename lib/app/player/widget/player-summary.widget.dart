@@ -1,4 +1,5 @@
 import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/stat/widget/stat.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -99,68 +100,60 @@ class PlayerSummaryWidget extends StatelessWidget {
       direction: Axis.horizontal,
       children: [
         // attack
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getAttack()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getAttack()!.value,
         ),
 
         // heal
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getHeal()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getHeal()!.value,
         ),
 
         // range
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getRange()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getRange()!.value,
         ),
 
         // player move
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getPlayerMove()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getPlayerMove()!.value,
         ),
 
         // luck
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getLuck()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getLuck()!.value,
         ),
 
         // worker move
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getWorkerMove()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getWorkerMove()!.value,
         ),
 
         // gather
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getGather()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getGather()!.value,
         ),
 
         // scavenge
-        _stat(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getScavenge()!.value,
+        StatWidget(
+          imagePath:
+              'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          value: playerEntity.getScavenge()!.value,
         ),
-      ],
-    );
-  }
-
-  Widget _stat(String imagePath, int value) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 50.0,
-          height: 50.0,
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.fill,
-          ),
-        ),
-        Text(value.toString()),
       ],
     );
   }

@@ -53,16 +53,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
       children: [
         Expanded(
           child: RefreshIndicator(
-            child: SingleChildScrollView(
-              child: Column(
-                children: playerList
-                    .map((e) => PlayerSummaryWidget(
-                          playerEntity: e,
-                          onTap: () {
-                            // TODO: show detail widget
-                          },
-                        ))
-                    .toList(),
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: playerList.length,
+              itemBuilder: (context, index) => PlayerSummaryWidget(
+                playerEntity: playerList[index],
+                onTap: () {
+                  // TODO: show detail widget
+                },
               ),
             ),
             onRefresh: () async {
