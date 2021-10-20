@@ -56,6 +56,14 @@ class ConfigMockService extends ConfigBaseService {
         )).map((e) => StatProgressionConfigModel.fromJson(e)).toList(),
       ),
       StatConfigModel(
+        code: StatCode.heal,
+        minimumPoint: 1,
+        maximumPoint: 10,
+        progressionConfigList: List.from(jsonDecode(
+          '[{"point":1,"value":1},{"point":2,"value":2},{"point":3,"value":3},{"point":4,"value":4},{"point":5,"value":5},{"point":6,"value":6},{"point":7,"value":7},{"point":8,"value":8},{"point":9,"value":9},{"point":10,"value":10}]',
+        )).map((e) => StatProgressionConfigModel.fromJson(e)).toList(),
+      ),
+      StatConfigModel(
         code: StatCode.range,
         minimumPoint: 1,
         maximumPoint: 10,

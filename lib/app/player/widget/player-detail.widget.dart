@@ -1,7 +1,9 @@
+import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.provider.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
 import 'package:cokc/app/stat/widget/hp-bar.widget.dart';
+import 'package:cokc/app/stat/widget/stat-form-list.widget.dart';
 import 'package:cokc/app/stat/widget/stat-list.widget.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +44,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     if (state is PlayerDetailLoadedState) {
       return _view(state.playerEntity);
     } else if (state is PlayerDetailUpdateState) {
-      return _formView(state.playerEntity);
+      return _formView(state.playerEntity, state.statConfigList);
     } else if (state is PlayerDetailLoadingState) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -78,16 +80,20 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     );
   }
 
-  Widget _formView(PlayerEntity playerEntity) {
+  Widget _formView(
+    PlayerEntity playerEntity,
+    List<StatConfigModel> configModelList,
+  ) {
     // TODO: update form
     return Column(
       children: [
         Image.asset(playerEntity.characterEntity.imagePath),
         Text(playerEntity.characterEntity.name),
-        Wrap(
-          children: [
-            // TODO: show list of stat form
-          ],
+        Expanded(
+          child: StatListFormWidget(
+            playerEntity: playerEntity,
+            configModelList: configModelList,
+          ),
         ),
         Row(
           children: [
