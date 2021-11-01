@@ -1,6 +1,7 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/widget/stat-counter.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getMaximumHp()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.maximumHp),
+          true,
         ),
 
         // attack
@@ -38,6 +40,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getAttack()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.attack),
+          true,
         ),
 
         // heal
@@ -46,6 +49,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getHeal()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.heal),
+          true,
         ),
 
         // range
@@ -54,6 +58,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getRange()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.range),
+          true,
         ),
 
         // player move
@@ -62,6 +67,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getPlayerMove()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.playerMove),
+          true,
         ),
 
         // luck
@@ -70,6 +76,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getLuck()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.luck),
+          true,
         ),
 
         // worker move
@@ -78,6 +85,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getWorkerMove()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.workerMove),
+          false,
         ),
 
         // gather
@@ -86,6 +94,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getGather()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.gather),
+          false,
         ),
 
         // scavenge
@@ -94,13 +103,14 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           widget.playerEntity.getScavenge()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.scavenge),
+          false,
         ),
       ],
     );
   }
 
-  Widget _statFormWidget(String imagePath, int value, StatConfigModel config) {
-    var dropdownValue = 'One';
+  Widget _statFormWidget(
+      String imagePath, int value, StatConfigModel config, bool isPlayerStat) {
     return Column(
       children: [
         SizedBox(
@@ -113,6 +123,14 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         ),
 
         // TODO: counter widget here
+        StatCounterWidget(
+          minimum: config.minimumPoint,
+          maximum: config.maximumPoint,
+          onChange: (value) {
+            // TODO: save value
+            if (isPlayerStat) {}
+          },
+        ),
       ],
     );
   }
