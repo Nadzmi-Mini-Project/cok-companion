@@ -17,22 +17,22 @@ class CharacterMockService extends CharacterBaseService {
       const CharacterEntity(
         id: '1',
         name: 'Character 1',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
       const CharacterEntity(
         id: '2',
         name: 'Character 2',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
       const CharacterEntity(
         id: '3',
         name: 'Character 3',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
       const CharacterEntity(
         id: '4',
         name: 'Character 4',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
     ]);
   }

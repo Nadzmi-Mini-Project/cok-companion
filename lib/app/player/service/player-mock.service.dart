@@ -1,12 +1,13 @@
 import 'package:cokc/app/character/entity/character.entity.dart';
-import 'package:cokc/app/player/entity/player-stat.entity.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
-import 'package:cokc/app/player/model/update-player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
-import 'package:cokc/app/worker/entity/worker-stat.entity.dart';
+import 'package:cokc/app/stat/entity/stat.entity.dart';
+import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 
 class PlayerMockService extends PlayerBaseService {
+  List<PlayerEntity> playerList = [];
+
   @override
   Future<PlayerEntity> getPlayerById(String playerId) {
     return Future.value(const PlayerEntity(
@@ -14,199 +15,103 @@ class PlayerMockService extends PlayerBaseService {
       characterEntity: CharacterEntity(
         id: '1',
         name: 'Character 1',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
-      playerStatEntity: PlayerStatEntity(
-        maximumHp: 4,
-        currentHp: 4,
-        attack: 1,
-        heal: 1,
-        range: 1,
-        move: 2,
-        luck: 0,
-      ),
-      workerStatEntity: WorkerStatEntity(
-        move: 1,
-        gather: 1,
-        scavenge: 1,
-      ),
+      playerStat: [
+        StatEntity(code: StatCode.maximumHp, value: 4),
+        StatEntity(code: StatCode.currentHp, value: 4),
+        StatEntity(code: StatCode.attack, value: 1),
+        StatEntity(code: StatCode.heal, value: 1),
+        StatEntity(code: StatCode.range, value: 1),
+        StatEntity(code: StatCode.playerMove, value: 2),
+        StatEntity(code: StatCode.luck, value: 0),
+      ],
+      workerStat: [
+        StatEntity(code: StatCode.workerMove, value: 1),
+        StatEntity(code: StatCode.gather, value: 1),
+        StatEntity(code: StatCode.scavenge, value: 1),
+      ],
     ));
   }
 
   @override
   Future<List<PlayerEntity>> getPlayerList() {
-    return Future.value([
-      const PlayerEntity(
-        id: '1',
-        characterEntity: CharacterEntity(
-          id: '1',
-          name: 'Character 1',
-          imagePath: '...',
-        ),
-        playerStatEntity: PlayerStatEntity(
-          maximumHp: 4,
-          currentHp: 4,
-          attack: 1,
-          heal: 1,
-          range: 1,
-          move: 2,
-          luck: 0,
-        ),
-        workerStatEntity: WorkerStatEntity(
-          move: 1,
-          gather: 1,
-          scavenge: 1,
-        ),
-      ),
-      const PlayerEntity(
-        id: '2',
-        characterEntity: CharacterEntity(
-          id: '2',
-          name: 'Character 2',
-          imagePath: '...',
-        ),
-        playerStatEntity: PlayerStatEntity(
-          maximumHp: 4,
-          currentHp: 4,
-          attack: 1,
-          heal: 1,
-          range: 1,
-          move: 2,
-          luck: 0,
-        ),
-        workerStatEntity: WorkerStatEntity(
-          move: 1,
-          gather: 1,
-          scavenge: 1,
-        ),
-      ),
-      const PlayerEntity(
-        id: '3',
-        characterEntity: CharacterEntity(
-          id: '3',
-          name: 'Character 3',
-          imagePath: '...',
-        ),
-        playerStatEntity: PlayerStatEntity(
-          maximumHp: 4,
-          currentHp: 4,
-          attack: 1,
-          heal: 1,
-          range: 1,
-          move: 2,
-          luck: 0,
-        ),
-        workerStatEntity: WorkerStatEntity(
-          move: 1,
-          gather: 1,
-          scavenge: 1,
-        ),
-      ),
-      const PlayerEntity(
-        id: '4',
-        characterEntity: CharacterEntity(
-          id: '4',
-          name: 'Character 4',
-          imagePath: '...',
-        ),
-        playerStatEntity: PlayerStatEntity(
-          maximumHp: 4,
-          currentHp: 4,
-          attack: 1,
-          heal: 1,
-          range: 1,
-          move: 2,
-          luck: 0,
-        ),
-        workerStatEntity: WorkerStatEntity(
-          move: 1,
-          gather: 1,
-          scavenge: 1,
-        ),
-      ),
-    ]);
+    return Future.value(playerList);
   }
 
   @override
   Future<PlayerEntity> createPlayer(CreatePlayerModel createPlayerModel) {
-    return Future.value(const PlayerEntity(
-      id: '1',
-      characterEntity: CharacterEntity(
+    var newPlayer = PlayerEntity(
+      id: '${playerList.length}',
+      characterEntity: const CharacterEntity(
         id: '1',
         name: 'Character 1',
-        imagePath: '...',
+        imagePath: 'asset/image/character/sample.png',
       ),
-      playerStatEntity: PlayerStatEntity(
-        maximumHp: 4,
-        currentHp: 4,
-        attack: 1,
-        heal: 1,
-        range: 1,
-        move: 2,
-        luck: 0,
-      ),
-      workerStatEntity: WorkerStatEntity(
-        move: 1,
-        gather: 1,
-        scavenge: 1,
-      ),
-    ));
+      playerStat: const [
+        StatEntity(code: StatCode.maximumHp, value: 4),
+        StatEntity(code: StatCode.currentHp, value: 4),
+        StatEntity(code: StatCode.attack, value: 2),
+        StatEntity(code: StatCode.heal, value: 1),
+        StatEntity(code: StatCode.range, value: 1),
+        StatEntity(code: StatCode.playerMove, value: 2),
+        StatEntity(code: StatCode.luck, value: 0),
+      ],
+      workerStat: const [
+        StatEntity(code: StatCode.workerMove, value: 1),
+        StatEntity(code: StatCode.gather, value: 1),
+        StatEntity(code: StatCode.scavenge, value: 1),
+      ],
+    );
+
+    playerList.add(newPlayer);
+
+    return Future.value(newPlayer);
   }
 
   @override
-  Future<PlayerEntity> updatePlayer(UpdatePlayerModel updatePlayerModel) {
-    return Future.value(const PlayerEntity(
-      id: '1',
-      characterEntity: CharacterEntity(
-        id: '1',
-        name: 'Character 1',
-        imagePath: '...',
+  Future<PlayerEntity> updatePlayer(PlayerEntity playerEntity) {
+    var updatedPlayer = PlayerEntity(
+      id: playerEntity.id,
+      characterEntity: const CharacterEntity(
+        id: '1 updated',
+        name: 'Character 1 updated',
+        imagePath: 'asset/image/character/sample.png',
       ),
-      playerStatEntity: PlayerStatEntity(
-        maximumHp: 4,
-        currentHp: 4,
-        attack: 1,
-        heal: 1,
-        range: 1,
-        move: 2,
-        luck: 0,
-      ),
-      workerStatEntity: WorkerStatEntity(
-        move: 1,
-        gather: 1,
-        scavenge: 1,
-      ),
-    ));
+      playerStat: const [
+        StatEntity(code: StatCode.maximumHp, value: 5),
+        StatEntity(code: StatCode.currentHp, value: 3),
+        StatEntity(code: StatCode.attack, value: 2),
+        StatEntity(code: StatCode.heal, value: 2),
+        StatEntity(code: StatCode.range, value: 2),
+        StatEntity(code: StatCode.playerMove, value: 3),
+        StatEntity(code: StatCode.luck, value: 1),
+      ],
+      workerStat: const [
+        StatEntity(code: StatCode.workerMove, value: 2),
+        StatEntity(code: StatCode.gather, value: 2),
+        StatEntity(code: StatCode.scavenge, value: 2),
+      ],
+    );
+
+    var currentData =
+        playerList.firstWhere((element) => element.id == updatedPlayer.id);
+    playerList[playerList.indexOf(currentData)] = updatedPlayer;
+
+    return Future.value(updatedPlayer);
   }
 
   @override
   Future<PlayerEntity> removePlayer(String playerId) {
-    return Future.value(const PlayerEntity(
-      id: '1',
-      characterEntity: CharacterEntity(
-        id: '1',
-        name: 'Character 1',
-        imagePath: '...',
-      ),
-      playerStatEntity: PlayerStatEntity(
-        maximumHp: 4,
-        currentHp: 4,
-        attack: 1,
-        heal: 1,
-        range: 1,
-        move: 2,
-        luck: 0,
-      ),
-      workerStatEntity: WorkerStatEntity(
-        move: 1,
-        gather: 1,
-        scavenge: 1,
-      ),
-    ));
+    var deletedPlayer = playerList[playerList.length - 1];
+
+    playerList.removeLast();
+
+    return Future.value(deletedPlayer);
   }
 
   @override
-  Future removeAllPlayer() {
-    return Future.value();
+  Future removeAllPlayer() async {
+    playerList.clear();
   }
 }
