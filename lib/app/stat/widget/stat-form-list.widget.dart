@@ -22,8 +22,7 @@ class StatListFormWidget extends StatefulWidget {
 class _StatListFormWidgetState extends State<StatListFormWidget> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      direction: Axis.horizontal,
+    return ListView(
       children: [
         // hp
         _statFormWidget(
@@ -110,7 +109,11 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
   }
 
   Widget _statFormWidget(
-      String imagePath, int value, StatConfigModel config, bool isPlayerStat) {
+    String imagePath,
+    int value,
+    StatConfigModel config,
+    bool isPlayerStat,
+  ) {
     return Column(
       children: [
         SizedBox(
@@ -121,14 +124,15 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
             fit: BoxFit.fill,
           ),
         ),
-
-        // TODO: counter widget here
         StatCounterWidget(
           minimum: config.minimumPoint,
           maximum: config.maximumPoint,
           onChange: (value) {
-            // TODO: save value
-            if (isPlayerStat) {}
+            if (isPlayerStat) {
+              // TODO: save player stat value
+            }
+
+            // TODO: save worker stat value
           },
         ),
       ],
