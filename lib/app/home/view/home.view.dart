@@ -68,7 +68,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               itemBuilder: (context, index) => PlayerSummaryWidget(
                 playerEntity: playerList[index],
                 onTap: () {
-                  // TODO: show detail widget
                   showModalBottomSheet(
                     context: context,
                     builder: (context) =>
@@ -87,7 +86,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
           child: ElevatedButton(
             child: const Text('Add Player'),
             onPressed: () {
-              // TODO: show character choice modal
               showModalBottomSheet(
                 context: context,
                 // isScrollControlled: true,
@@ -96,7 +94,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   itemBuilder: (context, index) => CharacterSummaryWidget(
                     character: characterList[index],
                     onTap: () {
-                      // TODO: then, add player function
                       ref.read(playerProvider.notifier).addPlayer(
                             CreatePlayerModel(
                               id: '1',
