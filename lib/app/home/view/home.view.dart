@@ -1,3 +1,5 @@
+import 'package:cokc/app/character/entity/character.entity.dart';
+import 'package:cokc/app/character/widget/character-summary.widget.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
@@ -42,14 +44,20 @@ class _HomeViewState extends ConsumerState<HomeView> {
               child: CircularProgressIndicator(),
             )
           : (playerState is PlayerLoadedState)
-              ? _view(playerState.playerList)
+              ? _view(
+                  playerState.playerList,
+                  playerState.characterList,
+                )
               : const Center(
                   child: Text('No player added.'),
                 ),
     );
   }
 
-  Widget _view(List<PlayerEntity> playerList) {
+  Widget _view(
+    List<PlayerEntity> playerList,
+    List<CharacterEntity> characterList,
+  ) {
     return Column(
       children: [
         Expanded(
@@ -79,10 +87,27 @@ class _HomeViewState extends ConsumerState<HomeView> {
           child: ElevatedButton(
             child: const Text('Add Player'),
             onPressed: () {
-              // TODO: add player function
-              ref.read(playerProvider.notifier).addPlayer(
-                    const CreatePlayerModel(id: '1', characterId: '1'),
-                  );
+              // TODO: show character choice modal
+              showModalBottomSheet(
+                context: context,
+                // isScrollControlled: true,
+                builder: (context) => ListView.builder(
+                  itemCount: characterList.length,
+                  itemBuilder: (context, index) => CharacterSummaryWidget(
+                    character: characterList[index],
+                    onTap: () {
+                      // TODO: then, add player function
+                      ref.read(playerProvider.notifier).addPlayer(
+                            CreatePlayerModel(
+                              id: '1',
+                              characterId: characterList[index].id,
+                            ),
+                          );
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              );
             },
           ),
         ),
