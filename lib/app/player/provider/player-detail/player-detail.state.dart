@@ -1,6 +1,5 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 
 abstract class PlayerDetailState {}
 
@@ -15,17 +14,17 @@ class PlayerDetailErrorState extends PlayerDetailState {
 }
 
 class PlayerDetailLoadedState extends PlayerDetailState {
-  final PlayerEntity playerEntity;
+  final PlayerModel player;
 
-  PlayerDetailLoadedState({required this.playerEntity});
+  PlayerDetailLoadedState({required this.player});
 }
 
 class PlayerDetailUpdateState extends PlayerDetailState {
-  final PlayerEntity playerEntity;
+  final PlayerModel player;
   final List<StatConfigModel> statConfigList;
 
   PlayerDetailUpdateState({
-    required this.playerEntity,
+    required this.player,
     required this.statConfigList,
   });
 }

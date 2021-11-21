@@ -1,5 +1,5 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.provider.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
 import 'package:cokc/app/stat/widget/hp-bar.widget.dart';
@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PlayerDetailWidget extends ConsumerStatefulWidget {
-  final PlayerEntity playerEntity;
+  final PlayerModel player;
 
   const PlayerDetailWidget({
-    required this.playerEntity,
+    required this.player,
     Key? key,
   }) : super(key: key);
 
@@ -26,9 +26,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(playerDetailProvider.notifier)
-        .setPlayerDetail(widget.playerEntity);
+    ref.read(playerDetailProvider.notifier).setPlayerDetail(widget.player);
   }
 
   @override
@@ -42,9 +40,9 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     });
 
     if (state is PlayerDetailLoadedState) {
-      return _view(state.playerEntity);
+      return _view(state.player);
     } else if (state is PlayerDetailUpdateState) {
-      return _formView(state.playerEntity, state.statConfigList);
+      return _formView(state.player, state.statConfigList);
     } else if (state is PlayerDetailLoadingState) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -54,25 +52,23 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     );
   }
 
-  Widget _view(PlayerEntity playerEntity) {
+  Widget _view(PlayerModel player) {
     return Column(
       children: [
-        Image.asset(playerEntity.characterEntity.imagePath),
-        Text(playerEntity.characterEntity.name),
+        Image.asset(player.character.imagePath),
+        Text(player.character.name),
         HpBarWidget(
-          currentHp: playerEntity.getCurrentHp()!.value,
-          maximumHp: playerEntity.getMaximumHp()!.value,
+          currentHp: player.getCurrentHp()!.value,
+          maximumHp: player.getMaximumHp()!.value,
         ),
-        Expanded(child: StatListWidget(playerEntity: playerEntity)),
+        Expanded(child: StatListWidget(player: player)),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             child: const Text('Level Up'),
             onPressed: () {
               // TODO: show update form
-              ref
-                  .read(playerDetailProvider.notifier)
-                  .showUpdateForm(playerEntity.id);
+              ref.read(playerDetailProvider.notifier).showUpdateForm(player.id);
             },
           ),
         ),
@@ -81,17 +77,17 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
   }
 
   Widget _formView(
-    PlayerEntity playerEntity,
+    PlayerModel player,
     List<StatConfigModel> configModelList,
   ) {
     // TODO: update form
     return Column(
       children: [
-        Image.asset(playerEntity.characterEntity.imagePath),
-        Text(playerEntity.characterEntity.name),
+        Image.asset(player.character.imagePath),
+        Text(player.character.name),
         Expanded(
           child: StatListFormWidget(
-            playerEntity: playerEntity,
+            player: player,
             configModelList: configModelList,
           ),
         ),
@@ -103,7 +99,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                 onPressed: () {
                   // TODO: update player detail
                   ref.read(playerDetailProvider.notifier).updatePlayerDetail(
-                      widget.playerEntity); // TODO: simulate using real data
+                      widget.player); // TODO: simulate using real data
                 },
               ),
             ),
@@ -113,7 +109,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                 onPressed: () {
                   ref
                       .read(playerDetailProvider.notifier)
-                      .setPlayerDetail(widget.playerEntity);
+                      .setPlayerDetail(widget.player);
                 },
               ),
             ),

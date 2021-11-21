@@ -1,8 +1,8 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:flutter/material.dart';
 
 class CharacterSummaryWidget extends StatelessWidget {
-  final CharacterEntity character;
+  final CharacterModel character;
   final VoidCallback? onTap;
 
   const CharacterSummaryWidget({
