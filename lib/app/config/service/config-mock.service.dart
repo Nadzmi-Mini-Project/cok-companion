@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cokc/app/config/entity/config.entity.dart';
+import 'package:cokc/app/config/model/config.model.dart';
 import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/config/model/stat-progression-config.model.dart';
 import 'package:cokc/app/config/service/config-base.service.dart';
@@ -8,8 +9,8 @@ import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 
 class ConfigMockService extends ConfigBaseService {
   @override
-  Future<ConfigEntity> getConfigById(String configId) {
-    return Future.value(const ConfigEntity(
+  Future<ConfigModel> getConfigById(String configId) {
+    return Future.value(const ConfigModel(
       id: '1',
       code: 'code',
       value: 'value',
@@ -17,8 +18,8 @@ class ConfigMockService extends ConfigBaseService {
   }
 
   @override
-  Future<ConfigEntity> getConfigByCode(String configCode) {
-    return Future.value(const ConfigEntity(
+  Future<ConfigModel> getConfigByCode(String configCode) {
+    return Future.value(const ConfigModel(
       id: '1',
       code: 'code',
       value: 'value',
@@ -26,9 +27,9 @@ class ConfigMockService extends ConfigBaseService {
   }
 
   @override
-  Future<List<ConfigEntity>> getConfigList() {
+  Future<List<ConfigModel>> getConfigList() {
     return Future.value([
-      const ConfigEntity(
+      const ConfigModel(
         id: '1',
         code: 'code',
         value: 'value',
