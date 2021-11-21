@@ -1,4 +1,4 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/widget/character-summary.widget.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
@@ -56,7 +56,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   Widget _view(
     List<PlayerEntity> playerList,
-    List<CharacterEntity> characterList,
+    List<CharacterModel> characterList,
   ) {
     return Column(
       children: [
