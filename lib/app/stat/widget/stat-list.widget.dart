@@ -1,12 +1,12 @@
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:flutter/cupertino.dart';
 
 class StatListWidget extends StatelessWidget {
-  final PlayerEntity playerEntity;
+  final PlayerModel player;
 
   const StatListWidget({
     Key? key,
-    required this.playerEntity,
+    required this.player,
   }) : super(key: key);
 
   @override
@@ -17,49 +17,49 @@ class StatListWidget extends StatelessWidget {
         // attack
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getAttack()!.value,
+          player.getAttack()!.value,
         ),
 
         // heal
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getHeal()!.value,
+          player.getHeal()!.value,
         ),
 
         // range
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getRange()!.value,
+          player.getRange()!.value,
         ),
 
         // player move
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getPlayerMove()!.value,
+          player.getPlayerMove()!.value,
         ),
 
         // luck
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getLuck()!.value,
+          player.getLuck()!.value,
         ),
 
         // worker move
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getWorkerMove()!.value,
+          player.getWorkerMove()!.value,
         ),
 
         // gather
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getGather()!.value,
+          player.getGather()!.value,
         ),
 
         // scavenge
         _statWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          playerEntity.getScavenge()!.value,
+          player.getScavenge()!.value,
         ),
       ],
     );

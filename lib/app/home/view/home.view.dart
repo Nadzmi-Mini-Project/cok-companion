@@ -1,7 +1,7 @@
 import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/widget/character-summary.widget.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/provider/player/player.state.dart';
 import 'package:cokc/app/player/widget/player-detail.widget.dart';
@@ -55,7 +55,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   Widget _view(
-    List<PlayerEntity> playerList,
+    List<PlayerModel> playerList,
     List<CharacterModel> characterList,
   ) {
     return Column(
@@ -66,12 +66,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: playerList.length,
               itemBuilder: (context, index) => PlayerSummaryWidget(
-                playerEntity: playerList[index],
+                player: playerList[index],
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
                     builder: (context) =>
-                        PlayerDetailWidget(playerEntity: playerList[index]),
+                        PlayerDetailWidget(player: playerList[index]),
                   );
                 },
               ),
