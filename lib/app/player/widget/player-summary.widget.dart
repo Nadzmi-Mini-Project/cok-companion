@@ -1,15 +1,16 @@
 import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/stat/widget/hp-bar.widget.dart';
 import 'package:cokc/app/stat/widget/stat-list.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlayerSummaryWidget extends StatelessWidget {
-  final PlayerEntity playerEntity;
+  final PlayerModel model;
   VoidCallback? onTap;
 
   PlayerSummaryWidget({
-    required this.playerEntity,
+    required this.model,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -24,13 +25,13 @@ class PlayerSummaryWidget extends StatelessWidget {
           child: Column(
             children: [
               _imagePlaceholder(
-                playerEntity.characterEntity.imagePath,
-                playerEntity.characterEntity.name,
+                model.character.imagePath,
+                model.character.name,
               ),
               HpBarWidget(
-                  currentHp: playerEntity.getCurrentHp()!.value,
-                  maximumHp: playerEntity.getMaximumHp()!.value),
-              StatListWidget(playerEntity: playerEntity),
+                  currentHp: model.getCurrentHp()!.value,
+                  maximumHp: model.getMaximumHp()!.value),
+              StatListWidget(model: model),
             ],
           ),
         ),

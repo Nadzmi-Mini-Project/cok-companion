@@ -1,5 +1,6 @@
 import 'package:cokc/app/config/service/config-base.service.dart';
 import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
@@ -23,10 +24,10 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
     required this.configService,
   }) : super(PlayerDetailInitialState());
 
-  void setPlayerDetail(PlayerEntity playerEntity) {
+  void setPlayerDetail(PlayerModel model) {
     try {
       state = PlayerDetailLoadingState();
-      state = PlayerDetailLoadedState(playerEntity: playerEntity);
+      state = PlayerDetailLoadedState(playerModel: model);
     } catch (e) {
       state = PlayerDetailErrorState(message: e.toString());
     }
@@ -38,7 +39,7 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final playerDetail = await playerService.getPlayerById(playerId);
       final statConfigList = await configService.getStatConfigList();
       state = PlayerDetailUpdateState(
-        playerEntity: playerDetail,
+        playerModel: playerDetail,
         statConfigList: statConfigList,
       );
     } catch (e) {
@@ -46,11 +47,11 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
     }
   }
 
-  Future updatePlayerDetail(PlayerEntity playerEntity) async {
+  Future updatePlayerDetail(PlayerModel model) async {
     try {
       state = PlayerDetailLoadingState();
-      final updatedPlayer = await playerService.updatePlayer(playerEntity);
-      state = PlayerDetailLoadedState(playerEntity: updatedPlayer);
+      final updatedPlayer = await playerService.updatePlayer(model);
+      state = PlayerDetailLoadedState(playerModel: updatedPlayer);
       await playerProvider.getPlayerList();
     } catch (e) {
       state = PlayerDetailErrorState(message: e.toString());

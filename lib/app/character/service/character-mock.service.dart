@@ -1,10 +1,10 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/service/character-base.service.dart';
 
 class CharacterMockService extends CharacterBaseService {
   @override
-  Future<CharacterEntity> getCharacterById(String characterId) {
-    return Future.value(const CharacterEntity(
+  Future<CharacterModel> getCharacterById(String characterId) {
+    return Future.value(const CharacterModel(
       id: '1',
       name: 'Character 1',
       imagePath: '...',
@@ -12,24 +12,24 @@ class CharacterMockService extends CharacterBaseService {
   }
 
   @override
-  Future<List<CharacterEntity>> getCharacterList() {
+  Future<List<CharacterModel>> getCharacterList() {
     return Future.value([
-      const CharacterEntity(
+      const CharacterModel(
         id: '1',
         name: 'Character 1',
         imagePath: 'asset/image/character/sample.png',
       ),
-      const CharacterEntity(
+      const CharacterModel(
         id: '2',
         name: 'Character 2',
         imagePath: 'asset/image/character/sample.png',
       ),
-      const CharacterEntity(
+      const CharacterModel(
         id: '3',
         name: 'Character 3',
         imagePath: 'asset/image/character/sample.png',
       ),
-      const CharacterEntity(
+      const CharacterModel(
         id: '4',
         name: 'Character 4',
         imagePath: 'asset/image/character/sample.png',

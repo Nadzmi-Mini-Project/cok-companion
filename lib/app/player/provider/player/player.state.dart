@@ -1,5 +1,5 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 
 abstract class PlayerState {}
 
@@ -8,8 +8,8 @@ class PlayerInitialState extends PlayerState {}
 class PlayerLoadingState extends PlayerState {}
 
 class PlayerLoadedState extends PlayerState {
-  final List<PlayerEntity> playerList;
-  final List<CharacterEntity> characterList;
+  final List<PlayerModel> playerList;
+  final List<CharacterModel> characterList;
 
   PlayerLoadedState({
     required this.playerList,
