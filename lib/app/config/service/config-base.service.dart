@@ -1,4 +1,3 @@
-import 'package:cokc/app/config/entity/config.entity.dart';
 import 'package:cokc/app/config/model/config.model.dart';
 import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/config/service/config-mock.service.dart';

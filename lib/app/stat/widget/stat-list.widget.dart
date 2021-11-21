@@ -1,4 +1,3 @@
-import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:flutter/cupertino.dart';
 

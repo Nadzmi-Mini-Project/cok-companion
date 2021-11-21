@@ -1,5 +1,4 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.provider.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';

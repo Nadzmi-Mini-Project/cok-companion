@@ -1,5 +1,4 @@
 import 'package:cokc/app/character/model/character.model.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:equatable/equatable.dart';

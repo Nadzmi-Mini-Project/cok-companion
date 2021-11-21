@@ -1,5 +1,4 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/widget/stat-counter.widget.dart';

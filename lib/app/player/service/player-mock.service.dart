@@ -2,7 +2,6 @@ import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/model/stat.model.dart';
 
