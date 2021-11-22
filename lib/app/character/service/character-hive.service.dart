@@ -1,15 +1,17 @@
 import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/service/character-base.service.dart';
 import 'package:cokc/database/box/character.box.dart';
-import 'package:cokc/database/constant/table-collection.constant.dart';
 import 'package:hive/hive.dart';
 
 class CharacterHiveService extends CharacterBaseService {
+  final Box<Character> characterBox;
+
+  CharacterHiveService({required this.characterBox}) : super();
+
   @override
   Future<CharacterModel> getCharacterById(String characterId) async {
-    final character = Hive.box<Character>(TableCollection.characters)
-        .values
-        .firstWhere((element) => element.id == characterId);
+    final character =
+        characterBox.values.firstWhere((element) => element.id == characterId);
 
     return Future.value(CharacterModel(
       id: character.id,
@@ -20,8 +22,7 @@ class CharacterHiveService extends CharacterBaseService {
 
   @override
   Future<List<CharacterModel>> getCharacterList() {
-    final characterList =
-        Hive.box<Character>(TableCollection.characters).values;
+    final characterList = characterBox.values;
 
     return Future.value(characterList
         .map(
