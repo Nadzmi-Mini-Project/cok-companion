@@ -17,7 +17,7 @@ class StatAdapter extends TypeAdapter<Stat> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Stat(
-      code: fields[0] as StatCode,
+      code: fields[0] as int,
       value: fields[1] as int,
     );
   }

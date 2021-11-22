@@ -7,7 +7,8 @@ part 'stat.box.g.dart';
 @HiveType(typeId: 2)
 class Stat extends HiveObject {
   @HiveField(0)
-  final StatCode code;
+  final int
+      code; // TODO: find a way to convert stat code enum to string for code
 
   @HiveField(1)
   final int value;
@@ -18,7 +19,7 @@ class Stat extends HiveObject {
   });
 
   static StatModel toModel(Stat entity) => StatModel(
-        code: entity.code,
+        code: StatCode.values[entity.code],
         value: entity.value,
       );
 }
