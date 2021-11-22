@@ -1,3 +1,4 @@
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'character.box.g.dart';
@@ -18,4 +19,10 @@ class Character extends HiveObject {
     required this.name,
     required this.imagePath,
   });
+
+  static CharacterModel toModel(Character entity) => CharacterModel(
+        id: entity.id.toString(),
+        name: entity.name,
+        imagePath: entity.imagePath,
+      );
 }
