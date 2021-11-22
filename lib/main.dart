@@ -2,6 +2,7 @@ import 'package:cokc/app/home/view/home.view.dart';
 import 'package:cokc/common/router/app-router.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
+import 'package:cokc/database/box/stat.box.dart';
 import 'package:cokc/database/constant/table-collection.constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ void main() async {
 
   Hive.registerAdapter(CharacterAdapter());
   Hive.registerAdapter(PlayerAdapter());
+  Hive.registerAdapter(StatAdapter());
 
   if (!Hive.isBoxOpen(TableCollection.characters)) {
     await Hive.openBox<Character>(TableCollection.characters);

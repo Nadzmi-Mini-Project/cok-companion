@@ -1,9 +1,15 @@
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
-import 'package:cokc/app/player/service/player-mock.service.dart';
+import 'package:cokc/app/player/service/player-hive.service.dart';
+import 'package:cokc/database/provider/character-box.provider.dart';
+import 'package:cokc/database/provider/player-box.provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final playerServiceProvider = Provider((ref) => PlayerMockService());
+final playerServiceProvider =
+    Provider<PlayerHiveService>((ref) => PlayerHiveService(
+          characterBox: ref.read(characterBoxProvider),
+          playerBox: ref.read(playerBoxProvider),
+        ));
 
 abstract class PlayerBaseService {
   Future<PlayerModel> getPlayerById(String playerId);
