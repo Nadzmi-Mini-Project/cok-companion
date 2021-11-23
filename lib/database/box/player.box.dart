@@ -8,16 +8,16 @@ part 'player.box.g.dart';
 @HiveType(typeId: 1)
 class Player extends HiveObject {
   @HiveField(0)
-  final String id;
+  String id;
 
   @HiveField(1)
-  final Character character;
+  Character character;
 
   @HiveField(2)
-  final List<Stat> playerStatList;
+  List<Stat> playerStatList;
 
   @HiveField(3)
-  final List<Stat> workerStatList;
+  List<Stat> workerStatList;
 
   Player({
     required this.id,

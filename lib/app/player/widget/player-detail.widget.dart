@@ -89,29 +89,6 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
             configModelList: configModelList,
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Confirm'),
-                onPressed: () {
-                  ref.read(playerDetailProvider.notifier).updatePlayerDetail(
-                      widget.player); // TODO: simulate using real data
-                },
-              ),
-            ),
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  ref
-                      .read(playerDetailProvider.notifier)
-                      .setPlayerDetail(widget.player);
-                },
-              ),
-            ),
-          ],
-        ),
       ],
     );
   }

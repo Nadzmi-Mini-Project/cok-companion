@@ -114,4 +114,30 @@ class PlayerMockService extends PlayerBaseService {
   Future removeAllPlayer() async {
     playerList.clear();
   }
+
+  @override
+  Future<PlayerModel> updatePlayerStatList(
+      String playerId, List<StatModel> statList) {
+    // TODO: implement updatePlayerStat
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PlayerModel> updateWorkerStatList(
+      String playerId, List<StatModel> statList) {
+    // TODO: implement updateWorkerStat
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PlayerModel> updatePlayerStat(String playerId, StatModel stat) {
+    // TODO: implement updatePlayerStat
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PlayerModel> updateWorkerStat(String playerId, StatModel stat) {
+    // TODO: implement updateWorkerStat
+    throw UnimplementedError();
+  }
 }
