@@ -25,4 +25,10 @@ class Character extends HiveObject {
         name: entity.name,
         imagePath: entity.imagePath,
       );
+
+  static Character fromModel(CharacterModel model) => Character(
+        id: model.id,
+        name: model.name,
+        imagePath: model.imagePath,
+      );
 }
