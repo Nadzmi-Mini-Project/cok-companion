@@ -25,12 +25,36 @@ class StatListFormWidget extends StatefulWidget {
 class _StatListFormWidgetState extends State<StatListFormWidget> {
   @override
   Widget build(BuildContext context) {
+    final maxHpConfig = widget.configModelList
+        .firstWhere((element) => element.code == StatCode.maximumHp);
+
     return ListView(
       children: [
-        // hp
+        // max hp
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
           widget.player.getMaximumHp()!.value,
+          maxHpConfig,
+          true,
+        ),
+
+        // cur hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
+          StatConfigModel(
+            code: StatCode.currentHp,
+            minimumPoint: 0,
+            maximumPoint: widget.player.getMaximumHp()!.value,
+            progressionConfigList: maxHpConfig.progressionConfigList,
+          ),
+          true,
+        ),
+
+        // current hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.maximumHp),
           true,
