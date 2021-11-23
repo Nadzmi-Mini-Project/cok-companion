@@ -133,6 +133,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
           return StatCounterWidget(
             minimum: config.minimumPoint,
             maximum: config.maximumPoint,
+            value: value,
             onChange: (value) {
               if (isPlayerStat) {
                 provider.updatePlayerStat(
