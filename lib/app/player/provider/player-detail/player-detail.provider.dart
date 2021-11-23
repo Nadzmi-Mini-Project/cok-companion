@@ -6,7 +6,7 @@ import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final playerDetailProvider =
-    StateNotifierProvider((ref) => PlayerDetailProvider(
+    StateNotifierProvider.autoDispose((ref) => PlayerDetailProvider(
           playerProvider: ref.read(playerProvider.notifier),
           playerService: ref.read(playerServiceProvider),
           configService: ref.read(configServiceProvider),
