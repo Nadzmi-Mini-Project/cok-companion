@@ -47,6 +47,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ? _view(
                   playerState.playerList,
                   playerState.characterList,
+                  playerState.isAddPlayerEnabled,
                 )
               : const Center(
                   child: Text('No player added.'),
@@ -57,6 +58,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget _view(
     List<PlayerModel> playerList,
     List<CharacterModel> characterList,
+    bool isAddPlayerEnabled,
   ) {
     return Column(
       children: [
@@ -85,27 +87,29 @@ class _HomeViewState extends ConsumerState<HomeView> {
           width: double.infinity,
           child: ElevatedButton(
             child: const Text('Add Player'),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                // isScrollControlled: true,
-                builder: (context) => ListView.builder(
-                  itemCount: characterList.length,
-                  itemBuilder: (context, index) => CharacterSummaryWidget(
-                    character: characterList[index],
-                    onTap: () {
-                      ref.read(playerProvider.notifier).addPlayer(
-                            CreatePlayerModel(
-                              id: '1',
-                              characterId: characterList[index].id,
-                            ),
-                          );
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              );
-            },
+            onPressed: !isAddPlayerEnabled
+                ? null
+                : () {
+                    showModalBottomSheet(
+                      context: context,
+                      // isScrollControlled: true,
+                      builder: (context) => ListView.builder(
+                        itemCount: characterList.length,
+                        itemBuilder: (context, index) => CharacterSummaryWidget(
+                          character: characterList[index],
+                          onTap: () {
+                            ref.read(playerProvider.notifier).addPlayer(
+                                  CreatePlayerModel(
+                                    id: '1',
+                                    characterId: characterList[index].id,
+                                  ),
+                                );
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    );
+                  },
           ),
         ),
         SizedBox(
