@@ -67,7 +67,6 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
           child: ElevatedButton(
             child: const Text('Level Up'),
             onPressed: () {
-              // TODO: show update form
               ref.read(playerDetailProvider.notifier).showUpdateForm(player.id);
             },
           ),
@@ -80,7 +79,6 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     PlayerModel player,
     List<StatConfigModel> configModelList,
   ) {
-    // TODO: update form
     return Column(
       children: [
         Image.asset(player.character.imagePath),
@@ -90,30 +88,6 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
             player: player,
             configModelList: configModelList,
           ),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Confirm'),
-                onPressed: () {
-                  // TODO: update player detail
-                  ref.read(playerDetailProvider.notifier).updatePlayerDetail(
-                      widget.player); // TODO: simulate using real data
-                },
-              ),
-            ),
-            Expanded(
-              child: ElevatedButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  ref
-                      .read(playerDetailProvider.notifier)
-                      .setPlayerDetail(widget.player);
-                },
-              ),
-            ),
-          ],
         ),
       ],
     );

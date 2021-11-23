@@ -2,6 +2,7 @@ import 'package:cokc/app/character/service/character-base.service.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/provider/player/player.state.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final playerProvider =
@@ -27,6 +28,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());
@@ -36,12 +38,53 @@ class PlayerProvider extends StateNotifier<PlayerState> {
   Future addPlayer(CreatePlayerModel model) async {
     try {
       state = PlayerLoadingState();
+
       await playerService.createPlayer(model);
+      final playerList = await playerService.getPlayerList();
+      final characterList = await characterService.getCharacterList();
+
+      state = PlayerLoadedState(
+        playerList: playerList,
+        characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
+      );
+    } catch (e) {
+      state = PlayerErrorState(message: e.toString());
+    }
+  }
+
+  Future updatePlayerStat(String playerId, StatModel stat) async {
+    try {
+      state = PlayerLoadingState();
+
+      // TODO: update player stat
+      await playerService.updatePlayerStat(playerId, stat);
+
       final playerList = await playerService.getPlayerList();
       final characterList = await characterService.getCharacterList();
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
+      );
+    } catch (e) {
+      state = PlayerErrorState(message: e.toString());
+    }
+  }
+
+  Future updateWorkerStat(String playerId, StatModel stat) async {
+    try {
+      state = PlayerLoadingState();
+
+      // TODO: update worker stat
+      await playerService.updateWorkerStat(playerId, stat);
+
+      final playerList = await playerService.getPlayerList();
+      final characterList = await characterService.getCharacterList();
+      state = PlayerLoadedState(
+        playerList: playerList,
+        characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());
@@ -57,6 +100,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());

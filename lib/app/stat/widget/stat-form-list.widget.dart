@@ -1,9 +1,12 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
+import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:cokc/app/stat/widget/stat-counter.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StatListFormWidget extends StatefulWidget {
   final PlayerModel player;
@@ -22,12 +25,36 @@ class StatListFormWidget extends StatefulWidget {
 class _StatListFormWidgetState extends State<StatListFormWidget> {
   @override
   Widget build(BuildContext context) {
+    final maxHpConfig = widget.configModelList
+        .firstWhere((element) => element.code == StatCode.maximumHp);
+
     return ListView(
       children: [
-        // hp
+        // max hp
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
           widget.player.getMaximumHp()!.value,
+          maxHpConfig,
+          true,
+        ),
+
+        // cur hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
+          StatConfigModel(
+            code: StatCode.currentHp,
+            minimumPoint: 0,
+            maximumPoint: widget.player.getMaximumHp()!.value,
+            progressionConfigList: maxHpConfig.progressionConfigList,
+          ),
+          true,
+        ),
+
+        // current hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.maximumHp),
           true,
@@ -124,17 +151,28 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
             fit: BoxFit.fill,
           ),
         ),
-        StatCounterWidget(
-          minimum: config.minimumPoint,
-          maximum: config.maximumPoint,
-          onChange: (value) {
-            if (isPlayerStat) {
-              // TODO: save player stat value
-            }
+        Consumer(builder: (context, ref, child) {
+          final provider = ref.read(playerProvider.notifier);
 
-            // TODO: save worker stat value
-          },
-        ),
+          return StatCounterWidget(
+            minimum: config.minimumPoint,
+            maximum: config.maximumPoint,
+            value: value,
+            onChange: (value) {
+              if (isPlayerStat) {
+                provider.updatePlayerStat(
+                  widget.player.id,
+                  StatModel(code: config.code, value: value),
+                );
+              } else {
+                provider.updateWorkerStat(
+                  widget.player.id,
+                  StatModel(code: config.code, value: value),
+                );
+              }
+            },
+          );
+        }),
       ],
     );
   }
