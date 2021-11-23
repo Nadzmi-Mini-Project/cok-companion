@@ -22,4 +22,9 @@ class Stat extends HiveObject {
         code: StatCode.values[entity.code],
         value: entity.value,
       );
+
+  static Stat fromModel(StatModel model) => Stat(
+        code: model.code.index,
+        value: model.value,
+      );
 }

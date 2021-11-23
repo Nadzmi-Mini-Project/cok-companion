@@ -32,4 +32,11 @@ class Player extends HiveObject {
         playerStat: entity.playerStatList.map((e) => Stat.toModel(e)).toList(),
         workerStat: entity.workerStatList.map((e) => Stat.toModel(e)).toList(),
       );
+
+  static Player fromModel(PlayerModel model) => Player(
+        id: model.id,
+        character: Character.fromModel(model.character),
+        playerStatList: model.playerStat.map((e) => Stat.fromModel(e)).toList(),
+        workerStatList: model.workerStat.map((e) => Stat.fromModel(e)).toList(),
+      );
 }
