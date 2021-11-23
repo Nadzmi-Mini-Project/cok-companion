@@ -100,7 +100,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           onTap: () {
                             ref.read(playerProvider.notifier).addPlayer(
                                   CreatePlayerModel(
-                                    id: '1',
                                     characterId: characterList[index].id,
                                   ),
                                 );
