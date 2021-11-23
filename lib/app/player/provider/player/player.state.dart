@@ -10,10 +10,12 @@ class PlayerLoadingState extends PlayerState {}
 class PlayerLoadedState extends PlayerState {
   final List<PlayerModel> playerList;
   final List<CharacterModel> characterList;
+  final bool isAddPlayerEnabled;
 
   PlayerLoadedState({
     required this.playerList,
     required this.characterList,
+    required this.isAddPlayerEnabled,
   });
 }
 
