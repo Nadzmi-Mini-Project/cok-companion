@@ -2,6 +2,7 @@ import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
@@ -67,7 +68,9 @@ class PlayerHiveService extends PlayerBaseService {
         playerBox.values.firstWhere((element) => element.id == player.id);
     final playerKey = currentPlayer.key;
 
-    await playerBox.put(playerKey, Player.fromModel(player));
+    // TODO: update stat
+    final playerModel =
+        await playerBox.put(playerKey, Player.fromModel(player));
 
     final updatedPlayer = playerBox.get(playerKey);
 
@@ -89,5 +92,85 @@ class PlayerHiveService extends PlayerBaseService {
   @override
   Future removeAllPlayer() async {
     await playerBox.clear();
+  }
+
+  @override
+  Future<PlayerModel> updatePlayerStatList(
+    String playerId,
+    List<StatModel> statList,
+  ) async {
+    final player =
+        playerBox.values.firstWhere((element) => element.id == playerId);
+    final playerKey = player.key;
+
+    player.playerStatList = statList.map((e) => Stat.fromModel(e)).toList();
+    await playerBox.put(playerKey, player);
+
+    final updatedPlayer = playerBox.get(playerKey);
+
+    return Future.value(
+      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
+    );
+  }
+
+  @override
+  Future<PlayerModel> updateWorkerStatList(
+    String playerId,
+    List<StatModel> statList,
+  ) async {
+    final player =
+        playerBox.values.firstWhere((element) => element.id == playerId);
+    final playerKey = player.key;
+
+    player.workerStatList = statList.map((e) => Stat.fromModel(e)).toList();
+    await playerBox.put(playerKey, player);
+
+    final updatedPlayer = playerBox.get(playerKey);
+
+    return Future.value(
+      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
+    );
+  }
+
+  @override
+  Future<PlayerModel> updatePlayerStat(
+    String playerId,
+    StatModel stat,
+  ) async {
+    final player =
+        playerBox.values.firstWhere((element) => element.id == playerId);
+    final playerKey = player.key;
+    final curStat = player.playerStatList
+        .firstWhere((element) => element.code == stat.code.index);
+
+    curStat.value = stat.value;
+    await playerBox.put(playerKey, player);
+
+    final updatedPlayer = playerBox.get(playerKey);
+
+    return Future.value(
+      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
+    );
+  }
+
+  @override
+  Future<PlayerModel> updateWorkerStat(
+    String playerId,
+    StatModel stat,
+  ) async {
+    final player =
+        playerBox.values.firstWhere((element) => element.id == playerId);
+    final playerKey = player.key;
+    final curStat = player.workerStatList
+        .firstWhere((element) => element.code == stat.code.index);
+
+    curStat.value = stat.value;
+    await playerBox.put(playerKey, player);
+
+    final updatedPlayer = playerBox.get(playerKey);
+
+    return Future.value(
+      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
+    );
   }
 }
