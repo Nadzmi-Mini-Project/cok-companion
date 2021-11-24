@@ -3,16 +3,19 @@ import 'package:equatable/equatable.dart';
 
 class StatModel extends Equatable {
   final StatCode code;
+  final int point;
   final int value;
 
   const StatModel({
     required this.code,
+    required this.point,
     required this.value,
   });
 
   @override
   List<Object?> get props => [
         code,
+        point,
         value,
       ];
 

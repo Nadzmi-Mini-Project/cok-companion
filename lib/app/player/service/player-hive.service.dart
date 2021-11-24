@@ -41,18 +41,18 @@ class PlayerHiveService extends PlayerBaseService {
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       character: character,
       playerStatList: [
-        Stat(code: StatCode.maximumHp.index, value: 4),
-        Stat(code: StatCode.currentHp.index, value: 4),
-        Stat(code: StatCode.attack.index, value: 2),
-        Stat(code: StatCode.heal.index, value: 1),
-        Stat(code: StatCode.range.index, value: 1),
-        Stat(code: StatCode.playerMove.index, value: 2),
-        Stat(code: StatCode.luck.index, value: 0),
+        Stat(code: StatCode.maximumHp.index, point: 1, value: 4),
+        Stat(code: StatCode.currentHp.index, point: 1, value: 4),
+        Stat(code: StatCode.attack.index, point: 1, value: 2),
+        Stat(code: StatCode.heal.index, point: 1, value: 1),
+        Stat(code: StatCode.range.index, point: 1, value: 1),
+        Stat(code: StatCode.playerMove.index, point: 1, value: 2),
+        Stat(code: StatCode.luck.index, point: 1, value: 0),
       ],
       workerStatList: [
-        Stat(code: StatCode.workerMove.index, value: 1),
-        Stat(code: StatCode.gather.index, value: 1),
-        Stat(code: StatCode.scavenge.index, value: 1),
+        Stat(code: StatCode.workerMove.index, point: 1, value: 1),
+        Stat(code: StatCode.gather.index, point: 1, value: 1),
+        Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
     ));
     final newPlayer = playerBox.get(newPlayerId);
