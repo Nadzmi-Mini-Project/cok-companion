@@ -162,12 +162,18 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
               if (isPlayerStat) {
                 provider.updatePlayerStat(
                   widget.player.id,
-                  StatModel(code: config.code, value: value),
+                  StatModel(
+                      code: config.code,
+                      point: value,
+                      value: value), // TODO: use correct value for point
                 );
               } else {
                 provider.updateWorkerStat(
                   widget.player.id,
-                  StatModel(code: config.code, value: value),
+                  StatModel(
+                      code: config.code,
+                      point: value,
+                      value: value), // TODO: use correct value for point
                 );
               }
             },
