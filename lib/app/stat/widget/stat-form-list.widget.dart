@@ -65,7 +65,8 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
                 player.getMaximumHp()!,
-                maxHpConfig,
+                statConfigList.firstWhere(
+                    (element) => element.code == StatCode.maximumHp),
                 true,
                 player.id,
               ),
@@ -74,12 +75,8 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
                 player.getCurrentHp()!,
-                StatConfigModel(
-                  code: StatCode.currentHp,
-                  minimumPoint: 0,
-                  maximumPoint: player.getMaximumHp()!.value,
-                  progressionConfigList: maxHpConfig.progressionConfigList,
-                ),
+                statConfigList.firstWhere(
+                    (element) => element.code == StatCode.currentHp),
                 true,
                 player.id,
               ),

@@ -1,8 +1,8 @@
+import 'package:cokc/app/config/service/config-base.service.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
-import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
@@ -11,10 +11,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 class PlayerHiveService extends PlayerBaseService {
   final Box<Character> characterBox;
   final Box<Player> playerBox;
+  final ConfigBaseService configService;
 
   PlayerHiveService({
     required this.characterBox,
     required this.playerBox,
+    required this.configService,
   }) : super();
 
   @override
@@ -41,13 +43,13 @@ class PlayerHiveService extends PlayerBaseService {
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       character: character,
       playerStatList: [
-        Stat(code: StatCode.maximumHp.index, point: 1, value: 4),
-        Stat(code: StatCode.currentHp.index, point: 1, value: 4),
-        Stat(code: StatCode.attack.index, point: 1, value: 2),
+        Stat(code: StatCode.maximumHp.index, point: 4, value: 4),
+        Stat(code: StatCode.currentHp.index, point: 4, value: 4),
+        Stat(code: StatCode.attack.index, point: 1, value: 1),
         Stat(code: StatCode.heal.index, point: 1, value: 1),
         Stat(code: StatCode.range.index, point: 1, value: 1),
-        Stat(code: StatCode.playerMove.index, point: 1, value: 2),
-        Stat(code: StatCode.luck.index, point: 1, value: 0),
+        Stat(code: StatCode.playerMove.index, point: 3, value: 2),
+        Stat(code: StatCode.luck.index, point: 0, value: 0),
       ],
       workerStatList: [
         Stat(code: StatCode.workerMove.index, point: 1, value: 1),
@@ -103,8 +105,10 @@ class PlayerHiveService extends PlayerBaseService {
     final playerKey = player.key;
     final curStat = player.playerStatList
         .firstWhere((element) => element.code == statCode.index);
+    final statConfig = await configService.getStatConfigByCode(statCode);
 
-    curStat.value = statPoint; // TODO: get stat value based on stat point
+    curStat.point = statPoint;
+    curStat.value = statConfig.getProgression(statPoint)!.value;
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
@@ -125,8 +129,10 @@ class PlayerHiveService extends PlayerBaseService {
     final playerKey = player.key;
     final curStat = player.workerStatList
         .firstWhere((element) => element.code == statCode.index);
+    final statConfig = await configService.getStatConfigByCode(statCode);
 
-    curStat.value = statPoint; // TODO: get stat value based on stat point
+    curStat.point = statPoint;
+    curStat.value = statConfig.getProgression(statPoint)!.value;
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
