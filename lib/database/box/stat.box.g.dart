@@ -18,17 +18,20 @@ class StatAdapter extends TypeAdapter<Stat> {
     };
     return Stat(
       code: fields[0] as int,
-      value: fields[1] as int,
+      point: fields[1] as int,
+      value: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Stat obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.code)
       ..writeByte(1)
+      ..write(obj.point)
+      ..writeByte(2)
       ..write(obj.value);
   }
 

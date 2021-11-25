@@ -10,20 +10,26 @@ class Stat extends HiveObject {
   int code; // TODO: find a way to convert stat code enum to string for code
 
   @HiveField(1)
+  int point;
+
+  @HiveField(2)
   int value;
 
   Stat({
     required this.code,
+    required this.point,
     required this.value,
   });
 
   static StatModel toModel(Stat entity) => StatModel(
         code: StatCode.values[entity.code],
+        point: entity.point,
         value: entity.value,
       );
 
   static Stat fromModel(StatModel model) => Stat(
         code: model.code.index,
+        point: model.point,
         value: model.value,
       );
 }
