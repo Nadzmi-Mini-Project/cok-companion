@@ -93,44 +93,6 @@ class PlayerHiveService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerModel> updatePlayerStatList(
-    String playerId,
-    List<StatModel> statList,
-  ) async {
-    final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
-    final playerKey = player.key;
-
-    player.playerStatList = statList.map((e) => Stat.fromModel(e)).toList();
-    await playerBox.put(playerKey, player);
-
-    final updatedPlayer = playerBox.get(playerKey);
-
-    return Future.value(
-      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
-    );
-  }
-
-  @override
-  Future<PlayerModel> updateWorkerStatList(
-    String playerId,
-    List<StatModel> statList,
-  ) async {
-    final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
-    final playerKey = player.key;
-
-    player.workerStatList = statList.map((e) => Stat.fromModel(e)).toList();
-    await playerBox.put(playerKey, player);
-
-    final updatedPlayer = playerBox.get(playerKey);
-
-    return Future.value(
-      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
-    );
-  }
-
-  @override
   Future<PlayerModel> updatePlayerStat(
     String playerId,
     StatCode statCode,
