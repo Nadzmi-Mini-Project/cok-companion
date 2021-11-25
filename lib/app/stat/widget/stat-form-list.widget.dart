@@ -1,17 +1,20 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
+import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:cokc/app/stat/widget/stat-counter.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StatListFormWidget extends StatefulWidget {
-  final PlayerEntity playerEntity;
+  final PlayerModel player;
   final List<StatConfigModel> configModelList;
 
   const StatListFormWidget({
     Key? key,
-    required this.playerEntity,
+    required this.player,
     required this.configModelList,
   }) : super(key: key);
 
@@ -22,12 +25,36 @@ class StatListFormWidget extends StatefulWidget {
 class _StatListFormWidgetState extends State<StatListFormWidget> {
   @override
   Widget build(BuildContext context) {
+    final maxHpConfig = widget.configModelList
+        .firstWhere((element) => element.code == StatCode.maximumHp);
+
     return ListView(
       children: [
-        // hp
+        // max hp
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getMaximumHp()!.value,
+          widget.player.getMaximumHp()!.value,
+          maxHpConfig,
+          true,
+        ),
+
+        // cur hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
+          StatConfigModel(
+            code: StatCode.currentHp,
+            minimumPoint: 0,
+            maximumPoint: widget.player.getMaximumHp()!.value,
+            progressionConfigList: maxHpConfig.progressionConfigList,
+          ),
+          true,
+        ),
+
+        // current hp
+        _statFormWidget(
+          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          widget.player.getCurrentHp()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.maximumHp),
           true,
@@ -36,7 +63,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // attack
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getAttack()!.value,
+          widget.player.getAttack()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.attack),
           true,
@@ -45,7 +72,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // heal
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getHeal()!.value,
+          widget.player.getHeal()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.heal),
           true,
@@ -54,7 +81,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // range
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getRange()!.value,
+          widget.player.getRange()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.range),
           true,
@@ -63,7 +90,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // player move
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getPlayerMove()!.value,
+          widget.player.getPlayerMove()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.playerMove),
           true,
@@ -72,7 +99,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // luck
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getLuck()!.value,
+          widget.player.getLuck()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.luck),
           true,
@@ -81,7 +108,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // worker move
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getWorkerMove()!.value,
+          widget.player.getWorkerMove()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.workerMove),
           false,
@@ -90,7 +117,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // gather
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getGather()!.value,
+          widget.player.getGather()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.gather),
           false,
@@ -99,7 +126,7 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
         // scavenge
         _statFormWidget(
           'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-          widget.playerEntity.getScavenge()!.value,
+          widget.player.getScavenge()!.value,
           widget.configModelList
               .firstWhere((element) => element.code == StatCode.scavenge),
           false,
@@ -124,17 +151,34 @@ class _StatListFormWidgetState extends State<StatListFormWidget> {
             fit: BoxFit.fill,
           ),
         ),
-        StatCounterWidget(
-          minimum: config.minimumPoint,
-          maximum: config.maximumPoint,
-          onChange: (value) {
-            if (isPlayerStat) {
-              // TODO: save player stat value
-            }
+        Consumer(builder: (context, ref, child) {
+          final provider = ref.read(playerProvider.notifier);
 
-            // TODO: save worker stat value
-          },
-        ),
+          return StatCounterWidget(
+            minimum: config.minimumPoint,
+            maximum: config.maximumPoint,
+            value: value,
+            onChange: (value) {
+              if (isPlayerStat) {
+                provider.updatePlayerStat(
+                  widget.player.id,
+                  StatModel(
+                      code: config.code,
+                      point: value,
+                      value: value), // TODO: use correct value for point
+                );
+              } else {
+                provider.updateWorkerStat(
+                  widget.player.id,
+                  StatModel(
+                      code: config.code,
+                      point: value,
+                      value: value), // TODO: use correct value for point
+                );
+              }
+            },
+          );
+        }),
       ],
     );
   }
