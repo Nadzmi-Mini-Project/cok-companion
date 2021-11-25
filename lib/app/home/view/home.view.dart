@@ -4,8 +4,8 @@ import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/provider/player/player.state.dart';
-import 'package:cokc/app/player/widget/player-detail.widget.dart';
 import 'package:cokc/app/player/widget/player-summary.widget.dart';
+import 'package:cokc/app/stat/widget/stat-form-list.widget.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +62,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   ) {
     return Column(
       children: [
+        // player list
         Expanded(
           child: RefreshIndicator(
             child: ListView.builder(
@@ -69,11 +70,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
               itemCount: playerList.length,
               itemBuilder: (context, index) => PlayerSummaryWidget(
                 player: playerList[index],
-                onTap: () {
+                onTap: () async {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) =>
-                        PlayerDetailWidget(player: playerList[index]),
+                    builder: (context) => StatListFormWidget(
+                      playerId: playerList[index].id,
+                    ),
                   );
                 },
               ),
@@ -83,6 +85,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
             },
           ),
         ),
+
+        // add player btn
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
@@ -111,6 +115,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   },
           ),
         ),
+
+        // reset session button
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(

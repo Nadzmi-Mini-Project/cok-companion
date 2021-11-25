@@ -68,9 +68,7 @@ class PlayerHiveService extends PlayerBaseService {
         playerBox.values.firstWhere((element) => element.id == player.id);
     final playerKey = currentPlayer.key;
 
-    // TODO: update stat
-    final playerModel =
-        await playerBox.put(playerKey, Player.fromModel(player));
+    await playerBox.put(playerKey, Player.fromModel(player));
 
     final updatedPlayer = playerBox.get(playerKey);
 
