@@ -1,3 +1,4 @@
+import 'package:cokc/app/config/service/config-base.service.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-hive.service.dart';
@@ -10,6 +11,7 @@ final playerServiceProvider =
     Provider<PlayerHiveService>((ref) => PlayerHiveService(
           characterBox: ref.read(characterBoxProvider),
           playerBox: ref.read(playerBoxProvider),
+          configService: ref.read(configServiceProvider),
         ));
 
 abstract class PlayerBaseService {

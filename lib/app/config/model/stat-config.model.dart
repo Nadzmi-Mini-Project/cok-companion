@@ -25,4 +25,7 @@ class StatConfigModel extends Equatable {
 
   @override
   bool? get stringify => true;
+
+  StatProgressionConfigModel? getProgression(int point) =>
+      progressionConfigList.firstWhere((element) => element.point == point);
 }
