@@ -64,7 +64,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // max hp
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getMaximumHp()!.value,
+                player.getMaximumHp()!,
                 maxHpConfig,
                 true,
                 player.id,
@@ -73,7 +73,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // cur hp
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getCurrentHp()!.value,
+                player.getCurrentHp()!,
                 StatConfigModel(
                   code: StatCode.currentHp,
                   minimumPoint: 0,
@@ -87,7 +87,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // attack
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getAttack()!.value,
+                player.getAttack()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.attack),
                 true,
@@ -97,7 +97,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // heal
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getHeal()!.value,
+                player.getHeal()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.heal),
                 true,
@@ -107,7 +107,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // range
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getRange()!.value,
+                player.getRange()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.range),
                 true,
@@ -117,7 +117,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // player move
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getPlayerMove()!.value,
+                player.getPlayerMove()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.playerMove),
                 true,
@@ -127,7 +127,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // luck
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getLuck()!.value,
+                player.getLuck()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.luck),
                 true,
@@ -137,7 +137,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // worker move
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getWorkerMove()!.value,
+                player.getWorkerMove()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.workerMove),
                 false,
@@ -147,7 +147,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // gather
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getGather()!.value,
+                player.getGather()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.gather),
                 false,
@@ -157,7 +157,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
               // scavenge
               _statFormWidget(
                 'asset/image/character/sample-icon.jpg', // TODO: use correct icon
-                player.getScavenge()!.value,
+                player.getScavenge()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.scavenge),
                 false,
@@ -172,7 +172,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
   Widget _statFormWidget(
     String imagePath,
-    int value,
+    StatModel stat,
     StatConfigModel config,
     bool isPlayerStat,
     String playerId,
@@ -191,8 +191,14 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
             ),
             Column(
               children: [
-                Row(children: [const Text('Point:'), Text(value.toString())]),
-                Row(children: [const Text('Value:'), Text(value.toString())]),
+                Row(children: [
+                  const Text('Point:'),
+                  Text(stat.point.toString())
+                ]),
+                Row(children: [
+                  const Text('Value:'),
+                  Text(stat.value.toString())
+                ]),
               ],
             ),
           ],
@@ -200,15 +206,12 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
         StatCounterWidget(
           minimum: config.minimumPoint,
           maximum: config.maximumPoint,
-          value: value,
-          onChange: (value) {
+          value: stat.point,
+          onChange: (statPoint) {
             ref.read(playerDetailProvider.notifier).updateStat(
                   playerId,
-                  StatModel(
-                    code: config.code,
-                    point: value,
-                    value: value, // TODO: use correct value for point
-                  ),
+                  config.code,
+                  statPoint,
                   isPlayerStat,
                 );
           },

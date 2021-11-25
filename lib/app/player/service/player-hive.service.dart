@@ -133,15 +133,16 @@ class PlayerHiveService extends PlayerBaseService {
   @override
   Future<PlayerModel> updatePlayerStat(
     String playerId,
-    StatModel stat,
+    StatCode statCode,
+    int statPoint,
   ) async {
     final player =
         playerBox.values.firstWhere((element) => element.id == playerId);
     final playerKey = player.key;
     final curStat = player.playerStatList
-        .firstWhere((element) => element.code == stat.code.index);
+        .firstWhere((element) => element.code == statCode.index);
 
-    curStat.value = stat.value;
+    curStat.value = statPoint; // TODO: get stat value based on stat point
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
@@ -154,15 +155,16 @@ class PlayerHiveService extends PlayerBaseService {
   @override
   Future<PlayerModel> updateWorkerStat(
     String playerId,
-    StatModel stat,
+    StatCode statCode,
+    int statPoint,
   ) async {
     final player =
         playerBox.values.firstWhere((element) => element.id == playerId);
     final playerKey = player.key;
     final curStat = player.workerStatList
-        .firstWhere((element) => element.code == stat.code.index);
+        .firstWhere((element) => element.code == statCode.index);
 
-    curStat.value = stat.value;
+    curStat.value = statPoint; // TODO: get stat value based on stat point
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
