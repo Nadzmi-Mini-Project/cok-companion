@@ -52,9 +52,6 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
   }
 
   Widget _view(PlayerModel player, List<StatConfigModel> statConfigList) {
-    final maxHpConfig = statConfigList
-        .firstWhere((element) => element.code == StatCode.maximumHp);
-
     return Column(
       children: [
         PlayerSummaryWidget(player: player),
