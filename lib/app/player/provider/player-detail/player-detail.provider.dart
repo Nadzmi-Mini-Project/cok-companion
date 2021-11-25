@@ -2,7 +2,7 @@ import 'package:cokc/app/config/service/config-base.service.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
-import 'package:cokc/app/stat/model/stat.model.dart';
+import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final playerDetailProvider =
@@ -38,14 +38,19 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
     }
   }
 
-  Future updateStat(String playerId, StatModel stat, bool isPlayerStat) async {
+  Future updateStat(
+    String playerId,
+    StatCode statCode,
+    int statPoint,
+    bool isPlayerStat,
+  ) async {
     try {
       state = LoadingPlayerDetailState();
 
       if (isPlayerStat) {
-        await playerService.updatePlayerStat(playerId, stat);
+        await playerService.updatePlayerStat(playerId, statCode, statPoint);
       } else {
-        await playerService.updateWorkerStat(playerId, stat);
+        await playerService.updateWorkerStat(playerId, statCode, statPoint);
       }
 
       await playerProvider.getPlayerList();

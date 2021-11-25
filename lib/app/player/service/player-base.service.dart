@@ -1,6 +1,7 @@
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-hive.service.dart';
+import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:cokc/database/provider/character-box.provider.dart';
 import 'package:cokc/database/provider/player-box.provider.dart';
@@ -27,11 +28,13 @@ abstract class PlayerBaseService {
   );
   Future<PlayerModel> updatePlayerStat(
     String playerId,
-    StatModel stat,
+    StatCode statCode,
+    int statPoint,
   );
   Future<PlayerModel> updateWorkerStat(
     String playerId,
-    StatModel stat,
+    StatCode statCode,
+    int statPoint,
   );
   Future<PlayerModel> removePlayer(String playerId);
   Future removeAllPlayer();
