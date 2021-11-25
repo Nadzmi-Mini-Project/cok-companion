@@ -57,7 +57,6 @@ class PlayerProvider extends StateNotifier<PlayerState> {
     try {
       state = PlayerLoadingState();
 
-      // TODO: update player stat
       await playerService.updatePlayerStat(playerId, stat);
 
       final playerList = await playerService.getPlayerList();
@@ -76,7 +75,6 @@ class PlayerProvider extends StateNotifier<PlayerState> {
     try {
       state = PlayerLoadingState();
 
-      // TODO: update worker stat
       await playerService.updateWorkerStat(playerId, stat);
 
       final playerList = await playerService.getPlayerList();
