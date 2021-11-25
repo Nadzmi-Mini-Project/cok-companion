@@ -206,8 +206,8 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
                   playerId,
                   StatModel(
                     code: config.code,
-                    point: value, // TODO: use correct value for point
-                    value: value,
+                    point: value,
+                    value: value, // TODO: use correct value for point
                   ),
                   isPlayerStat,
                 );
