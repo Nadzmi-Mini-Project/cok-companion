@@ -116,20 +116,6 @@ class PlayerMockService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerModel> updatePlayerStatList(
-      String playerId, List<StatModel> statList) {
-    // TODO: implement updatePlayerStat
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<PlayerModel> updateWorkerStatList(
-      String playerId, List<StatModel> statList) {
-    // TODO: implement updateWorkerStat
-    throw UnimplementedError();
-  }
-
-  @override
   Future<PlayerModel> updatePlayerStat(
       String playerId, StatCode statCode, int statPoint) {
     // TODO: implement updatePlayerStat
