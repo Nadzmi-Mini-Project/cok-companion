@@ -58,7 +58,7 @@ class ConfigMockService extends ConfigBaseService {
     ),
     StatConfigModel(
       code: StatCode.luck,
-      minimumPoint: 1,
+      minimumPoint: 0,
       maximumPoint: 10,
       progressionConfigList: List.from(jsonDecode(
         '[{"point":0,"value":0},{"point":1,"value":1},{"point":2,"value":1},{"point":3,"value":2},{"point":4,"value":2},{"point":5,"value":3},{"point":6,"value":3},{"point":7,"value":4},{"point":8,"value":4},{"point":9,"value":4},{"point":10,"value":5}]',

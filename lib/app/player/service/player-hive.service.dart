@@ -116,9 +116,7 @@ class PlayerHiveService extends PlayerBaseService {
           : (statPoint <= 0)
               ? 0
               : statPoint;
-      curStat.value = (statPoint <= 0)
-          ? 0
-          : statConfig.getProgression(curStat.point)!.value;
+      curStat.value = statConfig.getProgression(curStat.point)!.value;
     } else if (curStat.code == StatCode.maximumHp.index) {
       curStat.point = (statPoint >= statConfig.maximumPoint)
           ? statConfig.maximumPoint
