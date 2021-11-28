@@ -18,11 +18,11 @@ class CharacterSummaryWidget extends StatelessWidget {
         onTap: onTap!,
         child: Stack(
           children: [
-            SizedBox(
-              width: double.infinity,
+            AspectRatio(
+              aspectRatio: 16 / 9,
               child: Image.asset(
                 character.imagePath,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fill,
               ),
             ),
             Container(
