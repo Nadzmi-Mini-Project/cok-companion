@@ -1,17 +1,17 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 import 'package:equatable/equatable.dart';
 
-class PlayerEntity extends Equatable {
+class PlayerModel extends Equatable {
   final String id;
-  final CharacterEntity characterEntity;
-  final List<StatEntity> playerStat;
-  final List<StatEntity> workerStat;
+  final CharacterModel character;
+  final List<StatModel> playerStat;
+  final List<StatModel> workerStat;
 
-  const PlayerEntity({
+  const PlayerModel({
     required this.id,
-    required this.characterEntity,
+    required this.character,
     required this.playerStat,
     required this.workerStat,
   });
@@ -19,7 +19,7 @@ class PlayerEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        characterEntity,
+        character,
         playerStat,
         workerStat,
       ];
@@ -28,33 +28,33 @@ class PlayerEntity extends Equatable {
   bool? get stringify => true;
 
   // stat getter
-  StatEntity? getMaximumHp() =>
+  StatModel? getMaximumHp() =>
       playerStat.firstWhere((element) => element.code == StatCode.maximumHp);
 
-  StatEntity? getCurrentHp() =>
+  StatModel? getCurrentHp() =>
       playerStat.firstWhere((element) => element.code == StatCode.currentHp);
 
-  StatEntity? getAttack() =>
+  StatModel? getAttack() =>
       playerStat.firstWhere((element) => element.code == StatCode.attack);
 
-  StatEntity? getHeal() =>
+  StatModel? getHeal() =>
       playerStat.firstWhere((element) => element.code == StatCode.heal);
 
-  StatEntity? getRange() =>
+  StatModel? getRange() =>
       playerStat.firstWhere((element) => element.code == StatCode.range);
 
-  StatEntity? getPlayerMove() =>
+  StatModel? getPlayerMove() =>
       playerStat.firstWhere((element) => element.code == StatCode.playerMove);
 
-  StatEntity? getLuck() =>
+  StatModel? getLuck() =>
       playerStat.firstWhere((element) => element.code == StatCode.luck);
 
-  StatEntity? getWorkerMove() =>
+  StatModel? getWorkerMove() =>
       workerStat.firstWhere((element) => element.code == StatCode.workerMove);
 
-  StatEntity? getGather() =>
+  StatModel? getGather() =>
       workerStat.firstWhere((element) => element.code == StatCode.gather);
 
-  StatEntity? getScavenge() =>
+  StatModel? getScavenge() =>
       workerStat.firstWhere((element) => element.code == StatCode.scavenge);
 }

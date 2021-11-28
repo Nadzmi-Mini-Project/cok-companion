@@ -1,10 +1,14 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
-import 'package:cokc/app/character/service/character-mock.service.dart';
+import 'package:cokc/app/character/model/character.model.dart';
+import 'package:cokc/app/character/service/character-hive.service.dart';
+import 'package:cokc/database/provider/character-box.provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final characterServiceProvider = Provider((ref) => CharacterMockService());
+final characterServiceProvider =
+    Provider<CharacterHiveService>((ref) => CharacterHiveService(
+          characterBox: ref.read(characterBoxProvider),
+        ));
 
 abstract class CharacterBaseService {
-  Future<CharacterEntity> getCharacterById(String characterId);
-  Future<List<CharacterEntity>> getCharacterList();
+  Future<CharacterModel> getCharacterById(String characterId);
+  Future<List<CharacterModel>> getCharacterList();
 }

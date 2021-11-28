@@ -1,31 +1,24 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 
 abstract class PlayerDetailState {}
 
-class PlayerDetailInitialState extends PlayerDetailState {}
+class InitialPlayerDetailState extends PlayerDetailState {}
 
-class PlayerDetailLoadingState extends PlayerDetailState {}
+class LoadingPlayerDetailState extends PlayerDetailState {}
 
-class PlayerDetailErrorState extends PlayerDetailState {
+class ErrorPlayerDetailState extends PlayerDetailState {
   final String message;
 
-  PlayerDetailErrorState({required this.message});
+  ErrorPlayerDetailState({required this.message});
 }
 
-class PlayerDetailLoadedState extends PlayerDetailState {
-  final PlayerEntity playerEntity;
-
-  PlayerDetailLoadedState({required this.playerEntity});
-}
-
-class PlayerDetailUpdateState extends PlayerDetailState {
-  final PlayerEntity playerEntity;
+class LoadedPlayerDetailState extends PlayerDetailState {
   final List<StatConfigModel> statConfigList;
+  final PlayerModel player;
 
-  PlayerDetailUpdateState({
-    required this.playerEntity,
+  LoadedPlayerDetailState({
     required this.statConfigList,
+    required this.player,
   });
 }

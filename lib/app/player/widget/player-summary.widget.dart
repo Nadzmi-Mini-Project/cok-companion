@@ -1,15 +1,15 @@
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/stat/widget/hp-bar.widget.dart';
 import 'package:cokc/app/stat/widget/stat-list.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlayerSummaryWidget extends StatelessWidget {
-  final PlayerEntity playerEntity;
-  VoidCallback? onTap;
+  final PlayerModel player;
+  final VoidCallback? onTap;
 
-  PlayerSummaryWidget({
-    required this.playerEntity,
+  const PlayerSummaryWidget({
+    required this.player,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -24,13 +24,21 @@ class PlayerSummaryWidget extends StatelessWidget {
           child: Column(
             children: [
               _imagePlaceholder(
-                playerEntity.characterEntity.imagePath,
-                playerEntity.characterEntity.name,
+                player.character.imagePath,
+                player.character.name,
               ),
-              HpBarWidget(
-                  currentHp: playerEntity.getCurrentHp()!.value,
-                  maximumHp: playerEntity.getMaximumHp()!.value),
-              StatListWidget(playerEntity: playerEntity),
+              Container(
+                margin: const EdgeInsets.all(5),
+                child: Column(
+                  children: [
+                    HpBarWidget(
+                      currentHp: player.getCurrentHp()!.value,
+                      maximumHp: player.getMaximumHp()!.value,
+                    ),
+                    StatListWidget(player: player)
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -43,18 +51,25 @@ class PlayerSummaryWidget extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: 100.0,
+          AspectRatio(
+            aspectRatio: 16 / 9,
             child: Image.asset(
               imagePath,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
             ),
           ),
-          Positioned.fill(
+          Container(
+            color: Colors.black54,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Text(name),
+              child: Text(
+                name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],

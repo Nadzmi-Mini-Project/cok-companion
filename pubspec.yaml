@@ -32,6 +32,8 @@ dependencies:
   flutter_riverpod: ^1.0.0-dev.11
   equatable: ^2.0.3
   dio: ^4.0.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,6 +42,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.1.1
+  build_runner: ^2.1.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -63,6 +67,22 @@ flutter:
   assets:
     - asset/image/character/sample.png
     - asset/image/character/sample-icon.jpg
+    - asset/image/character/brutius-the-broken.png
+    - asset/image/character/calamis-earthshaker.png
+    - asset/image/character/sesharra.png
+    - asset/image/character/thralir-hillfeet.png
+    - asset/image/character/tlorra-the-blessed.png
+    - asset/image/character/vyliria-ellion.png
+    - asset/icon/stat/max-hp.png
+    - asset/icon/stat/cur-hp.png
+    - asset/icon/stat/attack.png
+    - asset/icon/stat/gather.png
+    - asset/icon/stat/heal.png
+    - asset/icon/stat/luck.png
+    - asset/icon/stat/player-move.png
+    - asset/icon/stat/range.png
+    - asset/icon/stat/scavenge.png
+    - asset/icon/stat/worker-move.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

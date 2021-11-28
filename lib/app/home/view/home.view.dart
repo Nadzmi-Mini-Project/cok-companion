@@ -1,11 +1,11 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/widget/character-summary.widget.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/provider/player/player.state.dart';
-import 'package:cokc/app/player/widget/player-detail.widget.dart';
 import 'package:cokc/app/player/widget/player-summary.widget.dart';
+import 'package:cokc/app/stat/widget/stat-form-list.widget.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +47,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ? _view(
                   playerState.playerList,
                   playerState.characterList,
+                  playerState.isAddPlayerEnabled,
                 )
               : const Center(
                   child: Text('No player added.'),
@@ -55,23 +56,27 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   Widget _view(
-    List<PlayerEntity> playerList,
-    List<CharacterEntity> characterList,
+    List<PlayerModel> playerList,
+    List<CharacterModel> characterList,
+    bool isAddPlayerEnabled,
   ) {
     return Column(
       children: [
+        // player list
         Expanded(
           child: RefreshIndicator(
             child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: playerList.length,
               itemBuilder: (context, index) => PlayerSummaryWidget(
-                playerEntity: playerList[index],
-                onTap: () {
+                player: playerList[index],
+                onTap: () async {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) =>
-                        PlayerDetailWidget(playerEntity: playerList[index]),
+                    isScrollControlled: true,
+                    builder: (context) => StatListFormWidget(
+                      playerId: playerList[index].id,
+                    ),
                   );
                 },
               ),
@@ -81,33 +86,38 @@ class _HomeViewState extends ConsumerState<HomeView> {
             },
           ),
         ),
+
+        // add player btn
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             child: const Text('Add Player'),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                // isScrollControlled: true,
-                builder: (context) => ListView.builder(
-                  itemCount: characterList.length,
-                  itemBuilder: (context, index) => CharacterSummaryWidget(
-                    character: characterList[index],
-                    onTap: () {
-                      ref.read(playerProvider.notifier).addPlayer(
-                            CreatePlayerModel(
-                              id: '1',
-                              characterId: characterList[index].id,
-                            ),
-                          );
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              );
-            },
+            onPressed: !isAddPlayerEnabled
+                ? null
+                : () {
+                    showModalBottomSheet(
+                      context: context,
+                      // isScrollControlled: true,
+                      builder: (context) => ListView.builder(
+                        itemCount: characterList.length,
+                        itemBuilder: (context, index) => CharacterSummaryWidget(
+                          character: characterList[index],
+                          onTap: () {
+                            ref.read(playerProvider.notifier).addPlayer(
+                                  CreatePlayerModel(
+                                    characterId: characterList[index].id,
+                                  ),
+                                );
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    );
+                  },
           ),
         ),
+
+        // reset session button
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
