@@ -16,49 +16,49 @@ class StatListWidget extends StatelessWidget {
       children: [
         // attack
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/attack.png', // TODO: use correct icon
           player.getAttack()!.value,
         ),
 
         // heal
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/heal.png', // TODO: use correct icon
           player.getHeal()!.value,
         ),
 
         // range
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/range.png', // TODO: use correct icon
           player.getRange()!.value,
         ),
 
         // player move
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/player-move.png', // TODO: use correct icon
           player.getPlayerMove()!.value,
         ),
 
         // luck
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/luck.png', // TODO: use correct icon
           player.getLuck()!.value,
         ),
 
         // worker move
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/worker-move.png', // TODO: use correct icon
           player.getWorkerMove()!.value,
         ),
 
         // gather
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/gather.png', // TODO: use correct icon
           player.getGather()!.value,
         ),
 
         // scavenge
         _statWidget(
-          'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+          'asset/icon/stat/scavenge.png', // TODO: use correct icon
           player.getScavenge()!.value,
         ),
       ],
