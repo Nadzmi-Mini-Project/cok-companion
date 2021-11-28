@@ -107,8 +107,45 @@ class PlayerHiveService extends PlayerBaseService {
         .firstWhere((element) => element.code == statCode.index);
     final statConfig = await configService.getStatConfigByCode(statCode);
 
-    curStat.point = statPoint;
-    curStat.value = statConfig.getProgression(statPoint)!.value;
+    if (curStat.code == StatCode.currentHp.index) {
+      final maxHpStat = player.playerStatList
+          .firstWhere((element) => element.code == StatCode.maximumHp.index);
+
+      curStat.point = (statPoint >= maxHpStat.point)
+          ? maxHpStat.point
+          : (statPoint <= 0)
+              ? 0
+              : statPoint;
+      curStat.value = (statPoint <= 0)
+          ? 0
+          : statConfig.getProgression(curStat.point)!.value;
+    } else if (curStat.code == StatCode.maximumHp.index) {
+      curStat.point = (statPoint >= statConfig.maximumPoint)
+          ? statConfig.maximumPoint
+          : (statPoint <= statConfig.minimumPoint)
+              ? statConfig.minimumPoint
+              : statPoint;
+      curStat.value = statConfig.getProgression(curStat.point)!.value;
+
+      final curHpStat = player.playerStatList
+          .firstWhere((element) => element.code == StatCode.currentHp.index);
+
+      if (curStat.point <= curHpStat.point) {
+        final curHpStatConfig =
+            await configService.getStatConfigByCode(StatCode.currentHp);
+
+        curHpStat.point = (curStat.point <= 1) ? 1 : curStat.point;
+        curHpStat.value = curHpStatConfig.getProgression(curStat.point)!.value;
+      }
+    } else {
+      curStat.point = (statPoint >= statConfig.maximumPoint)
+          ? statConfig.maximumPoint
+          : (statPoint <= statConfig.minimumPoint)
+              ? statConfig.minimumPoint
+              : statPoint;
+      curStat.value = statConfig.getProgression(curStat.point)!.value;
+    }
+
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
@@ -131,8 +168,12 @@ class PlayerHiveService extends PlayerBaseService {
         .firstWhere((element) => element.code == statCode.index);
     final statConfig = await configService.getStatConfigByCode(statCode);
 
-    curStat.point = statPoint;
-    curStat.value = statConfig.getProgression(statPoint)!.value;
+    curStat.point = (statPoint >= statConfig.maximumPoint)
+        ? statConfig.maximumPoint
+        : (statPoint <= statConfig.minimumPoint)
+            ? statConfig.minimumPoint
+            : statPoint;
+    curStat.value = statConfig.getProgression(curStat.point)!.value;
     await playerBox.put(playerKey, player);
 
     final updatedPlayer = playerBox.get(playerKey);
