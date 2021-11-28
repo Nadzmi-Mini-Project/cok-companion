@@ -7,7 +7,7 @@ part 'stat.box.g.dart';
 @HiveType(typeId: 2)
 class Stat extends HiveObject {
   @HiveField(0)
-  int code; // TODO: find a way to convert stat code enum to string for code
+  int code;
 
   @HiveField(1)
   int point;

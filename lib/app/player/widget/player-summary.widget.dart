@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class PlayerSummaryWidget extends StatelessWidget {
   final PlayerModel player;
-  VoidCallback? onTap;
+  final VoidCallback? onTap;
 
-  PlayerSummaryWidget({
+  const PlayerSummaryWidget({
     required this.player,
     this.onTap,
     Key? key,
