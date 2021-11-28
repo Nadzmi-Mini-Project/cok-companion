@@ -25,10 +25,18 @@ class CharacterSummaryWidget extends StatelessWidget {
                 fit: BoxFit.fitWidth,
               ),
             ),
-            Positioned.fill(
+            Container(
+              color: Colors.black54,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: Text(character.name),
+                child: Text(
+                  character.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],
