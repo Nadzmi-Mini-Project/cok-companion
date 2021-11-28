@@ -67,6 +67,22 @@ flutter:
   assets:
     - asset/image/character/sample.png
     - asset/image/character/sample-icon.jpg
+    - asset/image/character/brutius-the-broken.png
+    - asset/image/character/calamis-earthshaker.png
+    - asset/image/character/sesharra.png
+    - asset/image/character/thralir-hillfeet.png
+    - asset/image/character/tlorra-the-blessed.png
+    - asset/image/character/vyliria-ellion.png
+    - asset/icon/stat/max-hp.png
+    - asset/icon/stat/cur-hp.png
+    - asset/icon/stat/attack.png
+    - asset/icon/stat/gather.png
+    - asset/icon/stat/heal.png
+    - asset/icon/stat/luck.png
+    - asset/icon/stat/player-move.png
+    - asset/icon/stat/range.png
+    - asset/icon/stat/scavenge.png
+    - asset/icon/stat/worker-move.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -60,7 +60,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
             children: [
               // max hp
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/max-hp.png',
                 player.getMaximumHp()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.maximumHp),
@@ -70,7 +70,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // cur hp
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/cur-hp.png',
                 player.getCurrentHp()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.currentHp),
@@ -80,7 +80,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // attack
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/attack.png',
                 player.getAttack()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.attack),
@@ -90,7 +90,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // heal
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/heal.png',
                 player.getHeal()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.heal),
@@ -100,7 +100,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // range
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/range.png',
                 player.getRange()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.range),
@@ -110,7 +110,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // player move
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/player-move.png',
                 player.getPlayerMove()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.playerMove),
@@ -120,7 +120,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // luck
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/luck.png',
                 player.getLuck()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.luck),
@@ -130,7 +130,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // worker move
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/worker-move.png',
                 player.getWorkerMove()!,
                 statConfigList.firstWhere(
                     (element) => element.code == StatCode.workerMove),
@@ -140,7 +140,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // gather
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/gather.png',
                 player.getGather()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.gather),
@@ -150,7 +150,7 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
 
               // scavenge
               _statFormWidget(
-                'asset/image/character/sample-icon.jpg', // TODO: use correct icon
+                'asset/icon/stat/scavenge.png',
                 player.getScavenge()!,
                 statConfigList
                     .firstWhere((element) => element.code == StatCode.scavenge),
@@ -176,8 +176,8 @@ class _StatListFormWidgetState extends ConsumerState<StatListFormWidget> {
         Row(
           children: [
             SizedBox(
-              width: 100.0,
-              height: 100.0,
+              width: 50.0,
+              height: 50.0,
               child: Image.asset(
                 imagePath,
                 fit: BoxFit.fill,

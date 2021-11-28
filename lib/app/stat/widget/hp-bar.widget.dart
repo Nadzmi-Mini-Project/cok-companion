@@ -14,11 +14,12 @@ class HpBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          width: 50.0,
-          height: 50.0,
+        Container(
+          width: 30.0,
+          height: 30.0,
+          margin: const EdgeInsets.all(5),
           child: Image.asset(
-            'asset/image/character/sample-icon.jpg', // TODO: use real icon
+            'asset/icon/stat/cur-hp.png',
             fit: BoxFit.fill,
           ),
         ),
