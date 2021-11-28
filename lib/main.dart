@@ -40,17 +40,17 @@ void main() async {
       imagePath: 'asset/image/character/sesharra.png',
     ));
     await Hive.box<Character>(TableCollection.characters).add(Character(
-      id: '3',
+      id: '4',
       name: 'Thralir Hillfeet',
       imagePath: 'asset/image/character/thralir-hillfeet.png',
     ));
     await Hive.box<Character>(TableCollection.characters).add(Character(
-      id: '3',
+      id: '5',
       name: 'T\'lorra The Blessed',
       imagePath: 'asset/image/character/tlorra-the-blessed.png',
     ));
     await Hive.box<Character>(TableCollection.characters).add(Character(
-      id: '3',
+      id: '6',
       name: 'Viliria Ellion',
       imagePath: 'asset/image/character/vyliria-ellion.png',
     ));
