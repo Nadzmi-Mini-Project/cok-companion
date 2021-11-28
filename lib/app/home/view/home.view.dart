@@ -73,6 +73,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 onTap: () async {
                   showModalBottomSheet(
                     context: context,
+                    isScrollControlled: true,
                     builder: (context) => StatListFormWidget(
                       playerId: playerList[index].id,
                     ),

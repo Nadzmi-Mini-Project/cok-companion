@@ -18,17 +18,25 @@ class CharacterSummaryWidget extends StatelessWidget {
         onTap: onTap!,
         child: Stack(
           children: [
-            SizedBox(
-              width: double.infinity,
+            AspectRatio(
+              aspectRatio: 16 / 9,
               child: Image.asset(
                 character.imagePath,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fill,
               ),
             ),
-            Positioned.fill(
+            Container(
+              color: Colors.black54,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: Text(character.name),
+                child: Text(
+                  character.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],

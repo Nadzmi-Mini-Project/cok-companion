@@ -27,10 +27,18 @@ class PlayerSummaryWidget extends StatelessWidget {
                 player.character.imagePath,
                 player.character.name,
               ),
-              HpBarWidget(
-                  currentHp: player.getCurrentHp()!.value,
-                  maximumHp: player.getMaximumHp()!.value),
-              StatListWidget(player: player),
+              Container(
+                margin: const EdgeInsets.all(5),
+                child: Column(
+                  children: [
+                    HpBarWidget(
+                      currentHp: player.getCurrentHp()!.value,
+                      maximumHp: player.getMaximumHp()!.value,
+                    ),
+                    StatListWidget(player: player)
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -43,18 +51,25 @@ class PlayerSummaryWidget extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: 100.0,
+          AspectRatio(
+            aspectRatio: 16 / 9,
             child: Image.asset(
               imagePath,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
             ),
           ),
-          Positioned.fill(
+          Container(
+            color: Colors.black54,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Text(name),
+              child: Text(
+                name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],
