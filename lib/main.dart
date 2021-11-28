@@ -1,9 +1,15 @@
 import 'package:cokc/app/home/view/home.view.dart';
 import 'package:cokc/common/router/app-router.dart';
+import 'package:cokc/database/main.database.dart';
+import 'package:cokc/database/seed/character.seed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
+  await MainDatabase().init(seederList: [
+    CharacterSeed(),
+  ]);
+
   runApp(const ProviderScope(
     child: MyApp(),
   ));

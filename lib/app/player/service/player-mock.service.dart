@@ -1,66 +1,66 @@
-import 'package:cokc/app/character/entity/character.entity.dart';
-import 'package:cokc/app/player/entity/player.entity.dart';
+import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
+import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
-import 'package:cokc/app/stat/entity/stat.entity.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/stat/model/stat.model.dart';
 
 class PlayerMockService extends PlayerBaseService {
-  List<PlayerEntity> playerList = [];
+  List<PlayerModel> playerList = [];
 
   @override
-  Future<PlayerEntity> getPlayerById(String playerId) {
-    return Future.value(const PlayerEntity(
+  Future<PlayerModel> getPlayerById(String playerId) {
+    return Future.value(const PlayerModel(
       id: '1',
-      characterEntity: CharacterEntity(
+      character: CharacterModel(
         id: '1',
         name: 'Character 1',
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: [
-        StatEntity(code: StatCode.maximumHp, value: 4),
-        StatEntity(code: StatCode.currentHp, value: 4),
-        StatEntity(code: StatCode.attack, value: 1),
-        StatEntity(code: StatCode.heal, value: 1),
-        StatEntity(code: StatCode.range, value: 1),
-        StatEntity(code: StatCode.playerMove, value: 2),
-        StatEntity(code: StatCode.luck, value: 0),
+        StatModel(code: StatCode.maximumHp, point: 1, value: 4),
+        StatModel(code: StatCode.currentHp, point: 1, value: 4),
+        StatModel(code: StatCode.attack, point: 1, value: 1),
+        StatModel(code: StatCode.heal, point: 1, value: 1),
+        StatModel(code: StatCode.range, point: 1, value: 1),
+        StatModel(code: StatCode.playerMove, point: 1, value: 2),
+        StatModel(code: StatCode.luck, point: 1, value: 0),
       ],
       workerStat: [
-        StatEntity(code: StatCode.workerMove, value: 1),
-        StatEntity(code: StatCode.gather, value: 1),
-        StatEntity(code: StatCode.scavenge, value: 1),
+        StatModel(code: StatCode.workerMove, point: 1, value: 1),
+        StatModel(code: StatCode.gather, point: 1, value: 1),
+        StatModel(code: StatCode.scavenge, point: 1, value: 1),
       ],
     ));
   }
 
   @override
-  Future<List<PlayerEntity>> getPlayerList() {
+  Future<List<PlayerModel>> getPlayerList() {
     return Future.value(playerList);
   }
 
   @override
-  Future<PlayerEntity> createPlayer(CreatePlayerModel createPlayerModel) {
-    var newPlayer = PlayerEntity(
+  Future<PlayerModel> createPlayer(CreatePlayerModel createPlayerModel) {
+    var newPlayer = PlayerModel(
       id: '${playerList.length}',
-      characterEntity: const CharacterEntity(
+      character: const CharacterModel(
         id: '1',
         name: 'Character 1',
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: const [
-        StatEntity(code: StatCode.maximumHp, value: 4),
-        StatEntity(code: StatCode.currentHp, value: 4),
-        StatEntity(code: StatCode.attack, value: 2),
-        StatEntity(code: StatCode.heal, value: 1),
-        StatEntity(code: StatCode.range, value: 1),
-        StatEntity(code: StatCode.playerMove, value: 2),
-        StatEntity(code: StatCode.luck, value: 0),
+        StatModel(code: StatCode.maximumHp, point: 1, value: 4),
+        StatModel(code: StatCode.currentHp, point: 1, value: 4),
+        StatModel(code: StatCode.attack, point: 1, value: 2),
+        StatModel(code: StatCode.heal, point: 1, value: 1),
+        StatModel(code: StatCode.range, point: 1, value: 1),
+        StatModel(code: StatCode.playerMove, point: 1, value: 2),
+        StatModel(code: StatCode.luck, point: 1, value: 0),
       ],
       workerStat: const [
-        StatEntity(code: StatCode.workerMove, value: 1),
-        StatEntity(code: StatCode.gather, value: 1),
-        StatEntity(code: StatCode.scavenge, value: 1),
+        StatModel(code: StatCode.workerMove, point: 1, value: 1),
+        StatModel(code: StatCode.gather, point: 1, value: 1),
+        StatModel(code: StatCode.scavenge, point: 1, value: 1),
       ],
     );
 
@@ -70,27 +70,27 @@ class PlayerMockService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerEntity> updatePlayer(PlayerEntity playerEntity) {
-    var updatedPlayer = PlayerEntity(
-      id: playerEntity.id,
-      characterEntity: const CharacterEntity(
+  Future<PlayerModel> updatePlayer(PlayerModel player) {
+    var updatedPlayer = PlayerModel(
+      id: player.id,
+      character: const CharacterModel(
         id: '1 updated',
         name: 'Character 1 updated',
         imagePath: 'asset/image/character/sample.png',
       ),
       playerStat: const [
-        StatEntity(code: StatCode.maximumHp, value: 5),
-        StatEntity(code: StatCode.currentHp, value: 3),
-        StatEntity(code: StatCode.attack, value: 2),
-        StatEntity(code: StatCode.heal, value: 2),
-        StatEntity(code: StatCode.range, value: 2),
-        StatEntity(code: StatCode.playerMove, value: 3),
-        StatEntity(code: StatCode.luck, value: 1),
+        StatModel(code: StatCode.maximumHp, point: 1, value: 5),
+        StatModel(code: StatCode.currentHp, point: 1, value: 3),
+        StatModel(code: StatCode.attack, point: 1, value: 2),
+        StatModel(code: StatCode.heal, point: 1, value: 2),
+        StatModel(code: StatCode.range, point: 1, value: 2),
+        StatModel(code: StatCode.playerMove, point: 1, value: 3),
+        StatModel(code: StatCode.luck, point: 1, value: 1),
       ],
       workerStat: const [
-        StatEntity(code: StatCode.workerMove, value: 2),
-        StatEntity(code: StatCode.gather, value: 2),
-        StatEntity(code: StatCode.scavenge, value: 2),
+        StatModel(code: StatCode.workerMove, point: 1, value: 2),
+        StatModel(code: StatCode.gather, point: 1, value: 2),
+        StatModel(code: StatCode.scavenge, point: 1, value: 2),
       ],
     );
 
@@ -102,7 +102,7 @@ class PlayerMockService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerEntity> removePlayer(String playerId) {
+  Future<PlayerModel> removePlayer(String playerId) {
     var deletedPlayer = playerList[playerList.length - 1];
 
     playerList.removeLast();
@@ -113,5 +113,23 @@ class PlayerMockService extends PlayerBaseService {
   @override
   Future removeAllPlayer() async {
     playerList.clear();
+  }
+
+  @override
+  Future<PlayerModel> updatePlayerStat(
+    String playerId,
+    StatCode statCode,
+    int statPoint,
+  ) {
+    return getPlayerById(playerId);
+  }
+
+  @override
+  Future<PlayerModel> updateWorkerStat(
+    String playerId,
+    StatCode statCode,
+    int statPoint,
+  ) {
+    return getPlayerById(playerId);
   }
 }
