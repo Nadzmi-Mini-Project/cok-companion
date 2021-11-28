@@ -52,7 +52,7 @@ void main() async {
     await Hive.box<Character>(TableCollection.characters).add(Character(
       id: '3',
       name: 'Viliria Ellion',
-      imagePath: 'asset/image/character/viliria-ellion.png',
+      imagePath: 'asset/image/character/vyliria-ellion.png',
     ));
   }
 
