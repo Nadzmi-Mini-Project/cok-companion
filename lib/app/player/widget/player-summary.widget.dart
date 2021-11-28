@@ -27,10 +27,18 @@ class PlayerSummaryWidget extends StatelessWidget {
                 player.character.imagePath,
                 player.character.name,
               ),
-              HpBarWidget(
-                  currentHp: player.getCurrentHp()!.value,
-                  maximumHp: player.getMaximumHp()!.value),
-              StatListWidget(player: player),
+              Container(
+                margin: const EdgeInsets.all(5),
+                child: Column(
+                  children: [
+                    HpBarWidget(
+                      currentHp: player.getCurrentHp()!.value,
+                      maximumHp: player.getMaximumHp()!.value,
+                    ),
+                    StatListWidget(player: player)
+                  ],
+                ),
+              ),
             ],
           ),
         ),

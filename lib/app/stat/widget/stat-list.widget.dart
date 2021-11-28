@@ -13,52 +13,54 @@ class StatListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 10,
       children: [
         // attack
         _statWidget(
-          'asset/icon/stat/attack.png', // TODO: use correct icon
+          'asset/icon/stat/attack.png',
           player.getAttack()!.value,
         ),
 
         // heal
         _statWidget(
-          'asset/icon/stat/heal.png', // TODO: use correct icon
+          'asset/icon/stat/heal.png',
           player.getHeal()!.value,
         ),
 
         // range
         _statWidget(
-          'asset/icon/stat/range.png', // TODO: use correct icon
+          'asset/icon/stat/range.png',
           player.getRange()!.value,
         ),
 
         // player move
         _statWidget(
-          'asset/icon/stat/player-move.png', // TODO: use correct icon
+          'asset/icon/stat/player-move.png',
           player.getPlayerMove()!.value,
         ),
 
         // luck
         _statWidget(
-          'asset/icon/stat/luck.png', // TODO: use correct icon
+          'asset/icon/stat/luck.png',
           player.getLuck()!.value,
         ),
 
         // worker move
         _statWidget(
-          'asset/icon/stat/worker-move.png', // TODO: use correct icon
+          'asset/icon/stat/worker-move.png',
           player.getWorkerMove()!.value,
         ),
 
         // gather
         _statWidget(
-          'asset/icon/stat/gather.png', // TODO: use correct icon
+          'asset/icon/stat/gather.png',
           player.getGather()!.value,
         ),
 
         // scavenge
         _statWidget(
-          'asset/icon/stat/scavenge.png', // TODO: use correct icon
+          'asset/icon/stat/scavenge.png',
           player.getScavenge()!.value,
         ),
       ],
@@ -69,8 +71,8 @@ class StatListWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          width: 50.0,
-          height: 50.0,
+          width: 30.0,
+          height: 30.0,
           child: Image.asset(
             imagePath,
             fit: BoxFit.fill,
