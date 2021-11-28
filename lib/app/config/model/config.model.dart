@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-class CharacterEntity extends Equatable {
+class ConfigModel extends Equatable {
   final String id;
-  final String name;
-  final String imagePath;
+  final String code;
+  final String value;
 
-  const CharacterEntity({
+  const ConfigModel({
     required this.id,
-    required this.name,
-    required this.imagePath,
+    required this.code,
+    required this.value,
   });
 
   @override
   List<Object?> get props => [
         id,
-        name,
-        imagePath,
+        code,
+        value,
       ];
 
   @override

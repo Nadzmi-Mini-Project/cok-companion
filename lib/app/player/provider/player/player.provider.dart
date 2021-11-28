@@ -27,6 +27,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());
@@ -36,12 +37,15 @@ class PlayerProvider extends StateNotifier<PlayerState> {
   Future addPlayer(CreatePlayerModel model) async {
     try {
       state = PlayerLoadingState();
+
       await playerService.createPlayer(model);
       final playerList = await playerService.getPlayerList();
       final characterList = await characterService.getCharacterList();
+
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());
@@ -57,6 +61,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadedState(
         playerList: playerList,
         characterList: characterList,
+        isAddPlayerEnabled: (playerList.length < 4),
       );
     } catch (e) {
       state = PlayerErrorState(message: e.toString());
