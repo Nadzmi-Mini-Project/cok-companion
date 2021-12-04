@@ -12,7 +12,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 class PlayerHiveService extends PlayerBaseService {
   final Box<Session> sessionBox;
   final Box<Character> characterBox;
-  final ConfigBaseService configService; // TODO: remove this later
+  final ConfigBaseService
+      configService; // TODO: remove this later & use box instead
 
   PlayerHiveService({
     required this.sessionBox,
