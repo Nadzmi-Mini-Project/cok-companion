@@ -13,36 +13,31 @@ class ResourceSeed extends BaseSeed {
           id: '1',
           code: ResourceCode.wood.index,
           name: 'Wood',
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/stat/max-hp.png', // TODO: use correct image
         ),
         Resource(
           id: '2',
           code: ResourceCode.ore.index,
           name: 'Ore',
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/stat/cur-hp.png', // TODO: use correct image
         ),
         Resource(
           id: '3',
           code: ResourceCode.fish.index,
           name: 'Fish',
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/stat/attack.png', // TODO: use correct image
         ),
         Resource(
           id: '4',
           code: ResourceCode.linen.index,
           name: 'Linen',
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/stat/gather.png', // TODO: use correct image
         ),
         Resource(
           id: '5',
           code: ResourceCode.part.index,
           name: 'Item Part',
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/stat/heal.png', // TODO: use correct image
         ),
       ]);
     }
