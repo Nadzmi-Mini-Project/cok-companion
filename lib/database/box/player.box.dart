@@ -1,6 +1,7 @@
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
+import 'package:cokc/database/box/worker.box.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'player.box.g.dart';
@@ -19,11 +20,15 @@ class Player extends HiveObject {
   @HiveField(3)
   List<Stat> workerStatList;
 
+  @HiveField(4)
+  List<Worker> workerList;
+
   Player({
     required this.id,
     required this.character,
     required this.playerStatList,
     required this.workerStatList,
+    required this.workerList,
   });
 
   static PlayerModel toModel(Player entity) => PlayerModel(
@@ -31,6 +36,7 @@ class Player extends HiveObject {
         character: Character.toModel(entity.character),
         playerStat: entity.playerStatList.map((e) => Stat.toModel(e)).toList(),
         workerStat: entity.workerStatList.map((e) => Stat.toModel(e)).toList(),
+        workerList: entity.workerList.map((e) => Worker.toModel(e)).toList(),
       );
 
   static Player fromModel(PlayerModel model) => Player(
@@ -38,5 +44,6 @@ class Player extends HiveObject {
         character: Character.fromModel(model.character),
         playerStatList: model.playerStat.map((e) => Stat.fromModel(e)).toList(),
         workerStatList: model.workerStat.map((e) => Stat.fromModel(e)).toList(),
+        workerList: model.workerList.map((e) => Worker.fromModel(e)).toList(),
       );
 }

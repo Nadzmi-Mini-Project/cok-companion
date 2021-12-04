@@ -1,6 +1,7 @@
 import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/model/stat.model.dart';
+import 'package:cokc/app/worker/model/worker.model.dart';
 import 'package:equatable/equatable.dart';
 
 class PlayerModel extends Equatable {
@@ -8,12 +9,14 @@ class PlayerModel extends Equatable {
   final CharacterModel character;
   final List<StatModel> playerStat;
   final List<StatModel> workerStat;
+  final List<WorkerModel> workerList;
 
   const PlayerModel({
     required this.id,
     required this.character,
     required this.playerStat,
     required this.workerStat,
+    required this.workerList,
   });
 
   @override
