@@ -26,6 +26,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
   Future getPlayerList() async {
     try {
       state = PlayerLoadingState();
+
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
 
@@ -44,6 +45,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadingState();
 
       await playerService.create(model);
+
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
 
@@ -60,7 +62,9 @@ class PlayerProvider extends StateNotifier<PlayerState> {
   Future clearSession() async {
     try {
       state = PlayerLoadingState();
+
       await sessionService.resetSession();
+
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
 
