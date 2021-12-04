@@ -3,21 +3,25 @@ import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/worker/enum/worker-color.enum.dart';
+import 'package:cokc/app/worker/service/worker-base.service.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
 import 'package:cokc/database/box/session.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
+import 'package:cokc/database/box/worker.box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class PlayerHiveService extends PlayerBaseService {
   final Box<Session> sessionBox;
   final Box<Character> characterBox;
-  final ConfigBaseService
-      configService; // TODO: remove this later & use box instead
+  final WorkerBaseService workerService;
+  final ConfigBaseService configService;
 
   PlayerHiveService({
     required this.sessionBox,
     required this.characterBox,
+    required this.workerService,
     required this.configService,
   }) : super();
 
@@ -43,6 +47,10 @@ class PlayerHiveService extends PlayerBaseService {
     final curSession = sessionBox.get(0);
     final character = characterBox.values
         .firstWhere((element) => element.id == createPlayerModel.characterId);
+
+    // TODO: worker color must not be the same for every player
+    final workerList = await workerService.getByColor(WorkerColor.green);
+
     final newPlayer = Player(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       character: character,
@@ -60,6 +68,7 @@ class PlayerHiveService extends PlayerBaseService {
         Stat(code: StatCode.gather.index, point: 1, value: 1),
         Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
+      workerList: workerList.map((e) => Worker.fromModel(e)).toList(),
     );
 
     curSession!.playerList.add(newPlayer);
