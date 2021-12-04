@@ -79,6 +79,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
       children: player.workerList
           .map((e) => _workerFormWidget(
                 _workerExpanded[player.workerList.indexOf(e)],
+                player,
                 e,
                 resourceList,
               ))
@@ -206,6 +207,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
 
   ExpansionPanel _workerFormWidget(
     bool isExpanded,
+    PlayerModel player,
     WorkerModel worker,
     List<ResourceModel> resourceList,
   ) {
@@ -234,8 +236,9 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                           ),
                         ),
                         onTap: () {
-                          // TODO: remove resource from worker
-                          print('removed resource');
+                          ref
+                              .read(playerDetailProvider.notifier)
+                              .removeResource(player.id, worker.id, e);
                         },
                       ))
                   .toList(),
@@ -255,8 +258,9 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                     ),
                   ),
                   onTap: () {
-                    // TODO: add resource from worker
-                    print('added resource');
+                    ref
+                        .read(playerDetailProvider.notifier)
+                        .addResource(player.id, worker.id, e);
                   },
                 ))
             .toList(),
