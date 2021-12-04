@@ -1,6 +1,7 @@
 import 'package:cokc/database/base.database.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
+import 'package:cokc/database/box/resource.box.dart';
 import 'package:cokc/database/box/session.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
 import 'package:cokc/database/box/worker.box.dart';
@@ -18,6 +19,7 @@ class MainDatabase extends BaseDatabase {
     Hive.registerAdapter(StatAdapter());
     Hive.registerAdapter(SessionAdapter());
     Hive.registerAdapter(WorkerAdapter());
+    Hive.registerAdapter(ResourceAdapter());
 
     if (!Hive.isBoxOpen(TableCollection.characters)) {
       await Hive.openBox<Character>(TableCollection.characters);
@@ -30,6 +32,9 @@ class MainDatabase extends BaseDatabase {
     }
     if (!Hive.isBoxOpen(TableCollection.workers)) {
       await Hive.openBox<Worker>(TableCollection.workers);
+    }
+    if (!Hive.isBoxOpen(TableCollection.resources)) {
+      await Hive.openBox<Resource>(TableCollection.resources);
     }
 
     if (seederList.isNotEmpty) {

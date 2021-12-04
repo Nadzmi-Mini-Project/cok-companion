@@ -2,6 +2,7 @@ import 'package:cokc/app/home/view/home.view.dart';
 import 'package:cokc/common/router/app-router.dart';
 import 'package:cokc/database/main.database.dart';
 import 'package:cokc/database/seed/character.seed.dart';
+import 'package:cokc/database/seed/resource.seed.dart';
 import 'package:cokc/database/seed/session.seed.dart';
 import 'package:cokc/database/seed/worker.seed.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ void main() async {
     CharacterSeed(),
     SessionSeed(),
     WorkerSeed(),
+    ResourceSeed(),
   ]);
 
   runApp(const ProviderScope(
