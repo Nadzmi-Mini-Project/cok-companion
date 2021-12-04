@@ -45,7 +45,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             )
           : (playerState is PlayerLoadedState)
               ? _view(
-                  playerState.playerList,
+                  playerState.session.playerList,
                   playerState.characterList,
                   playerState.isAddPlayerEnabled,
                 )

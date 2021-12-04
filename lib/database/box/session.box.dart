@@ -1,5 +1,3 @@
-import 'package:cokc/app/character/model/character.model.dart';
-import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/session/model/session.model.dart';
 import 'package:cokc/database/box/player.box.dart';
 import 'package:hive_flutter/adapters.dart';

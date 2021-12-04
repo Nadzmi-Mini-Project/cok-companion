@@ -5,41 +5,44 @@ import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
+import 'package:cokc/database/box/session.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class PlayerHiveService extends PlayerBaseService {
+  final Box<Session> sessionBox;
   final Box<Character> characterBox;
-  final Box<Player> playerBox;
-  final ConfigBaseService configService;
+  final ConfigBaseService configService; // TODO: remove this later
 
   PlayerHiveService({
+    required this.sessionBox,
     required this.characterBox,
-    required this.playerBox,
     required this.configService,
   }) : super();
 
   @override
-  Future<PlayerModel> getPlayerById(String playerId) async {
+  Future<List<PlayerModel>> getAll() async {
+    final curSession = sessionBox.get(0);
+
+    return Future.value(
+        curSession!.playerList.map((e) => Player.toModel(e)).toList());
+  }
+
+  @override
+  Future<PlayerModel> getById(String playerId) async {
+    final curSession = sessionBox.get(0);
     final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
+        curSession!.playerList.firstWhere((element) => element.id == playerId);
 
     return Future.value(Player.toModel(player));
   }
 
   @override
-  Future<List<PlayerModel>> getPlayerList() {
-    return Future.value(
-      playerBox.values.map((e) => Player.toModel(e)).toList(),
-    );
-  }
-
-  @override
   Future<PlayerModel> createPlayer(CreatePlayerModel createPlayerModel) async {
+    final curSession = sessionBox.get(0);
     final character = characterBox.values
         .firstWhere((element) => element.id == createPlayerModel.characterId);
-
-    final newPlayerId = await playerBox.add(Player(
+    final newPlayer = Player(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       character: character,
       playerStatList: [
@@ -56,42 +59,11 @@ class PlayerHiveService extends PlayerBaseService {
         Stat(code: StatCode.gather.index, point: 1, value: 1),
         Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
-    ));
-    final newPlayer = playerBox.get(newPlayerId);
-
-    return Future.value(
-      (newPlayer != null) ? Player.toModel(newPlayer) : null,
     );
-  }
 
-  @override
-  Future<PlayerModel> updatePlayer(PlayerModel player) async {
-    final currentPlayer =
-        playerBox.values.firstWhere((element) => element.id == player.id);
-    final playerKey = currentPlayer.key;
+    curSession!.playerList.add(newPlayer);
 
-    await playerBox.put(playerKey, Player.fromModel(player));
-
-    final updatedPlayer = playerBox.get(playerKey);
-
-    return Future.value(
-      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
-    );
-  }
-
-  @override
-  Future<PlayerModel> removePlayer(String playerId) async {
-    final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
-
-    await playerBox.delete(player.key);
-
-    return Future.value(Player.toModel(player));
-  }
-
-  @override
-  Future removeAllPlayer() async {
-    await playerBox.clear();
+    return Future.value(Player.toModel(newPlayer));
   }
 
   @override
@@ -100,12 +72,12 @@ class PlayerHiveService extends PlayerBaseService {
     StatCode statCode,
     int statPoint,
   ) async {
+    final curSession = sessionBox.get(0);
+    final statConfig = await configService.getStatConfigByCode(statCode);
     final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
-    final playerKey = player.key;
+        curSession!.playerList.firstWhere((element) => element.id == playerId);
     final curStat = player.playerStatList
         .firstWhere((element) => element.code == statCode.index);
-    final statConfig = await configService.getStatConfigByCode(statCode);
 
     if (curStat.code == StatCode.currentHp.index) {
       final maxHpStat = player.playerStatList
@@ -144,13 +116,7 @@ class PlayerHiveService extends PlayerBaseService {
       curStat.value = statConfig.getProgression(curStat.point)!.value;
     }
 
-    await playerBox.put(playerKey, player);
-
-    final updatedPlayer = playerBox.get(playerKey);
-
-    return Future.value(
-      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
-    );
+    return Future.value(Player.toModel(player));
   }
 
   @override
@@ -159,12 +125,12 @@ class PlayerHiveService extends PlayerBaseService {
     StatCode statCode,
     int statPoint,
   ) async {
+    final curSession = sessionBox.get(0);
+    final statConfig = await configService.getStatConfigByCode(statCode);
     final player =
-        playerBox.values.firstWhere((element) => element.id == playerId);
-    final playerKey = player.key;
+        curSession!.playerList.firstWhere((element) => element.id == playerId);
     final curStat = player.workerStatList
         .firstWhere((element) => element.code == statCode.index);
-    final statConfig = await configService.getStatConfigByCode(statCode);
 
     curStat.point = (statPoint >= statConfig.maximumPoint)
         ? statConfig.maximumPoint
@@ -172,12 +138,7 @@ class PlayerHiveService extends PlayerBaseService {
             ? statConfig.minimumPoint
             : statPoint;
     curStat.value = statConfig.getProgression(curStat.point)!.value;
-    await playerBox.put(playerKey, player);
 
-    final updatedPlayer = playerBox.get(playerKey);
-
-    return Future.value(
-      (updatedPlayer != null) ? Player.toModel(updatedPlayer) : null,
-    );
+    return Future.value(Player.toModel(player));
   }
 }
