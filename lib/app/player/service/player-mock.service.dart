@@ -40,7 +40,7 @@ class PlayerMockService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerModel> createPlayer(CreatePlayerModel createPlayerModel) {
+  Future<PlayerModel> create(CreatePlayerModel createPlayerModel) {
     var newPlayer = PlayerModel(
       id: '${playerList.length}',
       character: const CharacterModel(

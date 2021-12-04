@@ -17,7 +17,7 @@ final playerServiceProvider =
 abstract class PlayerBaseService {
   Future<List<PlayerModel>> getAll();
   Future<PlayerModel> getById(String playerId);
-  Future<PlayerModel> createPlayer(CreatePlayerModel createPlayerModel);
+  Future<PlayerModel> create(CreatePlayerModel createPlayerModel);
   Future<PlayerModel> updatePlayerStat(
     String playerId,
     StatCode statCode,

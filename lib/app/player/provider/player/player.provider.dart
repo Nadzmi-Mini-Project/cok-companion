@@ -43,7 +43,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
     try {
       state = PlayerLoadingState();
 
-      await playerService.createPlayer(model);
+      await playerService.create(model);
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
 

@@ -38,7 +38,7 @@ class PlayerHiveService extends PlayerBaseService {
   }
 
   @override
-  Future<PlayerModel> createPlayer(CreatePlayerModel createPlayerModel) async {
+  Future<PlayerModel> create(CreatePlayerModel createPlayerModel) async {
     final curSession = sessionBox.get(0);
     final character = characterBox.values
         .firstWhere((element) => element.id == createPlayerModel.characterId);
