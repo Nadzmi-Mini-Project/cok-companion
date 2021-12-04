@@ -5,7 +5,7 @@ import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/provider/player/player.state.dart';
 import 'package:cokc/app/player/widget/player-summary.widget.dart';
-import 'package:cokc/app/stat/widget/stat-form-list.widget.dart';
+import 'package:cokc/app/player/widget/player-detail.widget.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    builder: (context) => StatListFormWidget(
+                    builder: (context) => PlayerDetailWidget(
                       playerId: playerList[index].id,
                     ),
                   );
