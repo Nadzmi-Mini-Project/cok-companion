@@ -3,6 +3,7 @@ import 'package:cokc/database/box/character.box.dart';
 import 'package:cokc/database/box/player.box.dart';
 import 'package:cokc/database/box/session.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
+import 'package:cokc/database/box/worker.box.dart';
 import 'package:cokc/database/constant/table-collection.constant.dart';
 import 'package:cokc/database/seed/base.seed.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,6 +17,7 @@ class MainDatabase extends BaseDatabase {
     Hive.registerAdapter(PlayerAdapter());
     Hive.registerAdapter(StatAdapter());
     Hive.registerAdapter(SessionAdapter());
+    Hive.registerAdapter(WorkerAdapter());
 
     if (!Hive.isBoxOpen(TableCollection.characters)) {
       await Hive.openBox<Character>(TableCollection.characters);
@@ -25,6 +27,9 @@ class MainDatabase extends BaseDatabase {
     }
     if (!Hive.isBoxOpen(TableCollection.sessions)) {
       await Hive.openBox<Session>(TableCollection.sessions);
+    }
+    if (!Hive.isBoxOpen(TableCollection.workers)) {
+      await Hive.openBox<Worker>(TableCollection.workers);
     }
 
     if (seederList.isNotEmpty) {
