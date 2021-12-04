@@ -27,7 +27,7 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
     try {
       state = LoadingPlayerDetailState();
 
-      final selectedPlayer = await playerService.getPlayerById(playerId);
+      final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
@@ -55,7 +55,7 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
 
       await playerProvider.getPlayerList();
 
-      final selectedPlayer = await playerService.getPlayerById(playerId);
+      final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
