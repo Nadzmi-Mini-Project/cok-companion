@@ -1,44 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'player.box.dart';
+part of 'resource.box.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PlayerAdapter extends TypeAdapter<Player> {
+class ResourceAdapter extends TypeAdapter<Resource> {
   @override
-  final int typeId = 1;
+  final int typeId = 5;
 
   @override
-  Player read(BinaryReader reader) {
+  Resource read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Player(
+    return Resource(
       id: fields[0] as String,
-      character: fields[1] as Character,
-      playerStatList: (fields[2] as List).cast<Stat>(),
-      workerStatList: (fields[3] as List).cast<Stat>(),
-      workerList: (fields[4] as List).cast<Worker>(),
+      code: fields[1] as int,
+      name: fields[2] as String,
+      imagePath: fields[3] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Player obj) {
+  void write(BinaryWriter writer, Resource obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.character)
+      ..write(obj.code)
       ..writeByte(2)
-      ..write(obj.playerStatList)
+      ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.workerStatList)
-      ..writeByte(4)
-      ..write(obj.workerList);
+      ..write(obj.imagePath);
   }
 
   @override
@@ -47,7 +44,7 @@ class PlayerAdapter extends TypeAdapter<Player> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PlayerAdapter &&
+      other is ResourceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

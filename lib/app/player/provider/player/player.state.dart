@@ -1,5 +1,5 @@
 import 'package:cokc/app/character/model/character.model.dart';
-import 'package:cokc/app/player/model/player.model.dart';
+import 'package:cokc/app/session/model/session.model.dart';
 
 abstract class PlayerState {}
 
@@ -8,12 +8,12 @@ class PlayerInitialState extends PlayerState {}
 class PlayerLoadingState extends PlayerState {}
 
 class PlayerLoadedState extends PlayerState {
-  final List<PlayerModel> playerList;
+  final SessionModel session;
   final List<CharacterModel> characterList;
   final bool isAddPlayerEnabled;
 
   PlayerLoadedState({
-    required this.playerList,
+    required this.session,
     required this.characterList,
     required this.isAddPlayerEnabled,
   });

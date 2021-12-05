@@ -1,44 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'player.box.dart';
+part of 'session.box.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PlayerAdapter extends TypeAdapter<Player> {
+class SessionAdapter extends TypeAdapter<Session> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  Player read(BinaryReader reader) {
+  Session read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Player(
+    return Session(
       id: fields[0] as String,
-      character: fields[1] as Character,
-      playerStatList: (fields[2] as List).cast<Stat>(),
-      workerStatList: (fields[3] as List).cast<Stat>(),
-      workerList: (fields[4] as List).cast<Worker>(),
+      playerList: (fields[1] as List).cast<Player>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Player obj) {
+  void write(BinaryWriter writer, Session obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.character)
-      ..writeByte(2)
-      ..write(obj.playerStatList)
-      ..writeByte(3)
-      ..write(obj.workerStatList)
-      ..writeByte(4)
-      ..write(obj.workerList);
+      ..write(obj.playerList);
   }
 
   @override
@@ -47,7 +38,7 @@ class PlayerAdapter extends TypeAdapter<Player> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PlayerAdapter &&
+      other is SessionAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
