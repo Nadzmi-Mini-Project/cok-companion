@@ -91,6 +91,11 @@ flutter:
     - asset/icon/worker/purple-2.png
     - asset/icon/worker/yellow-1.png
     - asset/icon/worker/yellow-2.png
+    - asset/icon/resource/fish.png
+    - asset/icon/resource/item-part.png
+    - asset/icon/resource/linen.png
+    - asset/icon/resource/ore.png
+    - asset/icon/resource/wood.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
