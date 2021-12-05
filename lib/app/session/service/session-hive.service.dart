@@ -10,9 +10,11 @@ class SessionHiveService extends SessionBaseService {
 
   @override
   Future<SessionModel> getCurrentSession() async {
-    final curSession = sessionBox.getAt(0);
+    if (sessionBox.isEmpty) {
+      await sessionBox.add(Session(id: '1', playerList: []));
+    }
 
-    return Session.toModel(curSession!);
+    return Session.toModel(sessionBox.getAt(0)!);
   }
 
   @override

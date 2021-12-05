@@ -52,6 +52,8 @@ class ResourceHiveService extends ResourceBaseService {
       worker.resourceList.add(resource);
     }
 
+    await session.save();
+
     return Future.value(Resource.toModel(resource));
   }
 
@@ -60,7 +62,7 @@ class ResourceHiveService extends ResourceBaseService {
     String playerId,
     String workerId,
     String resourceId,
-  ) {
+  ) async {
     final session = sessionBox.get(0);
     final player =
         session!.playerList.firstWhere((element) => element.id == playerId);
@@ -70,6 +72,7 @@ class ResourceHiveService extends ResourceBaseService {
         worker.resourceList.firstWhere((element) => element.id == resourceId);
 
     worker.resourceList.remove(resource);
+    await session.save();
 
     return Future.value(Resource.toModel(resource));
   }
