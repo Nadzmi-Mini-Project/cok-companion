@@ -83,6 +83,14 @@ flutter:
     - asset/icon/stat/range.png
     - asset/icon/stat/scavenge.png
     - asset/icon/stat/worker-move.png
+    - asset/icon/worker/green-1.png
+    - asset/icon/worker/green-2.png
+    - asset/icon/worker/grey-1.png
+    - asset/icon/worker/grey-2.png
+    - asset/icon/worker/purple-1.png
+    - asset/icon/worker/purple-2.png
+    - asset/icon/worker/yellow-1.png
+    - asset/icon/worker/yellow-2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
