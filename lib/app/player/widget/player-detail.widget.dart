@@ -224,25 +224,31 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                 fit: BoxFit.fill,
               ),
             ),
-            Wrap(
-              children: worker.resourceList
-                  .map((e) => InkWell(
-                        child: SizedBox(
-                          width: 30.0,
-                          height: 30.0,
-                          child: Image.asset(
-                            e.imagePath,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        onTap: () {
-                          ref
-                              .read(playerDetailProvider.notifier)
-                              .removeResource(player.id, worker.id, e);
-                        },
-                      ))
-                  .toList(),
-            ),
+            (worker.resourceList.isEmpty)
+                ? const Text('Resource empty')
+                : Container(
+                    color: Colors.black26,
+                    padding: const EdgeInsets.all(5),
+                    child: Wrap(
+                      children: worker.resourceList
+                          .map((e) => InkWell(
+                                child: SizedBox(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: Image.asset(
+                                    e.imagePath,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                onTap: () {
+                                  ref
+                                      .read(playerDetailProvider.notifier)
+                                      .removeResource(player.id, worker.id, e);
+                                },
+                              ))
+                          .toList(),
+                    ),
+                  ),
           ],
         ),
       ),

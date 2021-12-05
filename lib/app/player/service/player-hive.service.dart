@@ -48,9 +48,9 @@ class PlayerHiveService extends PlayerBaseService {
     final character = characterBox.values
         .firstWhere((element) => element.id == createPlayerModel.characterId);
 
-    // TODO: worker color must not be the same for every player
-    final workerList = await workerService.getByColor(WorkerColor.green);
-
+    final workerColor = WorkerColor.values[
+        curSession!.playerList.length.clamp(0, WorkerColor.values.length)];
+    final newWorkerList = await workerService.getByColor(workerColor);
     final newPlayer = Player(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       character: character,
@@ -68,10 +68,10 @@ class PlayerHiveService extends PlayerBaseService {
         Stat(code: StatCode.gather.index, point: 1, value: 1),
         Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
-      workerList: workerList.map((e) => Worker.fromModel(e)).toList(),
+      workerList: newWorkerList.map((e) => Worker.fromModel(e)).toList(),
     );
 
-    curSession!.playerList.add(newPlayer);
+    curSession.playerList.add(newPlayer);
     await curSession.save();
 
     return Future.value(Player.toModel(newPlayer));
