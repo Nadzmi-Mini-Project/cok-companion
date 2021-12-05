@@ -29,13 +29,13 @@ class WorkerSeed extends BaseSeed {
           id: '3',
           code: WorkerCode.purple1.index,
           color: WorkerColor.purple.index,
-          imagePath: 'asset/icon/worker/grey-1.png',
+          imagePath: 'asset/icon/worker/purple-1.png',
         ),
         Worker(
           id: '4',
           code: WorkerCode.purple2.index,
           color: WorkerColor.purple.index,
-          imagePath: 'asset/icon/worker/grey-2.png',
+          imagePath: 'asset/icon/worker/purple-2.png',
         ),
 
         // grey worker
@@ -43,13 +43,13 @@ class WorkerSeed extends BaseSeed {
           id: '5',
           code: WorkerCode.grey1.index,
           color: WorkerColor.grey.index,
-          imagePath: 'asset/icon/worker/purple-1.png',
+          imagePath: 'asset/icon/worker/grey-1.png',
         ),
         Worker(
           id: '6',
           code: WorkerCode.grey2.index,
           color: WorkerColor.grey.index,
-          imagePath: 'asset/icon/worker/purple-2.png',
+          imagePath: 'asset/icon/worker/grey-2.png',
         ),
 
         // yellow worker
