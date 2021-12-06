@@ -40,11 +40,11 @@ class ResourceHiveService extends ResourceBaseService {
     String workerId,
     ResourceModel model,
   ) async {
-    final session = sessionBox.get(0);
-    final player =
-        session!.playerList.firstWhere((element) => element.id == playerId);
-    final worker =
-        player.workerList.firstWhere((element) => element.id == workerId);
+    final curSession = sessionBox.get(0);
+    final worker = curSession!.playerList
+        .firstWhere((element) => element.id == playerId)
+        .workerList
+        .firstWhere((element) => element.id == workerId);
     final resource =
         resourceBox.values.firstWhere((element) => element.id == model.id);
 
@@ -52,7 +52,7 @@ class ResourceHiveService extends ResourceBaseService {
       worker.resourceList.add(resource);
     }
 
-    await session.save();
+    await curSession.save();
 
     return Future.value(Resource.toModel(resource));
   }
@@ -63,16 +63,16 @@ class ResourceHiveService extends ResourceBaseService {
     String workerId,
     String resourceId,
   ) async {
-    final session = sessionBox.get(0);
-    final player =
-        session!.playerList.firstWhere((element) => element.id == playerId);
-    final worker =
-        player.workerList.firstWhere((element) => element.id == workerId);
+    final curSession = sessionBox.get(0);
+    final worker = curSession!.playerList
+        .firstWhere((element) => element.id == playerId)
+        .workerList
+        .firstWhere((element) => element.id == workerId);
     final resource =
         worker.resourceList.firstWhere((element) => element.id == resourceId);
 
     worker.resourceList.remove(resource);
-    await session.save();
+    await curSession.save();
 
     return Future.value(Resource.toModel(resource));
   }
