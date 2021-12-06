@@ -21,13 +21,14 @@ class WorkerAdapter extends TypeAdapter<Worker> {
       code: fields[1] as int,
       color: fields[2] as int,
       imagePath: fields[3] as String,
+      resourceList: (fields[4] as List).cast<Resource>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Worker obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class WorkerAdapter extends TypeAdapter<Worker> {
       ..writeByte(2)
       ..write(obj.color)
       ..writeByte(3)
-      ..write(obj.imagePath);
+      ..write(obj.imagePath)
+      ..writeByte(4)
+      ..write(obj.resourceList);
   }
 
   @override

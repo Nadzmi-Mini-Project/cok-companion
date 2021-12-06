@@ -15,15 +15,15 @@ class WorkerSeed extends BaseSeed {
           id: '1',
           code: WorkerCode.green1.index,
           color: WorkerColor.green.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/green-1.png',
+          resourceList: [],
         ),
         Worker(
           id: '2',
           code: WorkerCode.green2.index,
           color: WorkerColor.green.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/green-2.png',
+          resourceList: [],
         ),
 
         // purple worker
@@ -31,15 +31,15 @@ class WorkerSeed extends BaseSeed {
           id: '3',
           code: WorkerCode.purple1.index,
           color: WorkerColor.purple.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/purple-1.png',
+          resourceList: [],
         ),
         Worker(
           id: '4',
           code: WorkerCode.purple2.index,
           color: WorkerColor.purple.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/purple-2.png',
+          resourceList: [],
         ),
 
         // grey worker
@@ -47,15 +47,15 @@ class WorkerSeed extends BaseSeed {
           id: '5',
           code: WorkerCode.grey1.index,
           color: WorkerColor.grey.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/grey-1.png',
+          resourceList: [],
         ),
         Worker(
           id: '6',
           code: WorkerCode.grey2.index,
           color: WorkerColor.grey.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/grey-2.png',
+          resourceList: [],
         ),
 
         // yellow worker
@@ -63,15 +63,15 @@ class WorkerSeed extends BaseSeed {
           id: '7',
           code: WorkerCode.yellow1.index,
           color: WorkerColor.yellow.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/yellow-1.png',
+          resourceList: [],
         ),
         Worker(
           id: '8',
           code: WorkerCode.yellow2.index,
           color: WorkerColor.yellow.index,
-          imagePath:
-              'asset/image/character/sample.png', // TODO: use correct image
+          imagePath: 'asset/icon/worker/yellow-2.png',
+          resourceList: [],
         ),
       ]);
     }

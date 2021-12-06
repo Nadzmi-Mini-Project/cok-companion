@@ -65,6 +65,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - env.json
     - asset/image/character/sample.png
     - asset/image/character/sample-icon.jpg
     - asset/image/character/brutius-the-broken.png
@@ -83,6 +84,19 @@ flutter:
     - asset/icon/stat/range.png
     - asset/icon/stat/scavenge.png
     - asset/icon/stat/worker-move.png
+    - asset/icon/worker/green-1.png
+    - asset/icon/worker/green-2.png
+    - asset/icon/worker/grey-1.png
+    - asset/icon/worker/grey-2.png
+    - asset/icon/worker/purple-1.png
+    - asset/icon/worker/purple-2.png
+    - asset/icon/worker/yellow-1.png
+    - asset/icon/worker/yellow-2.png
+    - asset/icon/resource/fish.png
+    - asset/icon/resource/item-part.png
+    - asset/icon/resource/linen.png
+    - asset/icon/resource/ore.png
+    - asset/icon/resource/wood.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

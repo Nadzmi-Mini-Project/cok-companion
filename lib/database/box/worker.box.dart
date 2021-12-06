@@ -28,7 +28,7 @@ class Worker extends HiveObject {
     required this.code,
     required this.color,
     required this.imagePath,
-    this.resourceList = const [],
+    required this.resourceList,
   });
 
   static WorkerModel toModel(Worker entity) => WorkerModel(
