@@ -5,18 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "dev.debug",
+            "name": "debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "args": [],
         },
         {
-            "name": "dev.profile",
+            "name": "profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
             "args": [],
+        },
+        {
+            "name": "release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [],
+        },
+        {
+            "name": "test",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
         }
     ]
 }
