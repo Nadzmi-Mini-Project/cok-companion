@@ -1,6 +1,8 @@
 import 'package:cokc/app/old-barn/model/old-barn.model.dart';
 import 'package:cokc/app/old-barn/provider/old-barn.provider.dart';
 import 'package:cokc/app/old-barn/provider/old-barn.state.dart';
+import 'package:cokc/app/resource/enum/resource-code.enum.dart';
+import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +15,8 @@ class OldBarnWidget extends ConsumerStatefulWidget {
 }
 
 class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
+  bool _editmode = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,7 +34,7 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
     });
 
     return (state is OldBarnLoadedState)
-        ? _view(state.oldBarn)
+        ? _view(state.oldBarn, state.resourceList)
         : (state is OldBarnLoadingState)
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -40,7 +44,7 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
               );
   }
 
-  Widget _view(OldBarnModel model) {
+  Widget _view(OldBarnModel model, List<ResourceModel> resourceList) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
@@ -55,24 +59,78 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
           ),
         ),
       ),
-      child: Column(
+      child: Row(
         children: [
-          const Text(
-            'OLD BARN',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+          IconButton(
+            icon: Icon(
+              !_editmode ? Icons.edit : Icons.cancel,
               color: Colors.white,
             ),
+            onPressed: () => setState(() => _editmode = !_editmode),
           ),
-          Wrap(
-            spacing: 5,
+          Column(
             children: [
-              _resourceCounter('asset/icon/resource/wood.png', model.wood),
-              _resourceCounter('asset/icon/resource/ore.png', model.ore),
-              _resourceCounter('asset/icon/resource/fish.png', model.fish),
-              _resourceCounter('asset/icon/resource/linen.png', model.linen),
-              _resourceCounter(
-                  'asset/icon/resource/item-part.png', model.itemPart),
+              const Text(
+                'OLD BARN',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              Wrap(
+                spacing: 10,
+                children: [
+                  _resourceCounter(
+                    ResourceCode.wood,
+                    'asset/icon/resource/wood.png',
+                    model.wood,
+                  ),
+                  _resourceCounter(
+                    ResourceCode.ore,
+                    'asset/icon/resource/ore.png',
+                    model.ore,
+                  ),
+                  _resourceCounter(
+                    ResourceCode.fish,
+                    'asset/icon/resource/fish.png',
+                    model.fish,
+                  ),
+                  _resourceCounter(
+                    ResourceCode.linen,
+                    'asset/icon/resource/linen.png',
+                    model.linen,
+                  ),
+                  _resourceCounter(
+                    ResourceCode.part,
+                    'asset/icon/resource/item-part.png',
+                    model.itemPart,
+                  ),
+                ],
+              ),
+              !_editmode
+                  ? const SizedBox.shrink()
+                  : Wrap(
+                      spacing: 5,
+                      children: resourceList
+                          .map((e) => InkWell(
+                                child: SizedBox(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: Image.asset(
+                                    e.imagePath,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                onTap: () {
+                                  if (_editmode) {
+                                    ref
+                                        .read(oldBarnProvider.notifier)
+                                        .addResource(e.code);
+                                  }
+                                },
+                              ))
+                          .toList(),
+                    ),
             ],
           ),
         ],
@@ -80,15 +138,26 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
     );
   }
 
-  Widget _resourceCounter(String imagePath, int value) {
-    return Column(
-      children: [
-        Image.asset(imagePath),
-        Text(
-          value.toString(),
-          style: const TextStyle(color: Colors.white),
-        ),
-      ],
+  Widget _resourceCounter(ResourceCode code, String imagePath, int value) {
+    return InkWell(
+      onTap: () {
+        if (_editmode) {
+          ref.read(oldBarnProvider.notifier).removeResource(code);
+        }
+      },
+      child: Column(
+        children: [
+          SizedBox(
+            width: 50,
+            height: 50,
+            child: Image.asset(imagePath),
+          ),
+          Text(
+            value.toString(),
+            style: const TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
     );
   }
 }
