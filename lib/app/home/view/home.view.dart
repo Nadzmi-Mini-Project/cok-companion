@@ -1,5 +1,6 @@
 import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/widget/character-summary.widget.dart';
+import 'package:cokc/app/old-barn/widget/old-barn.widget.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
@@ -62,6 +63,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
   ) {
     return Column(
       children: [
+        // old barn
+        const OldBarnWidget(),
+
         // player list
         Expanded(
           child: RefreshIndicator(

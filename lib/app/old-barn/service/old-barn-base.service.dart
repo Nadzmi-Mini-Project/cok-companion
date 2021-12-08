@@ -4,7 +4,7 @@ import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/database/provider/session-box.provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final sessionServiceProvider =
+final oldBarnServiceProvider =
     Provider<OldBarnHiveService>((ref) => OldBarnHiveService(
           sessionBox: ref.read(sessionBoxProvider),
         ));
