@@ -7,13 +7,16 @@ import 'package:cokc/app/resource/service/resource-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final playerDetailProvider =
-    StateNotifierProvider.autoDispose((ref) => PlayerDetailProvider(
-          playerService: ref.read(playerServiceProvider),
-          configService: ref.read(configServiceProvider),
-          resourceService: ref.read(resourceServiceProvider),
-          playerProvider: ref.read(playerProvider.notifier),
-        ));
+final playerDetailProvider = StateNotifierProvider.autoDispose((ref) {
+  ref.maintainState = true;
+
+  return PlayerDetailProvider(
+    playerService: ref.read(playerServiceProvider),
+    configService: ref.read(configServiceProvider),
+    resourceService: ref.read(resourceServiceProvider),
+    playerProvider: ref.read(playerProvider.notifier),
+  );
+});
 
 class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
   PlayerBaseService playerService;
