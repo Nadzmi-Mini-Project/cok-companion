@@ -109,27 +109,32 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
               ),
               !_editmode
                   ? const SizedBox.shrink()
-                  : Wrap(
-                      spacing: 5,
-                      children: resourceList
-                          .map((e) => InkWell(
-                                child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: Image.asset(
-                                    e.imagePath,
-                                    fit: BoxFit.fill,
+                  : Container(
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
+                      color: Colors.white24,
+                      child: Wrap(
+                        spacing: 5,
+                        children: resourceList
+                            .map((e) => InkWell(
+                                  child: SizedBox(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: Image.asset(
+                                      e.imagePath,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                                onTap: () {
-                                  if (_editmode) {
-                                    ref
-                                        .read(oldBarnProvider.notifier)
-                                        .addResource(e.code);
-                                  }
-                                },
-                              ))
-                          .toList(),
+                                  onTap: () {
+                                    if (_editmode) {
+                                      ref
+                                          .read(oldBarnProvider.notifier)
+                                          .addResource(e.code);
+                                    }
+                                  },
+                                ))
+                            .toList(),
+                      ),
                     ),
             ],
           ),
