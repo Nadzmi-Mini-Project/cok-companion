@@ -51,7 +51,7 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
       decoration: BoxDecoration(
         color: Colors.black,
         image: DecorationImage(
-          image: const AssetImage('asset/icon/resource/wood.png'),
+          image: const AssetImage('asset/image/old-barn/old-barn.png'),
           fit: BoxFit.fitWidth,
           colorFilter: ColorFilter.mode(
             Colors.black.withOpacity(0.3),
