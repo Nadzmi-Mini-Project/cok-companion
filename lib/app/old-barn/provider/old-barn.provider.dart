@@ -6,11 +6,12 @@ import 'package:cokc/app/worker/model/worker.model.dart';
 import 'package:cokc/app/worker/service/worker-base.service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final oldBarnProvider = StateNotifierProvider((ref) => OldBarnProvider(
-      oldBarnService: ref.read(oldBarnServiceProvider),
-      workerService: ref.read(workerServiceProvider),
-      playerDetailProvider: ref.read(playerDetailProvider.notifier),
-    ));
+final oldBarnProvider =
+    StateNotifierProvider.autoDispose((ref) => OldBarnProvider(
+          oldBarnService: ref.read(oldBarnServiceProvider),
+          workerService: ref.read(workerServiceProvider),
+          playerDetailProvider: ref.read(playerDetailProvider.notifier),
+        ));
 
 class OldBarnProvider extends StateNotifier<OldBarnState> {
   final OldBarnBaseService oldBarnService;
@@ -43,8 +44,7 @@ class OldBarnProvider extends StateNotifier<OldBarnState> {
         await oldBarnService.addResource(resource, 1);
       }
       await workerService.clearResource(playerId, worker.id);
-      await playerDetailProvider.getPlayer(
-          playerId); // TODO: fix issue where player detail provider has been disposed
+      await playerDetailProvider.getPlayer(playerId);
 
       final updatedOldBarn = await oldBarnService.get();
 
