@@ -1,4 +1,5 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
+import 'package:cokc/app/old-barn/provider/old-barn.provider.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.provider.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
@@ -226,39 +227,57 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     return ExpansionPanel(
       isExpanded: isExpanded,
       headerBuilder: (context, isExpanded) => ListTile(
-        title: Row(
+        title: Column(
           children: [
-            SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: Image.asset(
-                worker.imagePath,
-                fit: BoxFit.fill,
-              ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: Image.asset(
+                    worker.imagePath,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                (worker.resourceList.isEmpty)
+                    ? const Text('Resource empty')
+                    : Container(
+                        color: Colors.black26,
+                        padding: const EdgeInsets.all(5),
+                        child: Wrap(
+                          children: worker.resourceList
+                              .map((e) => InkWell(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: Image.asset(
+                                        e.imagePath,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      ref
+                                          .read(playerDetailProvider.notifier)
+                                          .removeResource(
+                                              player.id, worker.id, e);
+                                    },
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+              ],
             ),
             (worker.resourceList.isEmpty)
-                ? const Text('Resource empty')
-                : Container(
-                    color: Colors.black26,
-                    padding: const EdgeInsets.all(5),
-                    child: Wrap(
-                      children: worker.resourceList
-                          .map((e) => InkWell(
-                                child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: Image.asset(
-                                    e.imagePath,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                onTap: () {
-                                  ref
-                                      .read(playerDetailProvider.notifier)
-                                      .removeResource(player.id, worker.id, e);
-                                },
-                              ))
-                          .toList(),
+                ? const SizedBox.shrink()
+                : SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: const Text('Transfer'),
+                      onPressed: () {
+                        ref
+                            .read(oldBarnProvider.notifier)
+                            .transferResource(player.id, worker);
+                      },
                     ),
                   ),
           ],
