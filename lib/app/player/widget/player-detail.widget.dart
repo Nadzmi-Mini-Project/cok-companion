@@ -267,17 +267,19 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                       ),
               ],
             ),
-            (worker.resourceList.isEmpty)
+            !isExpanded
                 ? const SizedBox.shrink()
                 : SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       child: const Text('Transfer'),
-                      onPressed: () {
-                        ref
-                            .read(oldBarnProvider.notifier)
-                            .transferResource(player.id, worker);
-                      },
+                      onPressed: (worker.resourceList.isEmpty)
+                          ? null
+                          : () {
+                              ref
+                                  .read(oldBarnProvider.notifier)
+                                  .transferResource(player.id, worker);
+                            },
                     ),
                   ),
           ],
