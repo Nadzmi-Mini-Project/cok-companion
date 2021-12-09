@@ -11,4 +11,5 @@ final sessionServiceProvider =
 abstract class SessionBaseService {
   Future resetSession();
   Future<SessionModel> getCurrentSession();
+  Future<SessionModel> saveSession();
 }

@@ -43,4 +43,13 @@ class SessionHiveService extends SessionBaseService {
       ),
     ));
   }
+
+  @override
+  Future<SessionModel> saveSession() async {
+    final curSession = sessionBox.get(0);
+
+    await curSession!.save();
+
+    return Future.value(Session.toModel(curSession));
+  }
 }

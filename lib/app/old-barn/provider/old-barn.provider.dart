@@ -4,12 +4,14 @@ import 'package:cokc/app/player/provider/player-detail/player-detail.provider.da
 import 'package:cokc/app/resource/enum/resource-code.enum.dart';
 import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/app/resource/service/resource-base.service.dart';
+import 'package:cokc/app/session/service/session-base.service.dart';
 import 'package:cokc/app/worker/model/worker.model.dart';
 import 'package:cokc/app/worker/service/worker-base.service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final oldBarnProvider =
     StateNotifierProvider.autoDispose((ref) => OldBarnProvider(
+          sessionService: ref.read(sessionServiceProvider),
           oldBarnService: ref.read(oldBarnServiceProvider),
           resourceService: ref.read(resourceServiceProvider),
           workerService: ref.read(workerServiceProvider),
@@ -17,12 +19,14 @@ final oldBarnProvider =
         ));
 
 class OldBarnProvider extends StateNotifier<OldBarnState> {
+  final SessionBaseService sessionService;
   final OldBarnBaseService oldBarnService;
   final ResourceBaseService resourceService;
   final WorkerBaseService workerService;
   final PlayerDetailProvider playerDetailProvider;
 
   OldBarnProvider({
+    required this.sessionService,
     required this.oldBarnService,
     required this.resourceService,
     required this.workerService,
@@ -92,6 +96,24 @@ class OldBarnProvider extends StateNotifier<OldBarnState> {
 
       final resource = await resourceService.getByCode(code);
       await oldBarnService.removeResource(resource, 1);
+
+      final oldBarn = await oldBarnService.get();
+      final resourcelist = await resourceService.getAll();
+
+      state = OldBarnLoadedState(
+        oldBarn: oldBarn,
+        resourceList: resourcelist,
+      );
+    } catch (e) {
+      state = OldBarnErrorState(message: e.toString());
+    }
+  }
+
+  Future saveOldBarn() async {
+    try {
+      state = OldBarnLoadingState();
+
+      await sessionService.saveSession();
 
       final oldBarn = await oldBarnService.get();
       final resourcelist = await resourceService.getAll();

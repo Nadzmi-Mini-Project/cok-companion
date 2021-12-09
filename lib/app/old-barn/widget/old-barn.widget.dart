@@ -66,7 +66,13 @@ class _OldBarnWidgetState extends ConsumerState<OldBarnWidget> {
               !_editmode ? Icons.edit : Icons.cancel,
               color: Colors.white,
             ),
-            onPressed: () => setState(() => _editmode = !_editmode),
+            onPressed: () => setState(() {
+              _editmode = !_editmode;
+
+              if (!_editmode) {
+                ref.read(oldBarnProvider.notifier).saveOldBarn();
+              }
+            }),
           ),
           Column(
             children: [
