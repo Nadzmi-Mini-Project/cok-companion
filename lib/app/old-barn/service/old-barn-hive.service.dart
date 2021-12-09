@@ -23,7 +23,6 @@ class OldBarnHiveService extends OldBarnBaseService {
     final curSession = sessionBox.get(0);
 
     curSession!.oldBarn = OldBarn.fromModel(model);
-    await curSession.save();
 
     return Future.value(OldBarn.toModel(curSession.oldBarn));
   }
@@ -49,8 +48,6 @@ class OldBarnHiveService extends OldBarnBaseService {
         curSession!.oldBarn.itemPart += value;
         break;
     }
-
-    await curSession.save();
 
     return Future.value(OldBarn.toModel(curSession.oldBarn));
   }
@@ -87,8 +84,6 @@ class OldBarnHiveService extends OldBarnBaseService {
                 : curSession.oldBarn.itemPart - value;
         break;
     }
-
-    await curSession.save();
 
     return Future.value(OldBarn.toModel(curSession.oldBarn));
   }

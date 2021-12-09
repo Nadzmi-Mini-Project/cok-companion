@@ -67,6 +67,18 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
         Expanded(
           child: _statView(player, statConfigList),
         ),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            child: const Text('Save'),
+            onPressed: () {
+              ref
+                  .read(playerDetailProvider.notifier)
+                  .savePlayerDetail(player.id);
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ],
     );
   }

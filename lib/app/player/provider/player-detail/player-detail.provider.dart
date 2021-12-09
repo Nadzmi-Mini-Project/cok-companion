@@ -4,11 +4,13 @@ import 'package:cokc/app/player/provider/player/player.provider.dart';
 import 'package:cokc/app/player/service/player-base.service.dart';
 import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/app/resource/service/resource-base.service.dart';
+import 'package:cokc/app/session/service/session-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final playerDetailProvider =
     StateNotifierProvider.autoDispose((ref) => PlayerDetailProvider(
+          sessionService: ref.read(sessionServiceProvider),
           playerService: ref.read(playerServiceProvider),
           configService: ref.read(configServiceProvider),
           resourceService: ref.read(resourceServiceProvider),
@@ -16,12 +18,14 @@ final playerDetailProvider =
         ));
 
 class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
+  SessionBaseService sessionService;
   PlayerBaseService playerService;
   ConfigBaseService configService;
   ResourceBaseService resourceService;
   PlayerProvider playerProvider;
 
   PlayerDetailProvider({
+    required this.sessionService,
     required this.playerService,
     required this.configService,
     required this.resourceService,
@@ -59,8 +63,6 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       } else {
         await playerService.updateWorkerStat(playerId, statCode, statPoint);
       }
-
-      await playerProvider.getPlayerList();
 
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
@@ -112,6 +114,27 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      state = LoadedPlayerDetailState(
+        player: selectedPlayer,
+        statConfigList: statConfigList,
+        resourceList: resourceList,
+      );
+    } catch (e) {
+      state = ErrorPlayerDetailState(message: e.toString());
+    }
+  }
+
+  Future savePlayerDetail(String playerId) async {
+    try {
+      state = LoadingPlayerDetailState();
+
+      await sessionService.saveSession();
+      await playerProvider.getPlayerList();
+
+      final selectedPlayer = await playerService.getById(playerId);
+      final statConfigList = await configService.getStatConfigList();
+      final resourceList = await resourceService.getAll();
+
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
