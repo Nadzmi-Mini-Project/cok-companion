@@ -104,6 +104,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     showModalBottomSheet(
                       context: context,
                       // isScrollControlled: true,
+                      backgroundColor: Colors.white,
                       builder: (context) => ListView.builder(
                         itemCount: characterList.length,
                         itemBuilder: (context, index) => CharacterSummaryWidget(
