@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
                     ? Colors.green
                     : Colors.blue,
       ),
+      debugShowCheckedModeBanner: (Env.getEnvironment() != Environment.prod),
       onGenerateRoute: AppRouter.generateRoute,
       home: const HomeView(),
     );
