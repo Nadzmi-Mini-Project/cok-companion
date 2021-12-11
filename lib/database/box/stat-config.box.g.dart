@@ -1,38 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'session.box.dart';
+part of 'stat-config.box.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SessionAdapter extends TypeAdapter<Session> {
+class StatConfigAdapter extends TypeAdapter<StatConfig> {
   @override
-  final int typeId = 3;
+  final int typeId = 8;
 
   @override
-  Session read(BinaryReader reader) {
+  StatConfig read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Session(
-      id: fields[0] as String,
-      playerList: (fields[1] as List).cast<Player>(),
-      oldBarn: fields[2] as OldBarn,
+    return StatConfig(
+      code: fields[0] as int,
+      minimumPoint: fields[1] as int,
+      maximumPoint: fields[2] as int,
+      progressionConfigList: (fields[3] as List).cast<StatProgressionConfig>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Session obj) {
+  void write(BinaryWriter writer, StatConfig obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.id)
+      ..write(obj.code)
       ..writeByte(1)
-      ..write(obj.playerList)
+      ..write(obj.minimumPoint)
       ..writeByte(2)
-      ..write(obj.oldBarn);
+      ..write(obj.maximumPoint)
+      ..writeByte(3)
+      ..write(obj.progressionConfigList);
   }
 
   @override
@@ -41,7 +44,7 @@ class SessionAdapter extends TypeAdapter<Session> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SessionAdapter &&
+      other is StatConfigAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

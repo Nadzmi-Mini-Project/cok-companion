@@ -5,6 +5,7 @@ import 'package:cokc/common/router/app-router.dart';
 import 'package:cokc/database/main.database.dart';
 import 'package:cokc/database/seed/character.seed.dart';
 import 'package:cokc/database/seed/resource.seed.dart';
+import 'package:cokc/database/seed/stat-config.seed.dart';
 import 'package:cokc/database/seed/worker.seed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +19,7 @@ void main() async {
     CharacterSeed(),
     WorkerSeed(),
     ResourceSeed(),
+    StatConfigSeed(),
   ]);
 
   runApp(const ProviderScope(
@@ -43,7 +45,11 @@ class MyApp extends StatelessWidget {
                 : (Env.getEnvironment() == Environment.prod)
                     ? Colors.green
                     : Colors.blue,
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       ),
+      debugShowCheckedModeBanner: (Env.getEnvironment() != Environment.prod),
       onGenerateRoute: AppRouter.generateRoute,
       home: const HomeView(),
     );
