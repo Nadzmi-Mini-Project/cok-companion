@@ -40,19 +40,21 @@ class _HomeViewState extends ConsumerState<HomeView> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: (playerState is PlayerLoadingState)
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : (playerState is PlayerLoadedState)
-              ? _view(
-                  playerState.session.playerList,
-                  playerState.characterList,
-                  playerState.isAddPlayerEnabled,
-                )
-              : const Center(
-                  child: Text('No player added.'),
-                ),
+      body: SafeArea(
+        child: (playerState is PlayerLoadingState)
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : (playerState is PlayerLoadedState)
+                ? _view(
+                    playerState.session.playerList,
+                    playerState.characterList,
+                    playerState.isAddPlayerEnabled,
+                  )
+                : const Center(
+                    child: Text('No player added.'),
+                  ),
+      ),
     );
   }
 
