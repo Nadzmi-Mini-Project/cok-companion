@@ -1,4 +1,5 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
+import 'package:cokc/app/old-barn/provider/old-barn.provider.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.provider.dart';
 import 'package:cokc/app/player/provider/player-detail/player-detail.state.dart';
@@ -44,15 +45,24 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
       }
     });
 
-    return (playerDetailState is LoadingPlayerDetailState)
-        ? const Center(child: CircularProgressIndicator())
-        : (playerDetailState is LoadedPlayerDetailState)
-            ? _view(
-                playerDetailState.player,
-                playerDetailState.statConfigList,
-                playerDetailState.resourceList,
-              )
-            : const Center(child: Text('No player data available.'));
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.only(
+            top: MediaQueryData.fromWindow(WidgetsBinding.instance!.window)
+                .padding
+                .top),
+        color: Colors.white,
+        child: (playerDetailState is LoadingPlayerDetailState)
+            ? const Center(child: CircularProgressIndicator())
+            : (playerDetailState is LoadedPlayerDetailState)
+                ? _view(
+                    playerDetailState.player,
+                    playerDetailState.statConfigList,
+                    playerDetailState.resourceList,
+                  )
+                : const Center(child: Text('No player data available.')),
+      ),
+    );
   }
 
   Widget _view(
@@ -66,6 +76,18 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
         _workerView(player, resourceList),
         Expanded(
           child: _statView(player, statConfigList),
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            child: const Text('Save'),
+            onPressed: () {
+              ref
+                  .read(playerDetailProvider.notifier)
+                  .savePlayerDetail(player.id);
+              Navigator.pop(context);
+            },
+          ),
         ),
       ],
     );
@@ -214,39 +236,59 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     return ExpansionPanel(
       isExpanded: isExpanded,
       headerBuilder: (context, isExpanded) => ListTile(
-        title: Row(
+        title: Column(
           children: [
-            SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: Image.asset(
-                worker.imagePath,
-                fit: BoxFit.fill,
-              ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: Image.asset(
+                    worker.imagePath,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                (worker.resourceList.isEmpty)
+                    ? const Text('Resource empty')
+                    : Container(
+                        color: Colors.black26,
+                        padding: const EdgeInsets.all(5),
+                        child: Wrap(
+                          children: worker.resourceList
+                              .map((e) => InkWell(
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      child: Image.asset(
+                                        e.imagePath,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      ref
+                                          .read(playerDetailProvider.notifier)
+                                          .removeResource(
+                                              player.id, worker.id, e);
+                                    },
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+              ],
             ),
-            (worker.resourceList.isEmpty)
-                ? const Text('Resource empty')
-                : Container(
-                    color: Colors.black26,
-                    padding: const EdgeInsets.all(5),
-                    child: Wrap(
-                      children: worker.resourceList
-                          .map((e) => InkWell(
-                                child: SizedBox(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  child: Image.asset(
-                                    e.imagePath,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                onTap: () {
-                                  ref
-                                      .read(playerDetailProvider.notifier)
-                                      .removeResource(player.id, worker.id, e);
-                                },
-                              ))
-                          .toList(),
+            !isExpanded
+                ? const SizedBox.shrink()
+                : SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: const Text('Transfer'),
+                      onPressed: (worker.resourceList.isEmpty)
+                          ? null
+                          : () {
+                              ref
+                                  .read(oldBarnProvider.notifier)
+                                  .transferResource(player.id, worker);
+                            },
                     ),
                   ),
           ],

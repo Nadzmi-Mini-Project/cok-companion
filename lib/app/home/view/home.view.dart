@@ -1,5 +1,6 @@
 import 'package:cokc/app/character/model/character.model.dart';
 import 'package:cokc/app/character/widget/character-summary.widget.dart';
+import 'package:cokc/app/old-barn/widget/old-barn.widget.dart';
 import 'package:cokc/app/player/model/create-player.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/player/provider/player/player.provider.dart';
@@ -39,19 +40,21 @@ class _HomeViewState extends ConsumerState<HomeView> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: (playerState is PlayerLoadingState)
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : (playerState is PlayerLoadedState)
-              ? _view(
-                  playerState.session.playerList,
-                  playerState.characterList,
-                  playerState.isAddPlayerEnabled,
-                )
-              : const Center(
-                  child: Text('No player added.'),
-                ),
+      body: SafeArea(
+        child: (playerState is PlayerLoadingState)
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : (playerState is PlayerLoadedState)
+                ? _view(
+                    playerState.session.playerList,
+                    playerState.characterList,
+                    playerState.isAddPlayerEnabled,
+                  )
+                : const Center(
+                    child: Text('No player added.'),
+                  ),
+      ),
     );
   }
 
@@ -62,6 +65,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
   ) {
     return Column(
       children: [
+        // old barn
+        const OldBarnWidget(),
+
         // player list
         Expanded(
           child: RefreshIndicator(
@@ -98,6 +104,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     showModalBottomSheet(
                       context: context,
                       // isScrollControlled: true,
+                      backgroundColor: Colors.white,
                       builder: (context) => ListView.builder(
                         itemCount: characterList.length,
                         itemBuilder: (context, index) => CharacterSummaryWidget(

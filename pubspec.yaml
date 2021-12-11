@@ -74,6 +74,7 @@ flutter:
     - asset/image/character/thralir-hillfeet.png
     - asset/image/character/tlorra-the-blessed.png
     - asset/image/character/vyliria-ellion.png
+    - asset/image/old-barn/old-barn.png
     - asset/icon/stat/max-hp.png
     - asset/icon/stat/cur-hp.png
     - asset/icon/stat/attack.png

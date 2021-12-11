@@ -72,7 +72,6 @@ class PlayerHiveService extends PlayerBaseService {
     );
 
     curSession.playerList.add(newPlayer);
-    await curSession.save();
 
     return Future.value(Player.toModel(newPlayer));
   }
@@ -127,8 +126,6 @@ class PlayerHiveService extends PlayerBaseService {
       curStat.value = statConfig.getProgression(curStat.point)!.value;
     }
 
-    await curSession.save();
-
     return Future.value(Player.toModel(player));
   }
 
@@ -151,8 +148,6 @@ class PlayerHiveService extends PlayerBaseService {
             ? statConfig.minimumPoint
             : statPoint;
     curStat.value = statConfig.getProgression(curStat.point)!.value;
-
-    await curSession.save();
 
     return Future.value(Player.toModel(player));
   }

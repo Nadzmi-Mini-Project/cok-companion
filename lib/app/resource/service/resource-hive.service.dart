@@ -52,8 +52,6 @@ class ResourceHiveService extends ResourceBaseService {
       worker.resourceList.add(resource);
     }
 
-    await curSession.save();
-
     return Future.value(Resource.toModel(resource));
   }
 
@@ -72,7 +70,6 @@ class ResourceHiveService extends ResourceBaseService {
         worker.resourceList.firstWhere((element) => element.id == resourceId);
 
     worker.resourceList.remove(resource);
-    await curSession.save();
 
     return Future.value(Resource.toModel(resource));
   }

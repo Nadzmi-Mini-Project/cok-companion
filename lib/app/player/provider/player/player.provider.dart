@@ -45,6 +45,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadingState();
 
       await playerService.create(model);
+      await sessionService.saveSession();
 
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
@@ -64,6 +65,7 @@ class PlayerProvider extends StateNotifier<PlayerState> {
       state = PlayerLoadingState();
 
       await sessionService.resetSession();
+      await sessionService.saveSession();
 
       final characterList = await characterService.getCharacterList();
       final curSession = await sessionService.getCurrentSession();
