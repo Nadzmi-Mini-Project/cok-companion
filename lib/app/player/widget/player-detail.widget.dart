@@ -45,15 +45,24 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
       }
     });
 
-    return (playerDetailState is LoadingPlayerDetailState)
-        ? const Center(child: CircularProgressIndicator())
-        : (playerDetailState is LoadedPlayerDetailState)
-            ? _view(
-                playerDetailState.player,
-                playerDetailState.statConfigList,
-                playerDetailState.resourceList,
-              )
-            : const Center(child: Text('No player data available.'));
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.only(
+            top: MediaQueryData.fromWindow(WidgetsBinding.instance!.window)
+                .padding
+                .top),
+        color: Colors.white,
+        child: (playerDetailState is LoadingPlayerDetailState)
+            ? const Center(child: CircularProgressIndicator())
+            : (playerDetailState is LoadedPlayerDetailState)
+                ? _view(
+                    playerDetailState.player,
+                    playerDetailState.statConfigList,
+                    playerDetailState.resourceList,
+                  )
+                : const Center(child: Text('No player data available.')),
+      ),
+    );
   }
 
   Widget _view(

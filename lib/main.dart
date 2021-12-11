@@ -45,6 +45,9 @@ class MyApp extends StatelessWidget {
                 : (Env.getEnvironment() == Environment.prod)
                     ? Colors.green
                     : Colors.blue,
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       ),
       debugShowCheckedModeBanner: (Env.getEnvironment() != Environment.prod),
       onGenerateRoute: AppRouter.generateRoute,
