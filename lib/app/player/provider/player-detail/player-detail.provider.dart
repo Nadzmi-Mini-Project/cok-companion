@@ -147,4 +147,18 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       state = ErrorPlayerDetailState(message: e.toString());
     }
   }
+
+  Future removePlayer(String playerId) async {
+    try {
+      state = LoadingPlayerDetailState();
+
+      await playerService.removePlayerById(playerId);
+      await sessionService.saveSession();
+      await playerProvider.getPlayerList();
+
+      state = InitialPlayerDetailState();
+    } catch (e) {
+      state = ErrorPlayerDetailState(message: e.toString());
+    }
+  }
 }
