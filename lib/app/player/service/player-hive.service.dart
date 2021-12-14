@@ -151,4 +151,11 @@ class PlayerHiveService extends PlayerBaseService {
 
     return Future.value(Player.toModel(player));
   }
+
+  @override
+  Future removePlayerById(String playerId) async {
+    final curSession = sessionBox.get(0);
+
+    curSession!.playerList.removeWhere((element) => element.id == playerId);
+  }
 }

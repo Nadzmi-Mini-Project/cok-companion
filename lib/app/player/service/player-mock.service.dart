@@ -88,4 +88,9 @@ class PlayerMockService extends PlayerBaseService {
   ) {
     return getById(playerId);
   }
+
+  @override
+  Future removePlayerById(String playerId) {
+    return getById(playerId);
+  }
 }

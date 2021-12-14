@@ -77,16 +77,56 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
         Expanded(
           child: _statView(player, statConfigList),
         ),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            child: const Text('Save'),
-            onPressed: () {
-              ref
-                  .read(playerDetailProvider.notifier)
-                  .savePlayerDetail(player.id);
-              Navigator.pop(context);
-            },
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  child: const Text('Save'),
+                  onPressed: () {
+                    ref
+                        .read(playerDetailProvider.notifier)
+                        .savePlayerDetail(player.id);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  child: const Text('Remove Player'),
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Remove Player'),
+                      content:
+                          const Text('Are you sure to remove this player?'),
+                      actions: [
+                        TextButton(
+                          child: const Text(
+                            'Confirm',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          onPressed: () async {
+                            await ref
+                                .read(playerDetailProvider.notifier)
+                                .removePlayer(player.id);
+                            Navigator.popUntil(
+                                context, ModalRoute.withName('/'));
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

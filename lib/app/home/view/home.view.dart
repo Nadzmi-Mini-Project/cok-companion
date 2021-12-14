@@ -93,47 +93,55 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ),
         ),
 
-        // add player btn
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            child: const Text('Add Player'),
-            onPressed: !isAddPlayerEnabled
-                ? null
-                : () {
-                    showModalBottomSheet(
-                      context: context,
-                      // isScrollControlled: true,
-                      backgroundColor: Colors.white,
-                      builder: (context) => ListView.builder(
-                        itemCount: characterList.length,
-                        itemBuilder: (context, index) => CharacterSummaryWidget(
-                          character: characterList[index],
-                          onTap: () {
-                            ref.read(playerProvider.notifier).addPlayer(
-                                  CreatePlayerModel(
-                                    characterId: characterList[index].id,
-                                  ),
-                                );
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-          ),
-        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              // add player btn
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  child: const Text('Add Player'),
+                  onPressed: !isAddPlayerEnabled
+                      ? null
+                      : () {
+                          showModalBottomSheet(
+                            context: context,
+                            // isScrollControlled: true,
+                            backgroundColor: Colors.white,
+                            builder: (context) => ListView.builder(
+                              itemCount: characterList.length,
+                              itemBuilder: (context, index) =>
+                                  CharacterSummaryWidget(
+                                character: characterList[index],
+                                onTap: () {
+                                  ref.read(playerProvider.notifier).addPlayer(
+                                        CreatePlayerModel(
+                                          characterId: characterList[index].id,
+                                        ),
+                                      );
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                ),
+              ),
 
-        // reset session button
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            child: const Text('Reset Session'),
-            onPressed: () {
-              ref.read(playerProvider.notifier).clearSession();
-            },
+              // reset session button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  child: const Text('Reset Session'),
+                  onPressed: () {
+                    ref.read(playerProvider.notifier).clearSession();
+                  },
+                ),
+              ),
+            ],
           ),
-        ),
+        )
       ],
     );
   }

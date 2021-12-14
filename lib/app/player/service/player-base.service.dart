@@ -30,4 +30,5 @@ abstract class PlayerBaseService {
     StatCode statCode,
     int statPoint,
   );
+  Future removePlayerById(String playerId);
 }
