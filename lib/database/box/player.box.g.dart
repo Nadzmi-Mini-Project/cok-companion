@@ -22,13 +22,14 @@ class PlayerAdapter extends TypeAdapter<Player> {
       playerStatList: (fields[2] as List).cast<Stat>(),
       workerStatList: (fields[3] as List).cast<Stat>(),
       workerList: (fields[4] as List).cast<Worker>(),
+      statusImpairmentList: (fields[5] as List).cast<StatusImpairment>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Player obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class PlayerAdapter extends TypeAdapter<Player> {
       ..writeByte(3)
       ..write(obj.workerStatList)
       ..writeByte(4)
-      ..write(obj.workerList);
+      ..write(obj.workerList)
+      ..writeByte(5)
+      ..write(obj.statusImpairmentList);
   }
 
   @override

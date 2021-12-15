@@ -69,6 +69,7 @@ class PlayerHiveService extends PlayerBaseService {
         Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
       workerList: newWorkerList.map((e) => Worker.fromModel(e)).toList(),
+      statusImpairmentList: const [],
     );
 
     curSession.playerList.add(newPlayer);
