@@ -6,6 +6,7 @@ import 'package:cokc/database/main.database.dart';
 import 'package:cokc/database/seed/character.seed.dart';
 import 'package:cokc/database/seed/resource.seed.dart';
 import 'package:cokc/database/seed/stat-config.seed.dart';
+import 'package:cokc/database/seed/status-impairment.seed.dart';
 import 'package:cokc/database/seed/worker.seed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,7 @@ void main() async {
     WorkerSeed(),
     ResourceSeed(),
     StatConfigSeed(),
+    StatusImpairmentSeed(),
   ]);
 
   runApp(const ProviderScope(

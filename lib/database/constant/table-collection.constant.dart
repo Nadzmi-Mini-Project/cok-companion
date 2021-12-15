@@ -4,4 +4,5 @@ class TableCollection {
   static String workers = 'workers';
   static String resources = 'resources';
   static String statConfig = 'stat-config';
+  static String statusImpairment = 'status-impairment';
 }
