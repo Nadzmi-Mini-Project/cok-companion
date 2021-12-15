@@ -98,6 +98,9 @@ flutter:
     - asset/icon/resource/linen.png
     - asset/icon/resource/ore.png
     - asset/icon/resource/wood.png
+    - asset/icon/status-impairment/curse.png
+    - asset/icon/status-impairment/poison-strong.png
+    - asset/icon/status-impairment/poison-weak.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

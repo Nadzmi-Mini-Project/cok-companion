@@ -32,6 +32,7 @@ class PlayerMockService extends PlayerBaseService {
         StatModel(code: StatCode.scavenge, point: 1, value: 1),
       ],
       workerList: [],
+      statusImpairmentList: [],
     ));
   }
 
@@ -64,6 +65,7 @@ class PlayerMockService extends PlayerBaseService {
         StatModel(code: StatCode.scavenge, point: 1, value: 1),
       ],
       workerList: const [],
+      statusImpairmentList: const [],
     );
 
     playerList.add(newPlayer);
