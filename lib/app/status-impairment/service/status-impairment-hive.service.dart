@@ -50,25 +50,38 @@ class StatusImpairmentHiveService extends StatusImpairmentBaseService {
     final curSession = sessionBox.get(0);
     final player =
         curSession!.playerList.firstWhere((element) => element.id == playerId);
+    final currentImpairment = player.statusImpairmentList;
     final statusImpairment = statusImpairmentBox.values
         .firstWhere((element) => element.code == code.index);
 
-    player.statusImpairmentList.add(statusImpairment);
+    if ((statusImpairment.code == ImpairmentCode.curse.index) &&
+        currentImpairment
+            .map((e) => e.code)
+            .toList()
+            .contains(statusImpairment.code)) {
+      return Future.value(StatusImpairment.toModel(statusImpairment));
+    }
+
+    player.statusImpairmentList.add(StatusImpairment(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      code: statusImpairment.code,
+      name: statusImpairment.name,
+      imagePath: statusImpairment.imagePath,
+    ));
 
     return Future.value(StatusImpairment.toModel(statusImpairment));
   }
 
   @override
-  Future removeFromPlayerByCode(
-    String playerId,
-    ImpairmentCode code,
-  ) async {
+  Future removeFromPlayerByCode(String playerId, ImpairmentCode code) async {
     final curSession = sessionBox.get(0);
     final player =
         curSession!.playerList.firstWhere((element) => element.id == playerId);
 
-    player.statusImpairmentList
-        .removeWhere((element) => element.code == code.index);
+    player.statusImpairmentList.remove(
+      player.statusImpairmentList
+          .firstWhere((element) => element.code == code.index),
+    );
   }
 
   @override

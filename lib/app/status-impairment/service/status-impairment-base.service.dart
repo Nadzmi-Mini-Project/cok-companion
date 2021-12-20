@@ -5,10 +5,11 @@ import 'package:cokc/database/provider/session-box.provider.dart';
 import 'package:cokc/database/provider/status-impairment-box.provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final configServiceProvider = Provider((ref) => StatusImpairmentHiveService(
-      sessionBox: ref.read(sessionBoxProvider),
-      statusImpairmentBox: ref.read(statusImpairmentBoxProvider),
-    ));
+final statusImpairmentServiceProvider =
+    Provider((ref) => StatusImpairmentHiveService(
+          sessionBox: ref.read(sessionBoxProvider),
+          statusImpairmentBox: ref.read(statusImpairmentBoxProvider),
+        ));
 
 abstract class StatusImpairmentBaseService {
   Future<List<StatusImpairmentModel>> getAll();
