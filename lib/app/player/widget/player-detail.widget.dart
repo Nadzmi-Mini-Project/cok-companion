@@ -77,10 +77,14 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     return Column(
       children: [
         PlayerSummaryWidget(player: player),
-        _workerView(player, resourceList),
-        _impairmentView(player, impairmentList),
         Expanded(
-          child: _statView(player, statConfigList),
+          child: ListView(
+            children: [
+              _workerView(player, resourceList),
+              _impairmentView(player, impairmentList),
+              _statView(player, statConfigList),
+            ],
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
