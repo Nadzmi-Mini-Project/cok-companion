@@ -175,9 +175,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                 Row(
                   children: [
                     const Text('Impairments'),
-                    Container(
-                      color: Colors.black26,
-                      padding: const EdgeInsets.all(5),
+                    Expanded(
                       child: Wrap(
                         children: player.statusImpairmentList
                             .map((e) => InkWell(
