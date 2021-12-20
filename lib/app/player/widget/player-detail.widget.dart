@@ -7,6 +7,7 @@ import 'package:cokc/app/player/widget/player-summary.widget.dart';
 import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
 import 'package:cokc/app/stat/model/stat.model.dart';
+import 'package:cokc/app/status-impairment/model/status-impairment.model.dart';
 import 'package:cokc/app/worker/model/worker.model.dart';
 import 'package:cokc/common/helper/action-dialog.helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,8 @@ class PlayerDetailWidget extends ConsumerStatefulWidget {
 }
 
 class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
-  final List<bool> _workerExpanded = [false, false];
+  final List<bool> _workerIsExpanded = [false, false];
+  bool _impairmentIsExpanded = false;
 
   @override
   void initState() {
@@ -59,6 +61,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
                     playerDetailState.player,
                     playerDetailState.statConfigList,
                     playerDetailState.resourceList,
+                    playerDetailState.impairmentList,
                   )
                 : const Center(child: Text('No player data available.')),
       ),
@@ -69,13 +72,19 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
     PlayerModel player,
     List<StatConfigModel> statConfigList,
     List<ResourceModel> resourceList,
+    List<StatusImpairmentModel> impairmentList,
   ) {
     return Column(
       children: [
         PlayerSummaryWidget(player: player),
-        _workerView(player, resourceList),
         Expanded(
-          child: _statView(player, statConfigList),
+          child: ListView(
+            children: [
+              _workerView(player, resourceList),
+              _impairmentView(player, impairmentList),
+              _statView(player, statConfigList),
+            ],
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -136,16 +145,83 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
   Widget _workerView(PlayerModel player, List<ResourceModel> resourceList) {
     return ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) => setState(() {
-        _workerExpanded[panelIndex] = !isExpanded;
+        _workerIsExpanded[panelIndex] = !isExpanded;
       }),
       children: player.workerList
           .map((e) => _workerFormWidget(
-                _workerExpanded[player.workerList.indexOf(e)],
+                _workerIsExpanded[player.workerList.indexOf(e)],
                 player,
                 e,
                 resourceList,
               ))
           .toList(),
+    );
+  }
+
+  ExpansionPanelList _impairmentView(
+    PlayerModel player,
+    List<StatusImpairmentModel> impairmentList,
+  ) {
+    return ExpansionPanelList(
+      expansionCallback: (panelIndex, isExpanded) => setState(() {
+        _impairmentIsExpanded = !isExpanded;
+      }),
+      children: [
+        ExpansionPanel(
+          isExpanded: _impairmentIsExpanded,
+          headerBuilder: (context, isExpanded) => ListTile(
+            title: Column(
+              children: [
+                Row(
+                  children: [
+                    const Text('Impairments'),
+                    Expanded(
+                      child: Wrap(
+                        children: player.statusImpairmentList
+                            .map((e) => InkWell(
+                                  child: SizedBox(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    child: Image.asset(
+                                      e.imagePath,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    ref
+                                        .read(playerDetailProvider.notifier)
+                                        .removeStatusImpairment(player.id, e);
+                                  },
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          body: Wrap(
+            children: impairmentList
+                .map((e) => InkWell(
+                      child: SizedBox(
+                        width: 30.0,
+                        height: 30.0,
+                        child: Image.asset(
+                          e.imagePath,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      onTap: () {
+                        ref
+                            .read(playerDetailProvider.notifier)
+                            .addStatusImpairment(player.id, e);
+                      },
+                    ))
+                .toList(),
+          ),
+        ),
+      ],
     );
   }
 

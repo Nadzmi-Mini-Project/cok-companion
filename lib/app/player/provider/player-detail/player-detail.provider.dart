@@ -6,6 +6,8 @@ import 'package:cokc/app/resource/model/resource.model.dart';
 import 'package:cokc/app/resource/service/resource-base.service.dart';
 import 'package:cokc/app/session/service/session-base.service.dart';
 import 'package:cokc/app/stat/enum/stat-code.enum.dart';
+import 'package:cokc/app/status-impairment/model/status-impairment.model.dart';
+import 'package:cokc/app/status-impairment/service/status-impairment-base.service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final playerDetailProvider = StateNotifierProvider.autoDispose((ref) {
@@ -16,6 +18,7 @@ final playerDetailProvider = StateNotifierProvider.autoDispose((ref) {
     playerService: ref.read(playerServiceProvider),
     configService: ref.read(configServiceProvider),
     resourceService: ref.read(resourceServiceProvider),
+    statusImpairmentService: ref.read(statusImpairmentServiceProvider),
     playerProvider: ref.read(playerProvider.notifier),
   );
 });
@@ -25,6 +28,7 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
   PlayerBaseService playerService;
   ConfigBaseService configService;
   ResourceBaseService resourceService;
+  StatusImpairmentBaseService statusImpairmentService;
   PlayerProvider playerProvider;
 
   PlayerDetailProvider({
@@ -32,6 +36,7 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
     required this.playerService,
     required this.configService,
     required this.resourceService,
+    required this.statusImpairmentService,
     required this.playerProvider,
   }) : super(InitialPlayerDetailState());
 
@@ -42,10 +47,13 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
         resourceList: resourceList,
+        impairmentList: impairmentList,
       );
     } catch (e) {
       state = ErrorPlayerDetailState(message: e.toString());
@@ -70,10 +78,13 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
         resourceList: resourceList,
+        impairmentList: impairmentList,
       );
     } catch (e) {
       state = ErrorPlayerDetailState(message: e.toString());
@@ -93,10 +104,13 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
         resourceList: resourceList,
+        impairmentList: impairmentList,
       );
     } catch (e) {
       state = ErrorPlayerDetailState(message: e.toString());
@@ -117,10 +131,69 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
         resourceList: resourceList,
+        impairmentList: impairmentList,
+      );
+    } catch (e) {
+      state = ErrorPlayerDetailState(message: e.toString());
+    }
+  }
+
+  Future addStatusImpairment(
+    String playerId,
+    StatusImpairmentModel statusImpairment,
+  ) async {
+    try {
+      state = LoadingPlayerDetailState();
+
+      await statusImpairmentService.addToPlayerByCode(
+        playerId,
+        statusImpairment.code,
+      );
+
+      final selectedPlayer = await playerService.getById(playerId);
+      final statConfigList = await configService.getStatConfigList();
+      final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
+      state = LoadedPlayerDetailState(
+        player: selectedPlayer,
+        statConfigList: statConfigList,
+        resourceList: resourceList,
+        impairmentList: impairmentList,
+      );
+    } catch (e) {
+      state = ErrorPlayerDetailState(message: e.toString());
+    }
+  }
+
+  Future removeStatusImpairment(
+    String playerId,
+    StatusImpairmentModel statusImpairment,
+  ) async {
+    try {
+      state = LoadingPlayerDetailState();
+
+      await statusImpairmentService.removeFromPlayerByCode(
+        playerId,
+        statusImpairment.code,
+      );
+
+      final selectedPlayer = await playerService.getById(playerId);
+      final statConfigList = await configService.getStatConfigList();
+      final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
+
+      state = LoadedPlayerDetailState(
+        player: selectedPlayer,
+        statConfigList: statConfigList,
+        resourceList: resourceList,
+        impairmentList: impairmentList,
       );
     } catch (e) {
       state = ErrorPlayerDetailState(message: e.toString());
@@ -137,11 +210,13 @@ class PlayerDetailProvider extends StateNotifier<PlayerDetailState> {
       final selectedPlayer = await playerService.getById(playerId);
       final statConfigList = await configService.getStatConfigList();
       final resourceList = await resourceService.getAll();
+      final impairmentList = await statusImpairmentService.getAll();
 
       state = LoadedPlayerDetailState(
         player: selectedPlayer,
         statConfigList: statConfigList,
         resourceList: resourceList,
+        impairmentList: impairmentList,
       );
     } catch (e) {
       state = ErrorPlayerDetailState(message: e.toString());
