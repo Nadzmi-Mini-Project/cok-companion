@@ -12,19 +12,16 @@ class ConfigHiveService extends ConfigBaseService {
 
   @override
   Future<ConfigModel> getConfigByCode(String configCode) {
-    // TODO: implement getConfigByCode
     throw UnimplementedError();
   }
 
   @override
   Future<ConfigModel> getConfigById(String configId) {
-    // TODO: implement getConfigById
     throw UnimplementedError();
   }
 
   @override
   Future<List<ConfigModel>> getConfigList() {
-    // TODO: implement getConfigList
     throw UnimplementedError();
   }
 
