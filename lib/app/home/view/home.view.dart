@@ -46,34 +46,34 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ),
         ],
       ),
-      floatingActionButton: Visibility(
-        visible: playerState.isAddPlayerEnabled,
-        child: FloatingActionButton.extended(
-          label: const Text("Add Player"),
-          icon: const Icon(Icons.add),
-          onPressed: (playerState is PlayerLoadedState)
-              ? () => showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.white,
-                    builder: (context) => ListView.builder(
-                      itemCount: playerState.characterList.length,
-                      itemBuilder: (context, index) => CharacterSummaryWidget(
-                        character: playerState.characterList[index],
-                        onTap: () {
-                          ref.read(playerProvider.notifier).addPlayer(
-                                CreatePlayerModel(
-                                  characterId:
-                                      playerState.characterList[index].id,
-                                ),
-                              );
-                          Navigator.pop(context);
-                        },
-                      ),
+      floatingActionButton: (playerState is PlayerLoadedState)
+          ? Visibility(
+              visible: playerState.isAddPlayerEnabled,
+              child: FloatingActionButton.extended(
+                label: const Text("Add Player"),
+                icon: const Icon(Icons.add),
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.white,
+                  builder: (context) => ListView.builder(
+                    itemCount: playerState.characterList.length,
+                    itemBuilder: (context, index) => CharacterSummaryWidget(
+                      character: playerState.characterList[index],
+                      onTap: () {
+                        ref.read(playerProvider.notifier).addPlayer(
+                              CreatePlayerModel(
+                                characterId:
+                                    playerState.characterList[index].id,
+                              ),
+                            );
+                        Navigator.pop(context);
+                      },
                     ),
-                  )
-              : null,
-        ),
-      ),
+                  ),
+                ),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: (playerState is PlayerLoadingState)
             ? const Center(
