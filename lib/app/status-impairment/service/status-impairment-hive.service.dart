@@ -62,12 +62,13 @@ class StatusImpairmentHiveService extends StatusImpairmentBaseService {
       return Future.value(StatusImpairment.toModel(statusImpairment));
     }
 
-    player.statusImpairmentList.add(StatusImpairment(
+    currentImpairment.add(StatusImpairment(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       code: statusImpairment.code,
       name: statusImpairment.name,
       imagePath: statusImpairment.imagePath,
     ));
+    player.statusImpairmentList = currentImpairment;
 
     return Future.value(StatusImpairment.toModel(statusImpairment));
   }
