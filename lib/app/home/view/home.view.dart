@@ -39,7 +39,41 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.restart_alt),
+            onPressed: () => ref.read(playerProvider.notifier).clearSession(),
+          ),
+        ],
       ),
+      floatingActionButton: (playerState is PlayerLoadedState)
+          ? Visibility(
+              visible: playerState.isAddPlayerEnabled,
+              child: FloatingActionButton.extended(
+                label: const Text("Add Player"),
+                icon: const Icon(Icons.add),
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.white,
+                  builder: (context) => ListView.builder(
+                    itemCount: playerState.characterList.length,
+                    itemBuilder: (context, index) => CharacterSummaryWidget(
+                      character: playerState.characterList[index],
+                      onTap: () {
+                        ref.read(playerProvider.notifier).addPlayer(
+                              CreatePlayerModel(
+                                characterId:
+                                    playerState.characterList[index].id,
+                              ),
+                            );
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: (playerState is PlayerLoadingState)
             ? const Center(
@@ -73,64 +107,31 @@ class _HomeViewState extends ConsumerState<HomeView> {
           child: RefreshIndicator(
             child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
               itemCount: playerList.length,
-              itemBuilder: (context, index) => PlayerSummaryWidget(
-                player: playerList[index],
-                onTap: () async {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => PlayerDetailWidget(
-                      playerId: playerList[index].id,
-                    ),
-                  );
-                },
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.only(
+                  bottom:
+                      ((index == playerList.length - 1) && isAddPlayerEnabled)
+                          ? 100
+                          : 0,
+                ),
+                child: PlayerSummaryWidget(
+                  player: playerList[index],
+                  onTap: () async {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => PlayerDetailWidget(
+                        playerId: playerList[index].id,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             onRefresh: () async {
               ref.read(playerProvider.notifier).getPlayerList();
-            },
-          ),
-        ),
-
-        // add player btn
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            child: const Text('Add Player'),
-            onPressed: !isAddPlayerEnabled
-                ? null
-                : () {
-                    showModalBottomSheet(
-                      context: context,
-                      // isScrollControlled: true,
-                      backgroundColor: Colors.white,
-                      builder: (context) => ListView.builder(
-                        itemCount: characterList.length,
-                        itemBuilder: (context, index) => CharacterSummaryWidget(
-                          character: characterList[index],
-                          onTap: () {
-                            ref.read(playerProvider.notifier).addPlayer(
-                                  CreatePlayerModel(
-                                    characterId: characterList[index].id,
-                                  ),
-                                );
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-          ),
-        ),
-
-        // reset session button
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            child: const Text('Reset Session'),
-            onPressed: () {
-              ref.read(playerProvider.notifier).clearSession();
             },
           ),
         ),
