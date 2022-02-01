@@ -35,7 +35,22 @@ class PlayerSummaryWidget extends StatelessWidget {
                       currentHp: player.getCurrentHp()!.value,
                       maximumHp: player.getMaximumHp()!.value,
                     ),
-                    StatListWidget(player: player)
+                    StatListWidget(player: player),
+                    Wrap(
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.spaceEvenly,
+                      spacing: 10,
+                      children: player.statusImpairmentList
+                          .map((e) => SizedBox(
+                                width: 30.0,
+                                height: 30.0,
+                                child: Image.asset(
+                                  e.imagePath,
+                                  fit: BoxFit.fill,
+                                ),
+                              ))
+                          .toList(),
+                    ),
                   ],
                 ),
               ),

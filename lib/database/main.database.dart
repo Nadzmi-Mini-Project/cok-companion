@@ -7,6 +7,7 @@ import 'package:cokc/database/box/session.box.dart';
 import 'package:cokc/database/box/stat-config.box.dart';
 import 'package:cokc/database/box/stat-progression-config.box.dart';
 import 'package:cokc/database/box/stat.box.dart';
+import 'package:cokc/database/box/status-impairment.box.dart';
 import 'package:cokc/database/box/worker.box.dart';
 import 'package:cokc/database/constant/table-collection.constant.dart';
 import 'package:cokc/database/seed/base.seed.dart';
@@ -26,6 +27,7 @@ class MainDatabase extends BaseDatabase {
     Hive.registerAdapter(OldBarnAdapter());
     Hive.registerAdapter(StatConfigAdapter());
     Hive.registerAdapter(StatProgressionConfigAdapter());
+    Hive.registerAdapter(StatusImpairmentAdapter());
 
     if (!Hive.isBoxOpen(TableCollection.characters)) {
       await Hive.openBox<Character>(TableCollection.characters);
@@ -41,6 +43,9 @@ class MainDatabase extends BaseDatabase {
     }
     if (!Hive.isBoxOpen(TableCollection.statConfig)) {
       await Hive.openBox<StatConfig>(TableCollection.statConfig);
+    }
+    if (!Hive.isBoxOpen(TableCollection.statusImpairment)) {
+      await Hive.openBox<StatusImpairment>(TableCollection.statusImpairment);
     }
 
     if (seederList.isNotEmpty) {

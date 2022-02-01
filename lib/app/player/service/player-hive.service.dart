@@ -69,6 +69,7 @@ class PlayerHiveService extends PlayerBaseService {
         Stat(code: StatCode.scavenge.index, point: 1, value: 1),
       ],
       workerList: newWorkerList.map((e) => Worker.fromModel(e)).toList(),
+      statusImpairmentList: const [],
     );
 
     curSession.playerList.add(newPlayer);
@@ -150,5 +151,12 @@ class PlayerHiveService extends PlayerBaseService {
     curStat.value = statConfig.getProgression(curStat.point)!.value;
 
     return Future.value(Player.toModel(player));
+  }
+
+  @override
+  Future removePlayerById(String playerId) async {
+    final curSession = sessionBox.get(0);
+
+    curSession!.playerList.removeWhere((element) => element.id == playerId);
   }
 }

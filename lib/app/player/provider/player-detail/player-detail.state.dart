@@ -1,6 +1,7 @@
 import 'package:cokc/app/config/model/stat-config.model.dart';
 import 'package:cokc/app/player/model/player.model.dart';
 import 'package:cokc/app/resource/model/resource.model.dart';
+import 'package:cokc/app/status-impairment/model/status-impairment.model.dart';
 
 abstract class PlayerDetailState {}
 
@@ -17,11 +18,13 @@ class ErrorPlayerDetailState extends PlayerDetailState {
 class LoadedPlayerDetailState extends PlayerDetailState {
   final List<StatConfigModel> statConfigList;
   final List<ResourceModel> resourceList;
+  final List<StatusImpairmentModel> impairmentList;
   final PlayerModel player;
 
   LoadedPlayerDetailState({
     required this.statConfigList,
     required this.resourceList,
+    required this.impairmentList,
     required this.player,
   });
 }
