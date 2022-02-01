@@ -39,7 +39,7 @@ class _PlayerDetailWidgetState extends ConsumerState<PlayerDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final playerDetailState = ref.watch(playerDetailProvider);
+    var playerDetailState = ref.watch(playerDetailProvider);
 
     ref.listen(playerDetailProvider, (state) {
       if (state is ErrorPlayerDetailState) {
